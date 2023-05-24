@@ -21,7 +21,7 @@
 - 任务拉新获客
 
 ## 开始使用
-1. 准备好基础的环境，项目基于 PHP + vue 开发，推荐使用 docker 进行部署
+1. 准备好基础的环境，项目基于 PHP + vue 开发，推荐使用 Docker 进行部署
    - Docker
    - Mysql
    - Redis
@@ -31,7 +31,7 @@
 
 
 ## 项目配置
-项目提供有限的权限控制功能，项目配置文件位于 `gptserver/.env`，如诺不存在此文件，将`gptserver/.env.exmaple`更名为`.emv`作为配置项进行使用， 详细的配置说明 [点此查看](./docs/ENV.md)
+项目提供有限的权限控制功能，项目配置文件位于 `gptserver/.env`，如诺不存在此文件，将`gptserver/.env.exmaple`更名为`.env`作为配置项进行使用， 详细的配置说明 [点此查看](./docs/ENV.md)
 
 ## 部署
 
@@ -61,7 +61,7 @@ docker run -it --rm gptlink /app/gptserver/test.sh
 docker run -d -p 80:80 --name=gptlink gptlink
 ```
 
-#### 方式二：使用官方docker镜像部署
+#### 方式二：使用官方 Docker 镜像部署
 ```
 运行项目
 docker run -d -p 80:80 \
