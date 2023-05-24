@@ -2,49 +2,23 @@
 
 ##  用户端
 
-### PC端效果
+### PC 端效果
 
-- 对话页
+<img src="./pc-chat.png">
+<img src="./pc-profile.png">
 
-<img src="./user-pc-chat.png"/>
+### h5 端效果
 
-- 个人中心页
-
-  <img src="./user-pc-profile.png"/>
-
-- 充值页
-
-<img src="./user-pc-payment.png"/>
-
-### h5端效果
-
-- 对话页
-
-<img src="./user-mobile-chat.png"/>
-
-- 充值页
-
-<img src="./user-mobile-payment.png"/>
+<img src="./mobile-chat.png">
+<img src="./mobile-profile.png">
 
 
 ##  管理端
 
-- 用户登录页
-
-<img src="./backend-login.png"/>
-
-- 用户管理页
-
-<img src="./backend-user.png"/>
-
-- 订单页面
-
-<img src="./backend-order.png"/>
-
-- 任务管理页
-
-<img src="./backend-task.png"/>
-
-- 系统配置页
-
-<img src="./backend-system.png"/>
+<img src="./admin-login.png">
+<img src="./admin-index.png">
+<img src="./admin-user.png">
+<img src="./admin-order.png">
+<img src="./admin-package.png">
+<img src="./admin-task.png">
+<img src="./admin-setting.png">
