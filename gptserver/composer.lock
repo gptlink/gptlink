@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87eaba5063607ee309bb376deee52377",
+    "content-hash": "6e9f7d5992d4113cc9df6508514b3349",
     "packages": [
         {
             "name": "96qbhy/hyperf-auth",
@@ -272,16 +272,16 @@
         },
         {
             "name": "cblink-service/foundation",
-            "version": "v1.4.2",
+            "version": "v1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cblink-service/foundation.git",
-                "reference": "79210329d56907a7fc8316dcf960c719d08b4074"
+                "reference": "4b6c85a3667136a2cca4321aa39b579dd6bb5bf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cblink-service/foundation/zipball/79210329d56907a7fc8316dcf960c719d08b4074",
-                "reference": "79210329d56907a7fc8316dcf960c719d08b4074",
+                "url": "https://api.github.com/repos/cblink-service/foundation/zipball/4b6c85a3667136a2cca4321aa39b579dd6bb5bf8",
+                "reference": "4b6c85a3667136a2cca4321aa39b579dd6bb5bf8",
                 "shasum": ""
             },
             "require": {
@@ -311,22 +311,22 @@
             "description": "Package description here.",
             "support": {
                 "issues": "https://github.com/cblink-service/foundation/issues",
-                "source": "https://github.com/cblink-service/foundation/tree/v1.4.2"
+                "source": "https://github.com/cblink-service/foundation/tree/v1.4.3"
             },
-            "time": "2023-05-17T08:41:19+00:00"
+            "time": "2023-05-19T14:33:48+00:00"
         },
         {
             "name": "cblink-service/idaas-sdk",
-            "version": "v0.4.5",
+            "version": "v0.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cblink-service/idaas-sdk.git",
-                "reference": "b4855208eb257f0cb892364de921f99def1833f5"
+                "reference": "09b5af59f92c238948fba738bd043cbbb4448c64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cblink-service/idaas-sdk/zipball/b4855208eb257f0cb892364de921f99def1833f5",
-                "reference": "b4855208eb257f0cb892364de921f99def1833f5",
+                "url": "https://api.github.com/repos/cblink-service/idaas-sdk/zipball/09b5af59f92c238948fba738bd043cbbb4448c64",
+                "reference": "09b5af59f92c238948fba738bd043cbbb4448c64",
                 "shasum": ""
             },
             "require": {
@@ -353,9 +353,9 @@
             "description": "Package description here.",
             "support": {
                 "issues": "https://github.com/cblink-service/idaas-sdk/issues",
-                "source": "https://github.com/cblink-service/idaas-sdk/tree/v0.4.5"
+                "source": "https://github.com/cblink-service/idaas-sdk/tree/v0.4.6"
             },
-            "time": "2023-03-15T03:12:39+00:00"
+            "time": "2023-05-19T06:28:33+00:00"
         },
         {
             "name": "cblink/hyperf-helper",
@@ -1434,63 +1434,6 @@
             "time": "2020-11-24T22:02:12+00:00"
         },
         {
-            "name": "firebase/php-jwt",
-            "version": "v5.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "83b609028194aa042ea33b5af2d41a7427de80e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/83b609028194aa042ea33b5af2d41a7427de80e6",
-                "reference": "83b609028194aa042ea33b5af2d41a7427de80e6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=4.8 <=9"
-            },
-            "suggest": {
-                "paragonie/sodium_compat": "Support EdDSA (Ed25519) signatures when libsodium is not present"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Firebase\\JWT\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Neuman Vong",
-                    "email": "neuman+pear@twilio.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Anant Narayanan",
-                    "email": "anant@php.net",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
-            "homepage": "https://github.com/firebase/php-jwt",
-            "keywords": [
-                "jwt",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v5.5.1"
-            },
-            "time": "2021-11-08T20:18:51+00:00"
-        },
-        {
             "name": "graham-campbell/result-type",
             "version": "v1.1.1",
             "source": {
@@ -1554,21 +1497,21 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.6.1",
+            "version": "7.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "8444a2bacf1960bc6a2b62ed86b8e72e11eebe51"
+                "reference": "fb7566caccf22d74d1ab270de3551f72a58399f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8444a2bacf1960bc6a2b62ed86b8e72e11eebe51",
-                "reference": "8444a2bacf1960bc6a2b62ed86b8e72e11eebe51",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/fb7566caccf22d74d1ab270de3551f72a58399f5",
+                "reference": "fb7566caccf22d74d1ab270de3551f72a58399f5",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^1.5",
+                "guzzlehttp/promises": "^1.5.3 || ^2.0",
                 "guzzlehttp/psr7": "^1.9.1 || ^2.4.5",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0",
@@ -1580,7 +1523,8 @@
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.1",
                 "ext-curl": "*",
-                "php-http/client-integration-tests": "^3.0",
+                "php-http/client-integration-tests": "dev-master#2c025848417c1135031fdf9c728ee53d0a7ceaee as 3.0.999",
+                "php-http/message-factory": "^1.1",
                 "phpunit/phpunit": "^8.5.29 || ^9.5.23",
                 "psr/log": "^1.1 || ^2.0 || ^3.0"
             },
@@ -1659,7 +1603,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.6.1"
+                "source": "https://github.com/guzzle/guzzle/tree/7.7.0"
             },
             "funding": [
                 {
@@ -1675,38 +1619,37 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-15T20:43:01+00:00"
+            "time": "2023-05-21T14:04:53+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.5.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "b94b2807d85443f9719887892882d0329d1e2598"
+                "reference": "3a494dc7dc1d7d12e511890177ae2d0e6c107da6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/b94b2807d85443f9719887892882d0329d1e2598",
-                "reference": "b94b2807d85443f9719887892882d0329d1e2598",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/3a494dc7dc1d7d12e511890177ae2d0e6c107da6",
+                "reference": "3a494dc7dc1d7d12e511890177ae2d0e6c107da6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5"
+                "php": "^7.2.5 || ^8.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^4.4 || ^5.1"
+                "bamarni/composer-bin-plugin": "^1.8.1",
+                "phpunit/phpunit": "^8.5.29 || ^9.5.23"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5-dev"
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
                 }
             },
             "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
                 "psr-4": {
                     "GuzzleHttp\\Promise\\": "src/"
                 }
@@ -1743,7 +1686,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.5.2"
+                "source": "https://github.com/guzzle/promises/tree/2.0.0"
             },
             "funding": [
                 {
@@ -1759,7 +1702,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T14:55:35+00:00"
+            "time": "2023-05-21T13:50:22+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -4462,16 +4405,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.15.4",
+            "version": "v4.15.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290"
+                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
-                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/11e2663a5bc9db5d714eedb4277ee300403b4a9e",
+                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e",
                 "shasum": ""
             },
             "require": {
@@ -4512,9 +4455,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.4"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.5"
             },
-            "time": "2023-03-05T19:49:14+00:00"
+            "time": "2023-05-19T20:20:00+00:00"
         },
         {
             "name": "overnic/support",
@@ -8122,16 +8065,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.5.5",
+            "version": "2.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "c7cffaad16a60636a776017eac5bd8cd0095c32f"
+                "reference": "f7c05db8b0a66d046203faf3c187e319cd211fae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/c7cffaad16a60636a776017eac5bd8cd0095c32f",
-                "reference": "c7cffaad16a60636a776017eac5bd8cd0095c32f",
+                "url": "https://api.github.com/repos/composer/composer/zipball/f7c05db8b0a66d046203faf3c187e319cd211fae",
+                "reference": "f7c05db8b0a66d046203faf3c187e319cd211fae",
                 "shasum": ""
             },
             "require": {
@@ -8215,7 +8158,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
-                "source": "https://github.com/composer/composer/tree/2.5.5"
+                "source": "https://github.com/composer/composer/tree/2.5.6"
             },
             "funding": [
                 {
@@ -8231,7 +8174,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-21T10:50:05+00:00"
+            "time": "2023-05-24T07:14:18+00:00"
         },
         {
             "name": "composer/metadata-minifier",

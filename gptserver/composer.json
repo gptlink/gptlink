@@ -22,7 +22,6 @@
         "cblink/monolog-handler": "^3.0",
         "doctrine/cache": "^1.11",
         "doctrine/dbal": "^3.0",
-        "firebase/php-jwt": "^5.4",
         "hyperf/async-queue": "~2.2.0",
         "hyperf/cache": "~2.2.0",
         "hyperf/command": "~2.2.0",
