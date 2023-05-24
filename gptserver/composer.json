@@ -1,0 +1,108 @@
+{
+    "name": "hyperf/hyperf-skeleton",
+    "type": "project",
+    "keywords": [
+        "php",
+        "swoole",
+        "framework",
+        "hyperf",
+        "microservice",
+        "middleware"
+    ],
+    "description": "A coroutine framework that focuses on hyperspeed and flexible, specifically use for build microservices and middlewares.",
+    "license": "Apache-2.0",
+    "require": {
+        "php": "^8.0|^8.1",
+        "96qbhy/hyperf-auth": "^2.0",
+        "cblink-service/idaas-sdk": "^0.4.5",
+        "cblink/hyperf-helper": "^0.2.0",
+        "cblink/hyperf-socialite": "^0.1.1",
+        "cblink/laravel-dto": "^2.0",
+        "cblink/model-library": "^1.3",
+        "cblink/monolog-handler": "^3.0",
+        "doctrine/cache": "^1.11",
+        "doctrine/dbal": "^3.0",
+        "firebase/php-jwt": "^5.4",
+        "hyperf/async-queue": "~2.2.0",
+        "hyperf/cache": "~2.2.0",
+        "hyperf/command": "~2.2.0",
+        "hyperf/config": "~2.2.0",
+        "hyperf/constants": "^2.2",
+        "hyperf/crontab": "^2.2",
+        "hyperf/database": "~2.2.0",
+        "hyperf/db-connection": "~2.2.0",
+        "hyperf/event": "^2.2",
+        "hyperf/framework": "~2.2.0",
+        "hyperf/guzzle": "~2.2.0",
+        "hyperf/http-server": "~2.2.0",
+        "hyperf/logger": "^2.2",
+        "hyperf/memory": "~2.2.0",
+        "hyperf/model-cache": "^2.2",
+        "hyperf/process": "~2.2.0",
+        "hyperf/rate-limit": "^2.2",
+        "hyperf/redis": "~2.2.0",
+        "hyperf/resource": "^2.2",
+        "hyperf/snowflake": "^2.2",
+        "hyperf/validation": "^2.2",
+        "overtrue/easy-sms": "^2.4",
+        "qiniu/php-sdk": "^7.8",
+        "ramsey/uuid": "^4.2",
+        "w7corp/easywechat": "^5.0"
+    },
+    "require-dev": {
+        "cblink/hyperf-yapi-doc": "^0.2.0",
+        "cblink/hyperf-ide-helper": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "hyperf/devtool": "~2.2.0",
+        "hyperf/ide-helper": "~2.2.0",
+        "hyperf/testing": "^2.2",
+        "mockery/mockery": "^1.0",
+        "phpstan/phpstan": "^0.12",
+        "swoole/ide-helper": "^4.5"
+    },
+    "suggest": {
+        "ext-openssl": "Required to use HTTPS.",
+        "ext-json": "Required to use JSON.",
+        "ext-pdo": "Required to use MySQL Client.",
+        "ext-pdo_mysql": "Required to use MySQL Client.",
+        "ext-redis": "Required to use Redis Client.",
+        "ext-bcmath": "Required to use Redis Client.",
+        "ext-curl": "Required to use Redis Client.",
+        "ext-openssl": "Required to use Redis Client."
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "config/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HyperfTest\\": "./test/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "extra": [],
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-autoload-dump": [
+            "rm -rf runtime/container"
+        ],
+        "test": "./vendor/bin/co-phpunit --prepend test/bootstrap.php -c phpunit.xml --colors=always",
+        "cs-fix": "php-cs-fixer fix $1",
+        "analyse": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app ./config",
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "php ./bin/hyperf.php start"
+        ]
+    }
+}

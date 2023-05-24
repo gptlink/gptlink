@@ -1,0 +1,15 @@
+.buildpath
+.settings/
+.project
+*.patch
+.idea/
+.git/
+runtime/
+.phpintel/
+.env
+.DS_Store
+.phpunit*
+*.cache
+vendor/
+yapi.php
+test/yapi.php
