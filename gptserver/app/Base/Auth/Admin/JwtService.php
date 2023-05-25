@@ -3,6 +3,7 @@
 namespace App\Base\Auth\Admin;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use UnexpectedValueException;
 use Firebase\JWT\SignatureInvalidException;
 use Ramsey\Uuid\Uuid;
@@ -29,7 +30,7 @@ class JwtService
             'dat' => $this->encryptData($options, $secret)
         ];
 
-        return JWT::encode($payload, base64_encode($appid.$secret));
+        return JWT::encode($payload, base64_encode($appid.$secret), 'HS256');
     }
 
     /**
@@ -40,32 +41,7 @@ class JwtService
      */
     public function decode(string $jwt, string $appid = '', string $secret = '')
     {
-        $data = JWT::decode($jwt, base64_encode($appid.$secret), ['HS256']);
-
-        if (!property_exists($data, 'dat')) {
-            throw new SignatureInvalidException('Signature verification failed');
-        }
-
-        return $this->decryptData($data->dat, $secret);
-    }
-
-    /**
-     * 解密内容
-     *
-     * @param $jwt
-     * @param string $secret
-     * @return array
-     */
-    public function jsonData($jwt, string $secret = '')
-    {
-        $tks = \explode('.', $jwt);
-
-        if (\count($tks) != 3) {
-            throw new UnexpectedValueException('Wrong number of segments');
-        }
-        list($headb64, $bodyb64, $cryptob64) = $tks;
-
-        $data = JWT::jsonDecode(JWT::urlsafeB64Decode($bodyb64));
+        $data = JWT::decode($jwt, new Key(base64_encode($appid.$secret), 'HS256'));
 
         if (!property_exists($data, 'dat')) {
             throw new SignatureInvalidException('Signature verification failed');
