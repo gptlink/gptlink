@@ -113,6 +113,10 @@ docker run -d -p 80:80 \
 - [@overtrue](https://github.com/overtrue) 
 - [@Lainy0307](https://github.com/Lainy0307)
 
+## 疑难解答
+
+部署常见问题汇总：[点击查看](./docs/FAQ.md)
+
 ## 开源协议
 
 > 反对 996，从我开始。
