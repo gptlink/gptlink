@@ -69,7 +69,7 @@ docker run -d -p 80:80 \
    -e DB_PASSWORD="数据库密码" \
    -e REDIS_HOST="Redis 链接地址" \
    -e REDIS_PORT="Redis 端口号" \
-   overnick/chatgptlink
+   overnick/gptlink
 
 # 如果你需要指定其他环境变量，请自行在上述命令中增加 `-e 环境变量=环境变量值` 来指定。
 ```
