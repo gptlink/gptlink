@@ -3,8 +3,10 @@
 namespace App\Http\Service;
 
 use App\Base\OpenAi\ChatCompletionsRequest;
+use App\Base\OpenAi\OpenaiChatCompletionsRequest;
 use App\Base\OpenAi\OpenAIClient;
 use App\Http\Dto\ChatDto;
+use App\Http\Dto\Config\GptSecretKeyDto;
 use App\Job\MemberConsumptionJob;
 use App\Job\UserChatLogRecordJob;
 use App\Model\Config;
@@ -23,8 +25,13 @@ class ChatGPTService
     {
         // 发送请求
         $client = new OpenAIClient();
+
+        $request = Config::toDto(Config::GPT_SECRET_KEY)->key_type == GptSecretKeyDto::OPENAI ?
+            new OpenaiChatCompletionsRequest($dto):
+            new ChatCompletionsRequest($dto);
+
         /* @var ChatCompletionsRequest $result */
-        $result = $client->exec(new ChatCompletionsRequest($dto));
+        $result = $client->exec($request);
 
         logger()->info('openai result', [
             'user_id' => $userId,

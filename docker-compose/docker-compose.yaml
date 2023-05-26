@@ -37,6 +37,10 @@ services:
       - REDIS_HOST=${GPTLINK_REDIS_HOST:-redis}
       - REDIS_AUTH=${GPTLINK_REDIS_AUTH:-(null)}
       - REDIS_PORT=${GPTLINK_REDIS_PORT:-6379}
+      - OPENAI_HOST=${OPENAI_HOST:-api.gpt-link.com}
+      - OPENAI_PORT=${OPENAI_PORT:-443}
+      - OPENAI_PROXY_HOST=${OPENAI_PROXY_HOST:-}
+      - OPENAI_PROXY_PORT=${OPENAI_PROXY_PORT:-}
     ports:
       - "${GPTLINK_PORT:-80}:80"
     networks:

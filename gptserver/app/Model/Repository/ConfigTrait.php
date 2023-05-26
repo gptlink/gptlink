@@ -11,7 +11,12 @@ use App\Http\Dto\Config\SmsChuangLanDto;
 use App\Http\Dto\Config\WechatPaymentDto;
 use App\Http\Dto\Config\WechatPlatformDto;
 use App\Http\Dto\Config\WechatWebDto;
+use App\Http\Service\ChatGPTService;
+use App\Http\Service\DevelopService;
 use App\Model\Config;
+use Hyperf\Database\Model\Builder;
+use Hyperf\Database\Model\Model;
+use Psr\SimpleCache\InvalidArgumentException;
 
 trait ConfigTrait
 {
@@ -31,14 +36,19 @@ trait ConfigTrait
 		return new static::$transfer[$type]($params);
 	}
 
-	/**
-	 * 更新或创建
-	 * @param ConfigDtoInterface $dto
-	 * @return \Hyperf\Database\Model\Builder|\Hyperf\Database\Model\Model
-	 */
+    /**
+     * 更新或创建
+     * @param ConfigDtoInterface $dto
+     * @return Builder|Model
+     * @throws InvalidArgumentException
+     */
 	public static function updateOrCreateByDto(ConfigDtoInterface $dto)
 	{
-		return Config::query()->updateOrCreate(
+        if ($dto instanceof GptSecretKeyDto) {
+            DevelopService::clearApiKeyCache();
+        }
+
+        return Config::query()->updateOrCreate(
 			$dto->getUniqueFillable(),
 			$dto->getConfigFillable()
 		);

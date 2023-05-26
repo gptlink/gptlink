@@ -2,14 +2,14 @@
 
 namespace App\Base\OpenAi;
 
-use App\Exception\ErrCode;
-use App\Exception\LogicException;
 use App\Http\Dto\ChatDto;
-use App\Http\Service\ChatGPTService;
 use App\Http\Service\DevelopService;
+use Hyperf\Utils\Arr;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Swoole\Http2\Request;
 
-class ChatCompletionsRequest extends Request implements RequestInterface
+class OpenaiChatCompletionsRequest extends Request implements RequestInterface
 {
     public $path = '/v1/chat/completions';
 
@@ -23,6 +23,8 @@ class ChatCompletionsRequest extends Request implements RequestInterface
 
     public $pipeline = false;
 
+    public $debug;
+
     public $result;
 
     /**
@@ -33,7 +35,7 @@ class ChatCompletionsRequest extends Request implements RequestInterface
     public function __construct(ChatDto $dto)
     {
         $this->dto = $dto;
-        $this->data = json_encode($dto->toGPTLink(), JSON_UNESCAPED_UNICODE);
+        $this->data = json_encode($dto->toOpenAi(), JSON_UNESCAPED_UNICODE);
         $this->headers = [
             'Accept' => 'text/event-stream',
             'Content-Type' => 'application/json',
@@ -55,6 +57,8 @@ class ChatCompletionsRequest extends Request implements RequestInterface
 
         $payload = $this->read($client, 5);
 
+        $text = '';
+
         $this->jsonDebug($payload->data);
 
         while (! empty($resultData = $payload->data)) {
@@ -67,12 +71,23 @@ class ChatCompletionsRequest extends Request implements RequestInterface
             }
 
             foreach ($matches[1] as $item) {
-                $result = json_decode($item, true);
+                $data = json_decode($item, true);
 
-                // 用户中断请求会失败，所以做了处理
-                if (! $client->response()->write(sprintf('%s%s%s', $this->dto->formatBefore(), $item, $this->dto->formatAfter()))) {
-                    $this->result = $result;
-                    return $this;
+                if (! is_null(Arr::get($data, 'choices.0.delta.content'))) {
+                    $text .= Arr::get($data, 'choices.0.delta.content', '');
+
+                    $result = [
+                        'id' => $data['id'],
+                        'model' => $data['model'],
+                        'messages' => $text,
+                        'created' => $data['created'],
+                    ];
+
+                    // 用户中断请求会失败，所以做了处理
+                    if (! $client->response()->write(sprintf('%s%s%s', $this->dto->formatBefore(), json_encode($result, JSON_UNESCAPED_UNICODE), $this->dto->formatAfter()))) {
+                        $this->result = $result;
+                        return $this;
+                    }
                 }
             }
 
@@ -89,11 +104,27 @@ class ChatCompletionsRequest extends Request implements RequestInterface
     /**
      * @param OpenAIClient $client
      * @param null $timeout
+     * @param int $retry
      * @return mixed
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function read(OpenAIClient $client, $timeout = null)
+    public function read(OpenAIClient $client, $timeout = null, int $retry = 3)
     {
-        return $client->read($timeout);
+        $payload = $client->read($timeout);
+
+        if (! $payload && $retry > 0) {
+            logger('exception')->info('重试发送请求', [
+                'req' => $this->data,
+                'retry' => $retry,
+            ]);
+
+            $client->reconnect()->send($this);
+
+            return $this->read($client, $timeout, $retry - 1);
+        }
+
+        return $payload;
     }
 
     /**
@@ -103,18 +134,10 @@ class ChatCompletionsRequest extends Request implements RequestInterface
      */
     public function jsonDebug($data)
     {
-        $data = json_decode($data, true);
+        json_decode($data, true);
 
-        // 如果没有json错误，则表示返回的是json
         if (! json_last_error()) {
-            switch ($data['err_code']){
-                case ErrCode::MEMBER_INSUFFICIENT_BALANCE:
-                    throw new LogicException(ErrCode::SYSTEM_INSUFFICIENT_BALANCE);
-                case ErrCode::AUTHENTICATION:
-                    throw new LogicException(ErrCode::SYSTEM_KEY_INVALID);
-                default:
-                    throw new LogicException($data['err_code']);
-            }
+            $this->debug = $data;
         }
     }
 }

@@ -7,11 +7,15 @@ use Cblink\Dto\Dto;
 /**
  * @property integer $type 类型
  * @property string $secret_key api秘钥
+ * @property string $key_type 类型
  */
 class GptSecretKeyDto extends Dto implements ConfigDtoInterface
 {
+    const GPTLINK = 'gptlink';
+    const OPENAI = 'openai';
+
 	protected $fillable = [
-		'type', 'secret_key', 'icp', 'web_logo', 'admin_logo'
+		'type', 'key_type', 'secret_key', 'icp', 'web_logo', 'admin_logo'
 	];
 
 	/**
@@ -22,6 +26,7 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
 	{
 		return [
 			'type'    => $this->getItem('type'),
+            'key_type' => $this->getItem('key_type', self::GPTLINK),
 			'secret_key'   => $this->getItem('secret_key'),
             'icp'   => $this->getItem('icp'),
             'web_logo'   => $this->getItem('web_logo'),
@@ -36,6 +41,7 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
 	{
 		return [
 			'config' => [
+                'key_type' => $this->getItem('key_type', self::GPTLINK),
 				'secret_key'   => $this->getItem('secret_key'),
                 'icp'   => $this->getItem('icp'),
                 'web_logo'   => $this->getItem('web_logo'),

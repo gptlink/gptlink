@@ -132,7 +132,21 @@ class OpenAIClient
     protected function getClient()
     {
         if (! $this->client) {
-            $this->client = new Client('api.gpt-link.com', 443, true);
+            $this->client = new Client(
+                config('openai.chat.host'),
+                config('openai.chat.port'),
+                config('openai.chat.port') == 443
+            );
+
+            if (config('openai.chat.proxy.socks5_host') && config('openai.chat.proxy.socks5_port')) {
+                $this->client->set([
+                    'socks5_host' => config('openai.chat.proxy.socks5_host'),
+                    'socks5_port' => config('openai.chat.proxy.socks5_port'),
+                    'timeout' => -1,
+                    'ssl_host_name' => 'api.openai.com',
+                ]);
+            }
+
         }
 
         return $this->client;

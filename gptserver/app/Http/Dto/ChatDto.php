@@ -47,7 +47,7 @@ class ChatDto extends Dto
     /**
      * @return array
      */
-    public function getPayload()
+    public function toGPTLink()
     {
         return [
             'model' => $this->getItem('model', ModelConst::GPT_35_TURBO),
@@ -58,6 +58,22 @@ class ChatDto extends Dto
             'system_prompt' => $this->getItem('system'),
             'prompt' => $this->getItem('message'),
             'last_message_id' => $this->getItem('last_id'),
+        ];
+    }
+
+    public function toOpenAi()
+    {
+        $messages[] = ['role' => 'system', 'content' => $this->getItem('system')];
+        $messages[] = ['role' => 'user', 'content' => $this->getItem('message')];
+
+        return [
+            'model' => $this->getItem('model', ModelConst::GPT_35_TURBO),
+            'temperature' => $this->getItem('temperature', 0.8),
+            'top_p' => $this->getItem('top_p', 1),
+            'stream' => $this->getItem('stream', true),
+            'presence_penalty' => $this->getItem('presence_penalty', 1),
+            'max_tokens' => 1000,
+            'messages' => $messages,
         ];
     }
 }
