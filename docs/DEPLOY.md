@@ -2,11 +2,14 @@
 
 ## Docker Compose 部署 （推荐）
 
-需要先自行安装 `Docker` 与 `Docker Compose` ，可以自行百度或问 GPT 安装。
+需要先自行安装 `Docker` 与 `Docker Compose` ，可以自行百度或问 GPT 安装。 此环境包含 `MySQL` 与 `Redis` 等组件，开箱即用
 
-此环境包含 `MySQL` 与 `Redis` 等组件，开箱即用
+配置文件路径 `docker-compose/.env`
 
 ### 运行项目
+
+如果本地已存在旧镜像，建议先删除 `docker rmi overnick/gptlink`
+
 ```shell
 # clone代码
 git clone git@github.com:gptlink/gptlink.git
@@ -18,7 +21,8 @@ cd gptlink/docker-compose
 # 如无其他需求可不修改此文件内容
 cp .env.example .env
 
-# 运行 Mysql 与 Redis 服务，如遇端口冲突，可修改 docker-compose/.env 中的配置重新运行
+# 运行 Mysql 与 Redis 服务
+# 如遇端口冲突，可关闭机器中的 MySQL 于 Redis 或 修改 docker-compose/.env 中的配置重新运行，
 docker-compose up -d mysql redis
 
 # 以上服务运行成功后运行gptlink
@@ -26,7 +30,7 @@ docker-compose up -d gptlink
 ```
 
 
-### 更新版本
+### 更新版本/更新配置
 ```shell
 # 更新 gptlink 代码
 git pull origin master
@@ -63,7 +67,7 @@ docker run -it --rm gptlink /app/gptserver/test.sh
 
 ### 更新版本/更新配置
 
-删除运行的容器，并且使用安装命令重新运行指定版本镜像或配置即可
+删除运行的容器，并且使用安装命令重新运行指定版本镜像或修改配置即可
 
 
 ## 云主机镜像部署
