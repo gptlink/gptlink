@@ -12,7 +12,7 @@
 
 ```shell
 # clone代码
-git clone git@github.com:gptlink/gptlink.git
+git clone https://github.com/gptlink/gptlink.git
 
 # 进入 docker compose 目录
 cd gptlink/docker-compose
