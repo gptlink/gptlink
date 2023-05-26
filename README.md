@@ -6,7 +6,7 @@
 
   [商务合作](./docs/images/qrcode.png) · [打赏开发者](./docs/images/payment.jpeg)
 
-  <img src="[https://github.com/gptlink/gptlink/assets/1472352/20769696-60bb-4486-8e1a-38c6f52a6218](https://github.com/gptlink/gptlink/assets/1472352/98a5012b-3111-4c50-bd36-c8eabf17f6e7)" />
+  <img src="https://github.com/gptlink/gptlink/assets/1472352/98a5012b-3111-4c50-bd36-c8eabf17f6e7" />
  
 </div>
 
