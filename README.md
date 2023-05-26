@@ -29,7 +29,7 @@
 
 ## 项目配置
 
-项目提供有限的权限控制功能，项目配置文件位于 `gptserver/.env`，如诺不存在此文件，将 `gptserver/.env.exmaple` 更名为 `.env` 作为配置项进行使用，详细的配置说明 [点此查看](./docs/ENV.md)
+项目提供有限的权限控制功能，项目配置文件位于 `gptserver/.env`，如诺不存在此文件，将 `gptserver/.env.example` 更名为 `.env` 作为配置项进行使用，详细的配置说明 [点此查看](./docs/ENV.md)
 
 ## 部署
 项目支持多种部署方式，部署文档参考：[点此查看](./docs/DEPLOY.md)
