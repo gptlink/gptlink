@@ -75,7 +75,7 @@ docker run -it --rm gptlink /app/gptserver/test.sh
 目前云主机镜像仅制作了 阿里云 与 腾讯云 镜像，可以发送对应账户 ID 加群联系群管理共享镜像， 云主机镜像是基于 Docker Compose 方式进行安装的。
 
 
-## PHP环境部署
+## PHP 环境部署
 环境部署需要动手能力较强的同学进行。项目目录结构为
 
 - gptserver  服务器项目目录
