@@ -12,12 +12,20 @@ PS: 不要填写 `127.0.0.1` 或 `localhost`，此地址是指向容器内，容
 
 或在宿主机运行 `docker exec gptlink cat /var/log/apiserver.log` 查看异常内容
 
-
 ### 微信扫码登录提示 AppID 参数错误
 
 需要前往管理后台配置上网站应用的 `APPID` 与 `SECRET` ，网站应用申请 [点击前往](https://open.weixin.qq.com/)
 
-微信跳转域名配置，域名校验文件放置容器内 `/app/gptweb` 目录下即可完成验证。
+网页授权域名校验文件放置容器内 `/app/gptweb` 目录下即可完成验证。
+
+
+### 微信登陆提示 redirect_uri 与后台配置不一致
+
+需要前往[微信公众平台](https://mp.weixin.qq.com/)配置网页回调域名为你的域名。
+
+公众号菜单路径：设置与开发 -> 公众号设置 -> 功能设置 -> 网页授权域名
+
+网页授权域名校验文件放置容器内 `/app/gptweb` 目录下即可完成验证。
 
 
 ### 如何使用 OpenAI 提供的接口
