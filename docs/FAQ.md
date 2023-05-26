@@ -22,6 +22,6 @@ PS: 不要填写 `127.0.0.1` 或 `localhost`，此地址是指向容器内，容
 
 ### 如何使用 OpenAI 提供的接口
 
-目前使用的是 [点击访问](https://gpt-link.com) 提供的接口，不需要代理即可访问，可以前往该平台购买使用次数。
+目前使用的是 [https://gpt-link.com](https://gpt-link.com) 提供的接口，不需要代理即可访问，可以前往该平台购买使用次数。
 
-需要替换成 `OpenAi` 或 `azure openai` 等其他API接口，可以自行修改源码实现。
+如需要替换成 `OpenAi` 或 `azure openai` 等其他API接口，现阶段可以自行修改 server 端源码进行实现。
