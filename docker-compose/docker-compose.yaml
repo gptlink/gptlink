@@ -1,5 +1,12 @@
 version: '3.5'
 
+# 日志配置
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "10"
+
 networks:
   backend:
     driver: ${NETWORKS_DRIVER}
@@ -45,6 +52,10 @@ services:
       - "${GPTLINK_PORT:-80}:80"
     networks:
       - backend
+    depends_on:
+      - mysql
+      - redis
+    logging: *default-logging
 
   ### Redis ################################################
   redis:
@@ -55,6 +66,7 @@ services:
       - "${REDIS_PORT:-6379}:6379"
     networks:
       - backend
+    logging: *default-logging
 
   ### MySQL ################################################
   mysql:
@@ -70,3 +82,4 @@ services:
       - "${MYSQL_PORT:-3306}:3306"
     networks:
       - backend
+    logging: *default-logging
