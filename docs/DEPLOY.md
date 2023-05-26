@@ -31,6 +31,9 @@ docker-compose up -d gptlink
 
 
 ### 更新版本/更新配置
+
+如果本地已存在旧镜像，建议先删除 `docker rmi overnick/gptlink`
+
 ```shell
 # 更新 gptlink 代码
 git pull origin master
