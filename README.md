@@ -6,7 +6,8 @@
 
   [商务合作](./docs/images/qrcode.png) · [打赏开发者](./docs/images/payment.jpeg)
 
-  <img src="./docs/images/banner.png" />
+  <img src="https://github.com/gptlink/gptlink/assets/1472352/20769696-60bb-4486-8e1a-38c6f52a6218" />
+
 </div>
 
 ## 功能概览
