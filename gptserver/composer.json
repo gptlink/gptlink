@@ -67,8 +67,7 @@
         "ext-pdo_mysql": "Required to use MySQL Client.",
         "ext-redis": "Required to use Redis Client.",
         "ext-bcmath": "Required to use Redis Client.",
-        "ext-curl": "Required to use Redis Client.",
-        "ext-openssl": "Required to use Redis Client."
+        "ext-curl": "Required to use Redis Client."
     },
     "autoload": {
         "psr-4": {

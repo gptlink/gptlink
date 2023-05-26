@@ -20,7 +20,7 @@
 
 ## 开始使用
 
-1. 准备好基础的环境，要求 MySQL 5.7+，Redis 4.0+，项目基于 PHP (Hyperf) + Vue 开发，推荐使用 Docker 进行部署；
+1. 项目基于 PHP (Hyperf) + Vue 开发，推荐使用 Docker 进行部署；
 2. 准备好一个 API Key（官方注册麻烦，而且动不动就封号，这里使用 [GPTLINK](https://gpt-link.com) 提供的接口 [点此前往注册](https://gpt-link.com)，注册完成之后进入个人中心申请开发者后可以获取 API Key，过程非常简单，无需审核只需要几分钟即可完成注册；
 3. 微信相关资源（[网站应用](https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html)，[微信公众号](https://mp.weixin.qq.com/)，[微信支付](https://pay.weixin.qq.com/)），网站应用用于 PC 端扫码登录，公众号用于微信内网页登录，缺省情况将无法在对应渠道使用。
 
@@ -29,62 +29,12 @@
 项目提供有限的权限控制功能，项目配置文件位于 `gptserver/.env`，如诺不存在此文件，将 `gptserver/.env.exmaple` 更名为 `.env` 作为配置项进行使用，详细的配置说明 [点此查看](./docs/ENV.md)
 
 ## 部署
+项目支持多种部署方式，部署文档参考：[点此查看](./docs/DEPLOY.md)
 
-### 使用 Docker 部署
-
-#### 方式一：构建镜像后部署
-
-```shell
-# 下载代码
-git clone git@github.com:gptlink/gptlink.git
-
-# 进去代码库目录
-cd gptlink
-
-# 复制 env 示例文件
-cp gptserver/.env.example gptserver/.env
-
-# 修改 gptserver/.env 文件中的配置信息，参考上文
-# vim gptserver/.env
-
-# 构建镜像，构建的过程可能需要几分钟，视网络情况而定
-docker build -t gptlink .
-
-# 测试配置项是否正常
-docker run -it --rm gptlink /app/gptserver/test.sh
-
-# 运行容器
-docker run -d -p 80:80 --name=gptlink gptlink
-```
-
-#### 方式二：使用官方 Docker 镜像部署
-
-```
-运行项目
-docker run -d -p 80:80 \
-   --name=gptlink \
-   -e DB_HOST="数据库连接地址" \
-   -e DB_DATABASE="数据库名称" \
-   -e DB_USERNAME="数据库用户名" \
-   -e DB_PASSWORD="数据库密码" \
-   -e REDIS_HOST="Redis 链接地址" \
-   -e REDIS_PORT="Redis 端口号" \
-   overnick/gptlink
-
-# 如果你需要指定其他环境变量，请自行在上述命令中增加 `-e 环境变量=环境变量值` 来指定。
-```
-
-#### 微信域名校验
-
-- 用户端: `/app/gptweb`
-- 管理端: `/app/gptweb/admin`
-- API 端：`/app/gptserver`
-
-微信域名校验文件放置 `/app/gptweb` 目录下即可完成验证。
-
-### 云主机部署
-
-目前可提供阿里云或腾讯云机器镜像，扫码加群后发送账号 ID 可以共享给你。
+- PHP 环境部署
+- Docker 部署
+- Docker Compose 部署
+- 云主机镜像部署
 
 ### 访问
 
