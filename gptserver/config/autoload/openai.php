@@ -3,5 +3,5 @@
 return [
     'user_white_list' => env('USER_WHITE_LIST', ''),
 
-    'base_url' => env('OPENAI_BASE_URL', 'https://api.gpt-link.com'),
+    'base_url' => env('OPENAI_BASE_URL', 'https://api.gpt-link.com/'),
 ];

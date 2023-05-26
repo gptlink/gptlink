@@ -59,6 +59,10 @@ class ErrCode extends AbstractConstants
      */
     const SYSTEM_INSUFFICIENT_BALANCE = 1002;
     /**
+     * @Message("未配置正确的apikey")
+     */
+    const SYSTEM_KEY_INVALID = 1003;
+    /**
      * @Message("用户信息获取失败，清刷新页面后重试")
      */
     const WECHAT_OPENID_GET_FAIL = 10001;

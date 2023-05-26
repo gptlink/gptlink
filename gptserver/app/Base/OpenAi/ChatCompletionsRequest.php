@@ -110,6 +110,8 @@ class ChatCompletionsRequest extends Request implements RequestInterface
             switch ($data['err_code']){
                 case ErrCode::MEMBER_INSUFFICIENT_BALANCE:
                     throw new LogicException(ErrCode::SYSTEM_INSUFFICIENT_BALANCE);
+                case ErrCode::AUTHENTICATION:
+                    throw new LogicException(ErrCode::SYSTEM_KEY_INVALID);
                 default:
                     throw new LogicException($data['err_code']);
             }
