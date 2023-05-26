@@ -33,3 +33,16 @@ PS: 不要填写 `127.0.0.1` 或 `localhost`，此地址是指向容器内，容
 目前使用的是 [https://gpt-link.com](https://gpt-link.com) 提供的接口，不需要代理即可访问，可以前往该平台购买使用次数。
 
 如需要替换成 `OpenAi` 或 `azure openai` 等其他API接口，现阶段可以自行修改 server 端源码进行实现。
+
+
+### 支付成功但订单显示未支付
+
+检查环境变量 `APP_URL` 是否正确，通常配置为 协议 + 域名 + /api/，以下为示例
+
+```txt
+示例配置
+
+APP_URL=https://abc.com/api/
+...
+```
+
