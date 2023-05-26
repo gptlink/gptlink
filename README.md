@@ -53,9 +53,7 @@
 
 ## 参与贡献
 
-贡献之前请先阅读 [贡献指南](./CONTRIBUTING.md)
-
-我们深知这不是一个完美的产品，但是它只是一个开始，欢迎加入我们一起完善！
+我们深知这不是一个完美的产品，但是它只是一个开始，欢迎加入我们一起完善！:heart: 请参阅 [贡献指南](./CONTRIBUTING.md)
 
 <a href="https://github.com/gptlink/gptlink/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=gptlink/gptlink" />
