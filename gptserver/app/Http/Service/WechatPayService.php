@@ -2,6 +2,8 @@
 
 namespace App\Http\Service;
 
+use App\Http\Dto\Config\WechatPaymentDto;
+use App\Model\Config;
 use Closure;
 use App\Exception\WechatPayException;
 use EasyWeChat\Kernel\Exceptions\InvalidArgumentException;
@@ -31,7 +33,14 @@ class WechatPayService
     public function pay(array $config = [])
     {
         if (! $this->app) {
-            $this->app = new Application($config);
+            /* @var WechatPaymentDto $payDto */
+            $payDto = Config::toDto(Config::WECHAT_PAYMENT);
+
+            $this->app = new Application(array_merge($config, [
+                'app_id' => $payDto->appid,
+                'mch_id' => $payDto->mch_id,
+                'key' => $payDto->key,
+            ]));
 
             $this->app->rebind('logger', logger());
             $this->app->rebind('cache', cache());

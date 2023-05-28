@@ -23,6 +23,8 @@ class ChatCompletionsRequest extends Request implements RequestInterface
 
     public $pipeline = false;
 
+    public $debug;
+
     public $result;
 
     /**
@@ -104,6 +106,8 @@ class ChatCompletionsRequest extends Request implements RequestInterface
     public function jsonDebug($data)
     {
         $data = json_decode($data, true);
+
+        $this->debug = $data;
 
         // 如果没有json错误，则表示返回的是json
         if (! json_last_error()) {

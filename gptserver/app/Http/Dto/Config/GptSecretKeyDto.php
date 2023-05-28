@@ -15,7 +15,7 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
     const OPENAI = 'openai';
 
 	protected $fillable = [
-		'type', 'key_type', 'secret_key', 'icp', 'web_logo', 'admin_logo'
+		'name', 'type', 'key_type', 'secret_key', 'icp', 'web_logo', 'admin_logo'
 	];
 
 	/**
@@ -25,6 +25,7 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
 	public function getDefaultConfig(): array
 	{
 		return [
+            'name' => $this->getItem('name','GPTLink'),
 			'type'    => $this->getItem('type'),
             'key_type' => $this->getItem('key_type', self::GPTLINK),
 			'secret_key'   => $this->getItem('secret_key'),
@@ -41,6 +42,7 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
 	{
 		return [
 			'config' => [
+                'name' => $this->getItem('name','GPTLink'),
                 'key_type' => $this->getItem('key_type', self::GPTLINK),
 				'secret_key'   => $this->getItem('secret_key'),
                 'icp'   => $this->getItem('icp'),

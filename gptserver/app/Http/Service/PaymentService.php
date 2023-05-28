@@ -33,14 +33,9 @@ class PaymentService
      */
     public function unify(PayOrderDto $dto)
     {
-        /* @var WechatPaymentDto $payDto */
-        $payDto = Config::toDto(Config::WECHAT_PAYMENT);
 
-        $response = $this->wechat->pay(array_merge(config('wechat.pay'), [
-            'app_id' => $payDto->appid,
-            'mch_id' => $payDto->mch_id,
-            'key' => $payDto->key,
-        ]))->order->unify($dto->toData());
+
+        $response = $this->wechat->pay()->order->unify($dto->toData());
 
         return $this->wechat->response($response);
     }

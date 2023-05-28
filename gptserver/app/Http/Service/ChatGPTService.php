@@ -37,6 +37,7 @@ class ChatGPTService
             'user_id' => $userId,
             'result' => $result->result,
             'request' => $result->data,
+            'debug' => $result->debug
         ]);
 
         // 如果没有正常返回，不进行扣费与记录

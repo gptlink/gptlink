@@ -17,6 +17,7 @@ class ConfigController extends BaseController
 		$config = Config::query()->where([
 			'type' => Config::GPT_SECRET_KEY,
 		])->value('config');
-		return $this->success($config ? Arr::only($config, ['icp', 'web_logo', 'admin_logo']) : []);
+
+		return $this->success($config ? Arr::only($config, ['name', 'icp', 'web_logo', 'admin_logo']) : []);
 	}
 }

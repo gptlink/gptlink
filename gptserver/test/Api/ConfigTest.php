@@ -21,7 +21,7 @@ class ConfigTest extends TestCase
 		$config = ConfigFactory::createGptSecretKeyData();
 
 		$response = $this->get('/config/basic-info');
-$response->dump();
+
         $this->assertApiSuccess($response);
 
 		ConfigFactory::deleteById($config->id);
