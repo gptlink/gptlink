@@ -4,7 +4,7 @@
 
   [体验地址](https://gpt-link.com/?shareOpenId=mjOfmdjyCBEku7fY) · [演示图片](./docs/show/README.md) · [反馈](https://github.com/gptlink/gptlink/issues) · [微信加群](./docs/images/qrcode.png)
 
-  [商务合作](./docs/images/qrcode.png) · [关注公众号](./docs/images/offical.jpg) · [打赏开发者](./docs/images/payment.jpeg)
+  [商务合作](./docs/images/qrcode.png) · [关注公众号](./docs/images/official.jpg) · [打赏开发者](./docs/images/payment.jpeg)
 
   <img src="https://github.com/gptlink/gptlink/assets/1472352/98a5012b-3111-4c50-bd36-c8eabf17f6e7" />
  
