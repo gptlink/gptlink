@@ -32,14 +32,6 @@ Router::addGroup('', function () {
         Router::get('/record/unread', [Api\Web\TaskController::class, 'getRecordUnread']);
         Router::put('/record/{type}/read', [Api\Web\TaskController::class, 'updateRecordRead']);
     });
-
-    // 七牛云
-    Router::addGroup('/qiniu', function () {
-        Router::get('/token', [Api\Common\QiniuController::class, 'getUploadToken']);
-    });
-
-    // 素材
-    Router::get('/material', [Api\Web\MaterialController::class, 'index']);
 }, [
     'middleware' => [
         \App\Base\Auth\UserAuthMiddleware::class,
@@ -49,7 +41,6 @@ Router::addGroup('', function () {
 
 // 模型
 Router::get('/chat-gpt-model', [Api\Web\ChatGptModelController::class, 'index']);
-Router::get('/chat-gpt-model/{id}', [Api\Web\ChatGptModelController::class, 'show']);
 
 // 微信相关
 Router::addGroup('/wechat', function () {

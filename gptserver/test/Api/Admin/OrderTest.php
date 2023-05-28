@@ -38,7 +38,6 @@ class OrderTest extends TestCase
                 'trade_no' => null,
 				'created_at' => sprintf('%s~%s', Carbon::now()->subDay()->toDateString(), Carbon::now()->addDay()->toDateString()),
         ]);
-        $response->dump();
 
         $this->assertApiSuccess($response);
 

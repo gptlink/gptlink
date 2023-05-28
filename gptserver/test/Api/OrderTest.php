@@ -79,7 +79,7 @@ class OrderTest extends TestCase
     {
         $user = $this->userLogin();
 
-        $order = OrderFactory::createByData(['user_id' => $user['user_id']]);
+        $order = OrderFactory::createByData(['user_id' => $user->id]);
 
         $response = $this->get(sprintf('/order/%s/pay', $order->id));
 
@@ -110,7 +110,7 @@ class OrderTest extends TestCase
     {
         $user = $this->userLogin();
 
-        $order = OrderFactory::createByData(['user_id' => $user['user_id']]);
+        $order = OrderFactory::createByData(['user_id' => $user->id]);
 
         $response = $this->get(sprintf('/order/%s', $order->id));
 

@@ -63,7 +63,10 @@ class ChatDto extends Dto
 
     public function toOpenAi()
     {
-        $messages[] = ['role' => 'system', 'content' => $this->getItem('system')];
+        if ($this->getItem('system')) {
+            $messages[] = ['role' => 'system', 'content' => $this->getItem('system')];
+        }
+
         $messages[] = ['role' => 'user', 'content' => $this->getItem('message')];
 
         return [

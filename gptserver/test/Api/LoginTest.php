@@ -39,15 +39,8 @@ class LoginTest extends TestCase
     public function testWebWechatCheckSmsCode()
     {
         // 注册
-        $platform = 'weixin';
         $mobile = '13944700000';
-        $memberOrOath = (new MemberOauthService())->oauthLogin(new OauthDto([
-            'nickname' => 'test',
-            'avatar' => 'test.jpg',
-            'openid' => 'test',
-            'unionid' => 'test',
-            'platform' => $platform,
-        ]));
+        $memberOrOath = MemberFactory::createOauth(0);
         // 短信
         $code = 1234;
         $cacheKey = sprintf('sms_code_login_%s', $mobile);
@@ -57,10 +50,8 @@ class LoginTest extends TestCase
 
         $response = $this->post("/sms/login", [
             'mobile' => $mobile,
-            'oauth_id' => Arr::get($memberOrOath, 'oauth_id'),
+            'oauth_id' => base64_encode($memberOrOath->id),
             'code' => $code,
-            'platform' => '',
-            'business_id' => 0,
             'source' => '',
         ]);
 

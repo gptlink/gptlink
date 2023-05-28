@@ -224,7 +224,6 @@ class ConfigTest extends TestCase
                 'admin_logo' => 'base64'
             ],
         ]);
-        $response->dump();
 
         $this->assertApiSuccess($response);
 

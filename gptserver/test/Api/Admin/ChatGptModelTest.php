@@ -25,14 +25,14 @@ class ChatGptModelTest extends TestCase
         $member = MemberFactory::createByData();
 
         $chatGptModel = ChatGptModelFactory::createByData([
-            'platform' => ChatGptModel::PLATFORM_MAGIC,
+            'platform' => ChatGptModel::PLATFORM_GPT,
             'user_id' => $member->id,
-            'source' => ChatGptModel::SOURCE_MAGIC,
+            'source' => ChatGptModel::SOURCE_PLATFORM,
         ]);
 
         $response = $this->get('/admin/chat-gpt-model', [
             'name' => null,
-            'platform' => ChatGptModel::PLATFORM_MAGIC,
+            'platform' => ChatGptModel::PLATFORM_GPT,
             'source' => null,
             'type' => null,
             'status' => null,
@@ -40,7 +40,6 @@ class ChatGptModelTest extends TestCase
             'mobile' => null,
             'with_query' => ['member', 'count_data']
         ]);
-        $response->dump();
 
         $this->assertApiSuccess($response);
         ChatGptModelFactory::deleteById($chatGptModel->id);
@@ -128,12 +127,11 @@ class ChatGptModelTest extends TestCase
             'prompt' => 'prompt-test',
             'system' => 'system-test',
             'sort' => 1,
-            'platform' => ChatGptModel::PLATFORM_MAGIC,
+            'platform' => ChatGptModel::PLATFORM_GPT,
             'desc' => 'test',
             'remark' => '备注',
             'type' => ChatGptModel::TYPE_DIALOGUE,
         ]);
-        $response->dump();
         $this->assertApiSuccess($response);
         ChatGptModelFactory::deleteById(Arr::get($response->response(), 'data.id'));
         $response->build(new BaseDto([
@@ -185,8 +183,9 @@ class ChatGptModelTest extends TestCase
             'desc' => 'test',
             'remark' => '备注',
             'type' => ChatGptModel::TYPE_DIALOGUE,
+            'platform' => ChatGptModel::PLATFORM_GPT
         ]);
-        $response->dump();
+
         $this->assertApiSuccess($response);
         ChatGptModelFactory::deleteById($chatGptModel->id);
         $response->build(new BaseDto([
@@ -263,7 +262,7 @@ class ChatGptModelTest extends TestCase
         $this->AdminLogin();
         $chatGptModel = ChatGptModelFactory::createByData();
         $response = $this->post(sprintf('/admin/chat-gpt-model/%s/top', $chatGptModel->id));
-        $response->dump();
+
         $this->assertApiSuccess($response);
         ChatGptModelFactory::deleteById($chatGptModel->id);
         $response->build(new BaseDto([
@@ -296,7 +295,7 @@ class ChatGptModelTest extends TestCase
         $this->AdminLogin();
         $chatGptModel = ChatGptModelFactory::createByData();
         $response = $this->post(sprintf('/admin/chat-gpt-model/%s/cancel-top', $chatGptModel->id));
-        $response->dump();
+
         $this->assertApiSuccess($response);
         ChatGptModelFactory::deleteById($chatGptModel->id);
         $response->build(new BaseDto([
@@ -320,71 +319,6 @@ class ChatGptModelTest extends TestCase
                 'desc' => '描述',
                 'remark' => '备注',
                 'type' => Dto::mapDesc('类型:', ChatGptModel::TYPE),
-            ],
-        ]));
-    }
-
-    // 复制模型到 gpt
-    public function testAdminChatGptModelCopyGpt()
-    {
-        $this->AdminLogin();
-        $chatGptModel = ChatGptModelFactory::createByData([
-            'platform' => ChatGptModel::PLATFORM_MAGIC,
-        ]);
-        $response = $this->post(sprintf('/admin/chat-gpt-model/%s/copy-gpt', $chatGptModel->id));
-        $response->dump();
-        $this->assertApiSuccess($response);
-        ChatGptModelFactory::deleteById($chatGptModel->id);
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '复制模型到 gpt',
-            'category' => '模型管理',
-            'params' => [3 => '模型 id'],
-            'desc' => '',
-            'request' => [],
-            'request_except' => [],
-            'response' => [
-                'id' => 'id',
-                'user_id' => '用户 id 没有说明是平台创建',
-                'icon' => 'icon',
-                'name' => '模型名称',
-                'prompt' => '开场语',
-                'system' => '咒语',
-                'status' => BaseDto::mapDesc('状态:', ChatGptModel::STATUS),
-                'sort' => '排序',
-                'platform' => Dto::mapDesc('平台:', ChatGptModel::PLATFORM),
-                'desc' => '描述',
-                'remark' => '备注',
-                'type' => Dto::mapDesc('类型:', ChatGptModel::TYPE),
-            ],
-        ]));
-    }
-
-    // 模型违规记录
-    public function testAdminChatGptModelGetViolationRecord()
-    {
-        $this->AdminLogin();
-        /** @var ChatGptModel $chatGptModel */
-        $chatGptModel = ChatGptModelFactory::createByData([
-            'platform' => ChatGptModel::PLATFORM_MAGIC,
-        ]);
-        ChatGptModelFactory::createRecord($chatGptModel);
-        $response = $this->get(sprintf('/admin/chat-gpt-model/%s/violation', $chatGptModel->id));
-        $this->assertApiSuccess($response);
-        ChatGptModelFactory::deleteById($chatGptModel->id);
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '模型详情最新违规记录',
-            'category' => '模型管理',
-            'params' => [3 => '模型 id'],
-            'desc' => '',
-            'request' => [],
-            'request_except' => [],
-            'response' => [
-                'id' => 'id',
-                'chat_gpt_model_id' => '模型 id',
-                'label' => '违规内容',
-                'trigger' => '违规词',
             ],
         ]));
     }

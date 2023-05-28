@@ -132,7 +132,7 @@ class MemberTest extends TestCase
         $this->adminLogin();
 
         $package = PackageFactory::createByData();
-        $package->sendToUser(1);
+        $package->sendToUser(MemberFactory::createByData()->id);
 
         $response = $this->get('/admin/member/package/record', [
             'with_query' => ['member'],
@@ -145,6 +145,7 @@ class MemberTest extends TestCase
 
         $this->assertApiSuccess($response);
 
+        MemberFactory::truncate();
         PackageFactory::truncate();
 
         $response->build(new BaseDto([
@@ -180,220 +181,6 @@ class MemberTest extends TestCase
         ]));
     }
 
-    public function testAdminGetMemberDisabledRecord()
-    {
-        $this->adminLogin();
-
-        MemberFactory::createDisabledByData();
-
-        $response = $this->get('/admin/member/disabled/record', [
-            'with_query' => ['member'],
-            'nickname' => '1',
-            'mobile' => '13200001111',
-            'status' => 1,
-            'lable' => 'Porn',
-        ]);
-
-        $this->assertApiSuccess($response);
-        MemberFactory::deleteDisabledRecord();
-
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '用户封禁记录',
-            'category' => '用户管理',
-            'params' => [],
-            'desc' => '',
-            'request' => [
-                'with_query' => 'array：数组 member 用户信息',
-                'nickname' => '昵称搜索',
-                'mobile' => '昵称搜索',
-                'status' => BaseDto::mapDesc('状态', MemberDisabledRecord::STATUS),
-                'lable' => BaseDto::mapDesc('封禁类型', TencentCloudTmsService::LABEL),
-            ],
-            'request_except' => [],
-            'response' => [
-                '*.id' => '数据ID',
-                '*.member_id' => '用户ID',
-                '*.trigger' => '触发关键词',
-                '*.content' => '原内容',
-                '*.lable' => BaseDto::mapDesc('封禁类型', TencentCloudTmsService::LABEL),
-                '*.appeal' => '申诉内容',
-                '*.mobile' => '联系方式',
-                '*.reason' => '驳回原因',
-                '*.status' => BaseDto::mapDesc('状态', MemberDisabledRecord::STATUS),
-                '*.apply_at' => '申请时间',
-                '*.disabled_at' => '封禁时间',
-                '*.enabled_at' => '解封时间',
-                '*.user' => '用户信息',
-                '*.user.nickname' => '用户名',
-                '*.user.mobile' => '手机号',
-            ],
-        ]));
-    }
-
-    public function testAdminMemberDisabledRecordShow()
-    {
-        $this->adminLogin();
-
-        $record = MemberFactory::createDisabledByData();
-
-        $response = $this->get(sprintf('/admin/member/%s/record', $record->id), [
-            'with_query' => ['member',],
-        ]);
-
-        $this->assertApiSuccess($response);
-        MemberFactory::deleteDisabledRecord();
-
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '封禁记录详情',
-            'category' => '用户管理',
-            'params' => [
-                3 => '封禁记录id',
-            ],
-            'desc' => '',
-            'request' => [
-                'with_query' => 'array：数组 member 用户信息 identity 身份信息',
-            ],
-            'request_except' => [],
-            'response' => [
-                'id' => '封禁记录ID',
-                'member_id' => '用户ID',
-                'lable' => 'Porn：色情，Abuse：谩骂，Ad：广告',
-                'trigger' => '触发关键词',
-                'content' => '原内容',
-                'appeal' => '申诉内容',
-                'reason' => '备注原因',
-                'enabled_at' => '操作时间',
-                'mobile' => '联系方式',
-                'status' => BaseDto::mapDesc('违禁状态', MemberDisabledRecord::STATUS),
-                'disabled_at' => '封禁时间',
-                'records_count' => '历史封禁次数',
-                'user' => '用户信息',
-                'user.nickname' => '用户名',
-                'user.mobile' => '手机号',
-            ],
-        ]));
-    }
-
-    // 手动封号
-    public function testAdminMemberUpdateStatus()
-    {
-        $this->adminLogin();
-        $member = MemberFactory::createByData();
-        $response = $this->put(sprintf('/admin/member/%s/status', $member->id));
-        $response->dump();
-        MemberFactory::deleteById($member->id);
-        $this->assertApiSuccess($response);
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '封禁/正常',
-            'category' => '用户管理',
-            'params' => [
-                3 => 'user id',
-            ],
-            'desc' => '',
-            'request' => [],
-            'request_except' => [],
-            'response' => [
-                'id' => 'id',
-                'nickname' => '用户昵称',
-                'avatar' => '用户头像',
-                'register_at' => '注册时间',
-                'mobile' => '手机号',
-                'status' => BaseDto::mapDesc('用户状态', Member::STATUS),
-            ],
-        ]));
-    }
-
-    public function testAdminUnlockMember()
-    {
-        $this->adminLogin();
-
-        $record = MemberFactory::createDisabledByData();
-
-        $response = $this->put(sprintf('/admin/member/%s/unlock', $record->id), [
-            'reason' => '测试解封',
-        ]);
-
-        $this->assertApiSuccess($response);
-        MemberFactory::deleteDisabledRecord();
-
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '解除封禁',
-            'category' => '用户管理',
-            'params' => [
-                3 => '封禁记录id',
-            ],
-            'desc' => '',
-            'request' => [
-                'reason' => '备注原因 选填',
-            ],
-            'request_except' => ['reason'],
-            'response' => [],
-        ]));
-    }
-
-    public function testAdminRejectMember()
-    {
-        $this->adminLogin();
-
-        $record = MemberFactory::createDisabledByData();
-
-        $response = $this->put(sprintf('/admin/member/%s/reject', $record->id), [
-            'reason' => '测试驳回',
-        ]);
-
-        $this->assertApiSuccess($response);
-        MemberFactory::deleteDisabledRecord();
-
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '驳回封禁申诉',
-            'category' => '用户管理',
-            'params' => [
-                3 => '封禁记录id',
-            ],
-            'desc' => '',
-            'request' => [
-                'reason' => '驳回原因 【注意驳回时必填】',
-            ],
-            'request_except' => [],
-            'response' => [],
-        ]));
-    }
-
-    // 封禁记录列表
-    public function testAdminDisabledMember()
-    {
-        $this->adminLogin();
-
-        $record = MemberFactory::createDisabledByData();
-
-        $response = $this->put(sprintf('/admin/member/%s/disabled', $record->id), [
-            'reason' => '测试封号，就是要封号',
-        ]);
-
-        $this->assertApiSuccess($response);
-        MemberFactory::deleteDisabledRecord();
-
-        $response->build(new BaseDto([
-            'project' => ['admin'],
-            'name' => '封禁用户',
-            'category' => '用户管理',
-            'params' => [
-                3 => '封禁记录id',
-            ],
-            'desc' => '',
-            'request' => [
-                'reason' => '备注原因必填',
-            ],
-            'request_except' => [],
-            'response' => [],
-        ]));
-    }
-
     // 微信记录
     public function testAdminMemberWechatOauth()
     {
@@ -403,9 +190,9 @@ class MemberTest extends TestCase
         MemberFactory::createOauth($member->id);
 
         $response = $this->get('/admin/member/wechat-oauth/record', ['user_id' => $member->id]);
-        $response->dump();
+
         $this->assertApiSuccess($response);
-        MemberFactory::deleteById($member->id);
+        MemberFactory::truncate();
 
         $response->build(new BaseDto([
             'project' => ['admin'],

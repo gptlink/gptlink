@@ -28,7 +28,7 @@ class WechatControllerMock
         $controller->allows()->qrcode(\Mockery::any(), \Mockery::any())
             ->andReturn(['err_code' => 0, 'data' => ['qr_code_url' => 'test.com']]);
 
-        $controller->allows()->login(\Mockery::any(), \Mockery::any())
+        $controller->allows()->login(\Mockery::any(), \Mockery::any(), \Mockery::any())
             ->andReturn(['err_code' => 0, 'data' => [
                 'oauth_id' => 'test',
                 'user' => [

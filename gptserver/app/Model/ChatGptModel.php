@@ -18,33 +18,23 @@ class ChatGptModel extends Model
 
     const STATUS_ON = 1;
     const STATUS_OFF = 2;
-    const STATUS_REVIEW = 3;
-    const STATUS_VIOLATION = 4;
     const STATUS = [
         self::STATUS_ON => '启用',
         self::STATUS_OFF => '关闭',
-        self::STATUS_REVIEW => '待审核',
-        self::STATUS_VIOLATION => '违规'
     ];
 
     const PLATFORM_GPT = 1;
-    const PLATFORM_MAGIC = 2;
     const PLATFORM = [
         self::PLATFORM_GPT => 'gpt',
-        self::PLATFORM_MAGIC => '魔法书屋',
     ];
 
     const SOURCE_PLATFORM = 1;
-    const SOURCE_MAGIC = 2;
     const SOURCE = [
         self::SOURCE_PLATFORM => ' 平台',
-        self::SOURCE_MAGIC => '魔法书屋',
     ];
     const TYPE_DIALOGUE = 1;
-    const TYPE_QUESTION = 2;
     const TYPE = [
         self::TYPE_DIALOGUE => '对话',
-        self::TYPE_QUESTION => '问答',
     ];
 
 

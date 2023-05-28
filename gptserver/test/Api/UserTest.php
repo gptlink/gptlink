@@ -34,8 +34,6 @@ class UserTest extends TestCase
 
         $response = $this->get('/user/profile');
 
-        $response->dump();
-
         $this->assertApiSuccess($response);
 
         $response->build(new BaseDto([
@@ -57,7 +55,7 @@ class UserTest extends TestCase
     public function testWebUserBillPackage()
     {
         $user = $this->userLogin();
-        $memberPackage = MemberPackageFactory::createByData(['user_id' => $user['user_id']]);
+        $memberPackage = MemberPackageFactory::createByData(['user_id' => $user->id]);
 
         $response = $this->get('/user/bill-package', [
             'status' => '',
@@ -94,7 +92,7 @@ class UserTest extends TestCase
     public function testWebUserPackage()
     {
         $user = $this->userLogin();
-        $memberPackage = MemberPackageFactory::createByData(['user_id' => $user['user_id']]);
+        $memberPackage = MemberPackageFactory::createByData(['user_id' => $user->id]);
 
         $response = $this->get('/user/package', [
             'status' => '',
@@ -131,7 +129,7 @@ class UserTest extends TestCase
     public function testWebUserOrder()
     {
         $user = $this->userLogin();
-        $order = OrderFactory::createByData(['user_id' => $user['user_id']]);
+        $order = OrderFactory::createByData(['user_id' => $user->id]);
         $response = $this->get('/user/order');
         $this->assertApiSuccess($response);
         $order->delete();
@@ -161,7 +159,7 @@ class UserTest extends TestCase
     public function testWebUserGetPackageRecord()
     {
         $user = $this->userLogin();
-        PackageFactory::createByData()->sendToUser($user['user_id']);
+        PackageFactory::createByData()->sendToUser($user->id);
         $response = $this->get('/user/package/record', [
             'type' => '',
             'channel' => '',
@@ -191,32 +189,6 @@ class UserTest extends TestCase
                 '*.expired_day' => '有效期，单位天',
                 '*.num' => '数量，-1表示不限制',
                 '*.created_at' => '创建时间',
-            ],
-        ]));
-    }
-
-    public function testUserGetStatistics()
-    {
-        $user = $this->userLogin();
-
-        $chatGptModel = ChatGptModelFactory::createByData(['user_id' => $user['id']]);
-        ChatGptModelFactory::createCollect($user['id'], $chatGptModel->id);
-        ChatGptModelCount::query()->where(['chat_gpt_model_id' => $chatGptModel->id])->update(['uses'=>10]);
-
-        $response = $this->get('/user/statistics');
-        $response->dump();
-        $this->assertApiSuccess($response);
-        $response->build(new BaseDto([
-            'project' => ['default'],
-            'name' => '用户基础统计',
-            'category' => '用户相关',
-            'desc' => '',
-            'request' => [],
-            'request_except' => [],
-            'response' => [
-                'model_count' => '我的创作统计',
-                'model_collect_count' => '咒语书统计',
-                'uses' => '被使用次数'
             ],
         ]));
     }

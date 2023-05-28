@@ -56,7 +56,7 @@ class TaskTest extends TestCase
         /** @var Task $task */
         $task = TaskFactory::createByData(Task::TYPE_REGISTER);
         $response = $this->get(sprintf('/admin/task/%s', $task->type));
-        $response->dump();
+
         TaskFactory::deleteByModel($task);
 
         $this->assertApiSuccess($response);
@@ -74,7 +74,7 @@ class TaskTest extends TestCase
                 'title' => '标题',
                 'status' => BaseDto::mapDesc('状态:', Task::STATUS),
                 'desc' => '描述',
-                'platform' => BaseDto::mapDesc('状态:', Task::PLATFORM),
+                'platform' => BaseDto::mapDesc('平台:', Task::PLATFORM),
                 'share_image' => '分享图/背景图',
                 'rule' => '规则',
                 'rule.frequency' => '发送次数0 代表无限',
@@ -92,7 +92,7 @@ class TaskTest extends TestCase
         /** @var Task $task */
         $task = TaskFactory::createByData(Task::TYPE_INVITE);
         $response = $this->get(sprintf('/admin/task/%s', $task->type));
-        $response->dump();
+
         TaskFactory::deleteByModel($task);
 
         $this->assertApiSuccess($response);
@@ -165,10 +165,11 @@ class TaskTest extends TestCase
         $package = PackageFactory::createByData();
         $response = $this->post('/admin/task/register', [
             'type' => Task::TYPE_REGISTER,
-            'platform' => Task::PLATFORM_H5,
+            'platform' => [Task::PLATFORM_H5],
             'status' => Task::STATUS_ON,
             'package_id' => $package->id
         ]);
+
         TaskFactory::deleteById(Arr::get($response->response(), 'data.id'));
         PackageFactory::deleteById($package->id);
 
@@ -214,7 +215,7 @@ class TaskTest extends TestCase
             'type' => Task::TYPE_INVITE,
             'title' => 'test',
             'desc' => 'test',
-            'platform' => Task::PLATFORM_H5,
+            'platform' => [Task::PLATFORM_H5],
             'share_image' => 'image.png',
             'status' => Task::STATUS_ON,
             'package_id' => $package->id
@@ -229,14 +230,14 @@ class TaskTest extends TestCase
             'desc' => '',
             'request' => [
                 'type' => BaseDto::mapDesc('任务类型:', Task::TYPE),
-                'platform' => BaseDto::mapDesc('状态:', Task::PLATFORM),
+                'platform' => BaseDto::mapDesc('平台:', Task::PLATFORM),
                 'status' => BaseDto::mapDesc('状态:', Task::STATUS),
                 'package_id' => '套餐 id',
                 'title' => '标题',
                 'desc' => '描述',
                 'share_image' => '图片',
             ],
-            'request_except' => [],
+            'request_except' => ['platform'],
             'response' => [
                 'id' => 'id',
                 'type' => BaseDto::mapDesc('任务类型:', Task::TYPE),
@@ -264,7 +265,7 @@ class TaskTest extends TestCase
             'type' => Task::TYPE_SHARE,
             'title' => 'test',
             'desc' => 'test',
-            'platform' => Task::PLATFORM_H5,
+            'platform' => [Task::PLATFORM_H5],
             'share_image' => 'image.png',
             'status' => Task::STATUS_ON,
             'rule' => [],
@@ -279,7 +280,7 @@ class TaskTest extends TestCase
             'desc' => '',
             'request' => [
                 'type' => BaseDto::mapDesc('任务类型:', Task::TYPE),
-                'platform' => BaseDto::mapDesc('状态:', Task::PLATFORM),
+                'platform' => BaseDto::mapDesc('平台:', Task::PLATFORM),
                 'status' => BaseDto::mapDesc('状态:', Task::STATUS),
                 'package_id' => '套餐 id',
                 'title' => '标题',

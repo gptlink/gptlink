@@ -76,7 +76,6 @@ class WechatTest extends TestCase
         $response = $this->get('/wechat/weixin/qrcode', [
             'redirect_url' => '接收 code 的前端页面地址',
         ]);
-        $response->dump();
 
         $this->assertApiSuccess($response);
         $response->build(new BaseDto([

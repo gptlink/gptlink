@@ -12,7 +12,7 @@ class ChatGptModelController extends BaseController
     /**
      * @return ChatGptModelCollection
      */
-    public function index(ChatGptModelIndexRequest $request)
+    public function index()
     {
 		$models = ChatGptModel::query()
 			->search([
@@ -22,14 +22,6 @@ class ChatGptModelController extends BaseController
 					['type' => 'keyword', 'field' => 'desc', 'group' => 'keyword', 'mix' =>'or', 'before'=> '%'],
 				]
 			])
-			->whenWith([
-				'member' => ['member:id,nickname,avatar'],
-				'collect' => function ($query){ // 关联用户收藏
-					return $query->with(['myCollect' => function ($query){
-						$query->where('member_id', auth()->id());
-					}]);
-				},
-			])
 			->leftjoin('chat_gpt_model_count', 'chat_gpt_model.id', '=', 'chat_gpt_model_count.chat_gpt_model_id')
             ->where(['status' => ChatGptModel::STATUS_ON])
             ->orderByDesc('sort')
@@ -38,24 +30,5 @@ class ChatGptModelController extends BaseController
 			->pageOrAll(['id', 'user_id', 'icon', 'name', 'prompt', 'status', 'sort', 'uses', 'likes','created_at', 'desc', 'source', 'type']);
 
 		return new ChatGptModelCollection($models);
-    }
-
-    /**
-     * @param $id
-     * @return ChatGptModelResource|\Psr\Http\Message\ResponseInterface
-     */
-    public function show($id)
-    {
-        $models = ChatGptModel::query()
-            ->where([
-                'id' => $id
-            ])
-            ->first(['id', 'user_id', 'icon', 'name', 'prompt', 'status', 'sort']);
-
-        if(!$models){
-            return $this->success();
-        }
-
-        return new ChatGptModelResource($models);
     }
 }

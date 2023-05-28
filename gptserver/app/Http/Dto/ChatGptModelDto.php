@@ -58,30 +58,4 @@ class ChatGptModelDto extends Dto
             'type' => $this->getItem('type'),
         ];
     }
-
-	public function userCreateData()
-	{
-		return [
-			'user_id' => $this->getItem('user_id'),
-			'name' => $this->getItem('name'),
-			'icon' => $this->getItem('icon'),
-			'desc' => $this->getItem('desc'),
-			'system' => $this->getItem('system'),
-			'prompt' => $this->getItem('prompt'),
-			'type' => ChatGptModel::TYPE_QUESTION,
-			'source' => ChatGptModel::SOURCE_MAGIC,
-			'platform' => ChatGptModel::PLATFORM_MAGIC,
-		];
-	}
-
-	public function userUpdateData()
-	{
-		return [
-			'name' => $this->getItem('name'),
-			'icon' => $this->getItem('icon'),
-			'desc' => $this->getItem('desc'),
-			'system' => $this->getItem('system'),
-			'prompt' => $this->getItem('prompt'),
-		];
-	}
 }

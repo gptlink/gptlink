@@ -19,9 +19,8 @@ class TaskTest extends TestCase
     public function testWebTaskIndex()
     {
         $user = $this->userLogin();
-        $userId = $user['user_id'];
         /** @var Task $task */
-        $task = TaskFactory::createRecordByData(Task::TYPE_SHARE, ['user_id' => $userId]);
+        $task = TaskFactory::createRecordByData(Task::TYPE_SHARE, ['user_id' => $user->id]);
         $task->updateStatus(Task::STATUS_ON);
         $response = $this->get('/task');
         TaskFactory::deleteByModel($task);
@@ -66,7 +65,6 @@ class TaskTest extends TestCase
             'type' => Task::TYPE_SHARE
         ]);
         TaskFactory::deleteByModel($task);
-        $response->dump();
         $this->assertApiSuccess($response);
         $response->build(new BaseDto([
             'project' => ['default'],
@@ -108,12 +106,11 @@ class TaskTest extends TestCase
     {
         $user = $this->userLogin();
         /** @var Task $task */
-        $task = TaskFactory::createRecordByData(Task::TYPE_SHARE, ['user_id' => $user['user_id']]);
+        $task = TaskFactory::createRecordByData(Task::TYPE_SHARE, ['user_id' => $user->id]);
         $task->updateStatus(Task::STATUS_ON);
         $response = $this->get('/task/record/unread', [
             'type' => Task::TYPE_SHARE
         ]);
-        $response->dump();
         TaskFactory::deleteByModel($task);
         $this->assertApiSuccess($response);
         $response->build(new BaseDto([

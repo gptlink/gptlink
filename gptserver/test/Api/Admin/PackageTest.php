@@ -115,13 +115,14 @@ class PackageTest extends TestCase
             'type' => Package::TYPE_CHAT,
             'sort' => 10,
             'expired_day' => 15,
-            'num' => -1,
+            'num' => 1,
             'price' => '100.01',
             'level' => 1,
             'identity' => Package::IDENTITY_USER,
             'show_name' => '展示套餐名称',
             'code' => substr(md5((string) time()), 0, 17) . rand(111, 999),
         ]);
+
         $this->assertApiSuccess($response);
         PackageFactory::deleteById(Arr::get($response->response(), 'data.id'));
         $response->build(new BaseDto([

@@ -29,7 +29,7 @@ class OrderCollection extends BaseCollection
                 'paid_no' => $order->paid_no,
 			];
 
-			if($order->relationLoaded('member')){
+			if($order->relationLoaded('member') && $order->member){
 				$item['user'] = [
 					'nickname'=> $order->member->nickname,
 					'mobile'=> $order->member->mobile,
