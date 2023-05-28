@@ -37,13 +37,27 @@ class ChatGPTService
             'user_id' => $userId,
             'result' => $result->result,
             'request' => $result->data,
-            'debug' => $result->debug
+            'debug' => $result->debug,
+            'class' => $request::class,
+            'key' => DevelopService::getApikey(),
+            'key_type' => Config::toDto(Config::GPT_SECRET_KEY)->key_type,
         ]);
 
         // 如果没有正常返回，不进行扣费与记录
         if ($result->result) {
+
+            if (! $request instanceof ChatCompletionsRequest) {
+                $dto->cached($result->result['id'], $result->result['messages']);
+            }
+
             asyncQueue(new MemberConsumptionJob($userId));
-            asyncQueue(new UserChatLogRecordJob($result->result['messages'], $result->result['id'], $dto, $userId, $cacheMessage['first_id'] ?? ''));
+            asyncQueue(new UserChatLogRecordJob(
+                $result->result['messages'],
+                $result->result['id'],
+                $dto,
+                $userId,
+                $cacheMessage['first_id'] ?? ''
+            ));
         }
     }
 }

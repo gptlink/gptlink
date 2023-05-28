@@ -13,10 +13,8 @@ class Package extends Model
     use PackageTrait, SearchableTrait;
 
     const PLATFORM_GPT = 1;
-    const PLATFORM_AIYAA = 2;
     const PLATFORM = [
         self::PLATFORM_GPT => 'gptlink',
-        self::PLATFORM_AIYAA => 'aiyaaa',
     ];
 
     public const IDENTITY_USER = 1;

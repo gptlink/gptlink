@@ -45,14 +45,9 @@ if (! function_exists('url')) {
 }
 
 
-if (! function_exists('is_dev')) {
-    /**
-     * 是否为测试环境
-     *
-     * @return bool
-     */
-    function is_dev()
-    {
-        return config('app_name') == 'chatgpt-api-dev';
-    }
-}
+
+
+
+
+
+

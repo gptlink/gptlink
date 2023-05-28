@@ -23,6 +23,7 @@
         "doctrine/cache": "^1.11",
         "doctrine/dbal": "^3.0",
         "firebase/php-jwt": "^6.5",
+        "gioni06/gpt3-tokenizer": "^1.2",
         "hyperf/async-queue": "~2.2.0",
         "hyperf/cache": "~2.2.0",
         "hyperf/command": "~2.2.0",
