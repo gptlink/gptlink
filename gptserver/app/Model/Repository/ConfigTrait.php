@@ -6,12 +6,11 @@ use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\Config\ConfigDtoInterface;
 use App\Http\Dto\Config\GptSecretKeyDto;
-use App\Http\Dto\Config\SalesmanRuleDto;
+use App\Http\Dto\Config\ProtocolDto;
 use App\Http\Dto\Config\SmsChuangLanDto;
 use App\Http\Dto\Config\WechatPaymentDto;
 use App\Http\Dto\Config\WechatPlatformDto;
 use App\Http\Dto\Config\WechatWebDto;
-use App\Http\Service\ChatGPTService;
 use App\Http\Service\DevelopService;
 use App\Model\Config;
 use Hyperf\Database\Model\Builder;
@@ -28,6 +27,7 @@ trait ConfigTrait
         Config::WECHAT_WEB => WechatWebDto::class,  // 微信 web 端
         Config::SMS_CHUANG_LAN => SmsChuangLanDto::class,   // 创蓝
         Config::GPT_SECRET_KEY => GptSecretKeyDto::class,   // api 密钥
+        Config::PROTOCOL => ProtocolDto::class,
 	];
 
 	// 根据类型 直接new相应的dto并传入数据

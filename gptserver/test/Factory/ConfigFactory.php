@@ -4,19 +4,10 @@ declare(strict_types = 1);
 
 namespace HyperfTest\Factory;
 
-use App\Http\Dto\ChatGptModelDto;
 use App\Http\Dto\Config\GptSecretKeyDto;
-use App\Http\Dto\Config\SalesmanRuleDto;
 use App\Http\Dto\Config\WechatPaymentDto;
 use App\Http\Dto\Config\WechatPlatformDto;
-use App\Http\Dto\TaskDto;
-use App\Http\Dto\TaskRecordDto;
-use App\Model\ChatGptModel;
 use App\Model\Config;
-use App\Model\Package;
-use App\Model\Task;
-use App\Model\TaskRecord;
-use Hyperf\Utils\Arr;
 
 class ConfigFactory
 {
@@ -43,14 +34,6 @@ class ConfigFactory
 	public static function deleteById($id)
 	{
 		Config::query()->where('id', $id)->delete();
-	}
-
-	public static function createSalesmanRuleData()
-	{
-		return Config::updateOrCreateByDto(new SalesmanRuleDto([
-			'type' => 3,
-			'rule'   => '<a>分销员详情配置</a>',
-		]));
 	}
 
     public static function createGptSecretKeyData()
