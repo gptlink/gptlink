@@ -141,6 +141,6 @@ class ChatDto extends Dto
             'message' => $this->getItem('message'),
             'result' => $result,
             'tokens' => count($tokenizer->encode($string)),
-        ]);
+        ], 86400);
     }
 }

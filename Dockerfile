@@ -13,7 +13,7 @@ RUN mkdir /run/nginx /app
 
 # Copy代码
 COPY gptweb /app/gptweb
-COPY gptadmin /app/gptweb/admin
+COPY gptadmin /app/gptadmin
 COPY gptserver /app/gptserver
 COPY conf/nginx-default.conf /etc/nginx/conf.d/default.conf
 
