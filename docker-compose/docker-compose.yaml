@@ -31,12 +31,12 @@ services:
       - ${DATA_PATH}/logs/server:/app/gptserver/runtime/logs
       - ${DATA_PATH}/logs/nginx:/var/log/nginx
     environment:
-      - APP_NAME=${GPTLINL_APP_NAME}
-      - APP_URL=${GPTLINL_APP_URL}
-      - JWT_SECRET=${GPTLINL_JWT_SECRET}
-      - ADMIN_USERNAME=${GPTLINL_ADMIN_USERNAME}
-      - ADMIN_PASSWORD=${GPTLINL_ADMIN_PASSWORD}
-      - DB_HOST=${GPTLINL_DB_HOST:-mysql}
+      - APP_NAME=${GPTLINK_APP_NAME}
+      - APP_URL=${GPTLINK_APP_URL}
+      - JWT_SECRET=${GPTLINK_JWT_SECRET}
+      - ADMIN_USERNAME=${GPTLINK_ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${GPTLINK_ADMIN_PASSWORD}
+      - DB_HOST=${GPTLINK_DB_HOST:-mysql}
       - DB_PORT=${GPTLINK_DB_PORT:-3306}
       - DB_DATABASE=${GPTLINK_DB_DATABASE}
       - DB_USERNAME=${GPTLINK_DB_USERNAME}
