@@ -27,6 +27,7 @@ services:
   ### GPTLINK ################################################
   gptlink:
     image: overnick/gptlink:1.0
+    #platform: linux/x86_64
     volumes:
       - ${DATA_PATH}/logs/server:/app/gptserver/runtime/logs
       - ${DATA_PATH}/logs/nginx:/var/log/nginx
@@ -52,14 +53,12 @@ services:
       - "${GPTLINK_PORT:-80}:80"
     networks:
       - backend
-    depends_on:
-      - mysql
-      - redis
     logging: *default-logging
 
   ### Redis ################################################
   redis:
     build: ./redis
+    #platform: linux/x86_64
     volumes:
       - ${DATA_PATH}/redis:/data
     ports:
@@ -72,6 +71,7 @@ services:
   mysql:
     build:
       context: ./mysql
+    #platform: linux/x86_64
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE:-gptlink}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}

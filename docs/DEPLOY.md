@@ -21,14 +21,28 @@ cd gptlink/docker-compose
 # 如无其他需求可不修改此文件内容
 cp .env.example .env
 
-# 运行 Mysql 与 Redis 服务
-# 如遇端口冲突，可关闭机器中的 MySQL 于 Redis 或 修改 docker-compose/.env 中的配置重新运行，
+# 运行 Mysql 与 Redis 服务，如已有相关服务，可不进行启动
+# 如遇端口冲突，可尝试一下方案
+# 1. 可关闭机器中的 MySQL 与 Redis
+# 2. 修改 docker-compose/.env 中的 MYSQL_PORT , REDIS_PORT 配置重新运行
 docker-compose up -d mysql redis
 
-# 以上服务运行成功后运行gptlink
+# 运行 Web 服务
 docker-compose up -d gptlink
 ```
 
+Mac M1，M2芯片设备本地部署调试需关闭容器 `platform: linux/x86_64` 注释
+```yaml
+# ... 
+services:
+  redis:
+    build: ./redis
+    platform: linux/x86_64
+    volumes:
+      - ${DATA_PATH}/redis:/data
+
+# ... 
+```
 
 ### 更新版本/更新配置
 
@@ -51,7 +65,7 @@ docker-compose up -d gptlink
 
 ### 运行项目
 
-```
+```shell
 docker run -d -p 80:80 \
    --name=gptlink \
    -e DB_HOST="数据库连接地址" \
@@ -64,8 +78,23 @@ docker run -d -p 80:80 \
 
 # 如果你需要指定其他环境变量，请自行在上述命令中增加 `-e 环境变量=环境变量值` 来指定。
 
-测试配置项是否正常
+# 测试配置项是否正常
 docker run -it --rm gptlink /app/gptserver/test.sh
+
+```
+Mac M1，M2芯片设备本地部署调试需增加参数 `--platform=linux/x86_64`
+
+```shell
+docker run -d -p 80:80 \
+   --platform=linux/x86_64
+   --name=gptlink \
+   -e DB_HOST="数据库连接地址" \
+   -e DB_DATABASE="数据库名称" \
+   -e DB_USERNAME="数据库用户名" \
+   -e DB_PASSWORD="数据库密码" \
+   -e REDIS_HOST="Redis 链接地址" \
+   -e REDIS_PORT="Redis 端口号" \
+   overnick/gptlink:1.0
 ```
 
 ### 更新版本/更新配置
@@ -102,3 +131,6 @@ docker run -it --rm gptlink /app/gptserver/test.sh
 
 服务启动命令 `./gptserver/start.sh`
 
+## 欢迎补充
+
+如果您想提供更多的部署方式，欢迎进群联系群主申请新开仓库进行提交。

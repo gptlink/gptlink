@@ -47,4 +47,3 @@ PS: 不要填写 `127.0.0.1` 或 `localhost`，此地址是指向容器内，容
 APP_URL=https://abc.com/api/
 ...
 ```
-
