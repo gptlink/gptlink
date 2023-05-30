@@ -69,5 +69,10 @@
 
 常见问题汇总：[点击查看](./docs/FAQ.md)
 
+## 交流群
+
+<img src="https://github.com/gptlink/gptlink/assets/1472352/904f0b13-b4d7-4fba-867b-c9ad170336cc" width="300" />
+
+
 ## 开源协议
 Apache License Version 2.0 see http://www.apache.org/licenses/LICENSE-2.0.html
