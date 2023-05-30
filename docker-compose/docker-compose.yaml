@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.9'
 
 # 日志配置
 x-logging: &default-logging
@@ -53,8 +53,10 @@ services:
     networks:
       - backend
     depends_on:
-      - mysql
-      - redis
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     logging: *default-logging
 
   ### Redis ################################################
@@ -64,6 +66,11 @@ services:
       - ${DATA_PATH}/redis:/data
     ports:
       - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli","ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - backend
     logging: *default-logging
@@ -80,6 +87,11 @@ services:
       - ${DATA_PATH}/mysql:/var/lib/mysql
     ports:
       - "${MYSQL_PORT:-3306}:3306"
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - backend
     logging: *default-logging
