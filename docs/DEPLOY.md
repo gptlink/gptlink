@@ -23,10 +23,13 @@ cp .env.example .env
 
 # 运行 Mysql 与 Redis 服务
 # 如遇端口冲突，可关闭机器中的 MySQL 于 Redis 或 修改 docker-compose/.env 中的配置重新运行，
-docker-compose up -d mysql redis
+#docker-compose up -d mysql redis
 
 # 以上服务运行成功后运行gptlink
-docker-compose up -d gptlink
+#docker-compose up -d gptlink
+
+# 运行 gptlink
+docker-compose up -d
 ```
 
 
