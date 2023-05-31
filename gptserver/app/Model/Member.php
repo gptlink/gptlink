@@ -15,6 +15,15 @@ class Member extends Model implements Authenticatable
 {
     use AuthAbility, MemberTrait, SearchableTrait, PageableTrait;
 
+    const ACCOUNT_USERNAME = 1;
+    const ACCOUNT_MOBILE = 2;
+    const ACCOUNT_EMAIL = 3;
+    const ACCOUNT_TYPE = [
+        self::ACCOUNT_USERNAME => '用户名账号',
+        self::ACCOUNT_MOBILE => '手机号账号',
+        self::ACCOUNT_EMAIL => '邮件账号',
+    ];
+
     /**
      * The table associated with the model.
      *
@@ -27,7 +36,7 @@ class Member extends Model implements Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['nickname', 'avatar', 'mobile', 'code', 'status', 'platform', 'source'];
+    protected $fillable = ['nickname', 'avatar', 'mobile', 'password', 'code', 'status', 'platform', 'source'];
 
     const PLATFORM_GPT = 1;
     const PLATFORM = [

@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto\Config;
 
-use Cblink\Dto\Dto;
+use Cblink\HyperfExt\Dto;
 
 /**
  * @property bool $enable 是否开启
@@ -14,7 +14,7 @@ use Cblink\Dto\Dto;
 class SmsChuangLanDto extends Dto implements ConfigDtoInterface
 {
 	protected $fillable = [
-		'enable', 'account', 'type', 'password', 'sign'
+		'account', 'type', 'password', 'sign'
 	];
 
 	/**
@@ -25,7 +25,6 @@ class SmsChuangLanDto extends Dto implements ConfigDtoInterface
 	{
 		return [
 			'type'    => $this->getItem('type'),
-            'enable' => $this->getItem('enable', false),
 			'account'    => $this->getItem('account'),
             'password'    => $this->getItem('password'),
             'sign'    => $this->getItem('sign'),

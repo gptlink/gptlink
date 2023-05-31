@@ -6,6 +6,9 @@ use App\Model\Member;
 use Cblink\HyperfExt\Dto;
 use Hyperf\Utils\Str;
 
+/**
+ * @property string|null $share_openid
+ */
 class MemberDto extends Dto
 {
     protected $fillable = [
@@ -13,6 +16,7 @@ class MemberDto extends Dto
         'avatar',
         'mobile',
         'source',
+        'share_openid',
     ];
 
     public function getData()

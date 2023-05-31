@@ -17,6 +17,7 @@ class Config extends Model
     public const SMS_CHUANG_LAN=4;
     public const GPT_SECRET_KEY=5;
     public const PROTOCOL = 6;
+    public const PAYMENT = 7;
 
     public const TYPE = [
 		self::WECHAT_PLATFORM => '微信公众平台',
@@ -25,6 +26,7 @@ class Config extends Model
         self::SMS_CHUANG_LAN => '创蓝短信配置',
         self::GPT_SECRET_KEY => 'api密钥',
         self::PROTOCOL => '协议配置',
+        self::PAYMENT => '支付配置',
 	];
 
     /**

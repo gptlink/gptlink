@@ -8,14 +8,24 @@ use Cblink\Dto\Dto;
  * @property integer $type 类型
  * @property string $secret_key api秘钥
  * @property string $key_type 类型
+ * @property string|int $login_type 登陆类型
  */
 class GptSecretKeyDto extends Dto implements ConfigDtoInterface
 {
     const GPTLINK = 'gptlink';
     const OPENAI = 'openai';
 
+    const LOGIN_TYPE_USERNAME = 1;
+    const LOGIN_TYPE_WECHAT = 2;
+    const LOGIN_TYPE_MOBILE = 3;
+
+    const LOGIN_TYPE_WECHAT_AND_MOBILE = 4;
+
 	protected $fillable = [
-		'name', 'type', 'key_type', 'secret_key', 'icp', 'web_logo', 'admin_logo'
+		'type',
+        'key_type', 'secret_key',
+        'name', 'icp', 'web_logo', 'admin_logo', 'user_logo',
+        'login_type',
 	];
 
 	/**
@@ -32,6 +42,8 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
             'icp'   => $this->getItem('icp'),
             'web_logo'   => $this->getItem('web_logo'),
             'admin_logo'   => $this->getItem('admin_logo'),
+            'user_logo' => $this->getItem('user_logo'),
+            'login_type' => $this->getItem('login_type', self::LOGIN_TYPE_WECHAT),
 		];
 	}
 
@@ -48,6 +60,8 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
                 'icp'   => $this->getItem('icp'),
                 'web_logo'   => $this->getItem('web_logo'),
                 'admin_logo'   => $this->getItem('admin_logo'),
+                'user_logo' => $this->getItem('user_logo'),
+                'login_type' => $this->getItem('login_type', self::LOGIN_TYPE_WECHAT),
 			]
 		];
 	}

@@ -37,7 +37,6 @@ class ConfigController extends BaseController
 		throw_if(! in_array($type, array_keys(Config::TYPE)), LogicException::class, ErrCode::TYPE_IS_INVALID);
 
 		$params = $request->input('config', []);
-
 		// 根据类型获取dto
 		$useDto = Config::getTypeByDto($type, array_merge(['type' => $type], $params));
 		// 调用保存方法 传入对应dto数据

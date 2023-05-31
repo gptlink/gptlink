@@ -6,6 +6,7 @@ use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\Config\ConfigDtoInterface;
 use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\PaymentDto;
 use App\Http\Dto\Config\ProtocolDto;
 use App\Http\Dto\Config\SmsChuangLanDto;
 use App\Http\Dto\Config\WechatPaymentDto;
@@ -28,6 +29,7 @@ trait ConfigTrait
         Config::SMS_CHUANG_LAN => SmsChuangLanDto::class,   // 创蓝
         Config::GPT_SECRET_KEY => GptSecretKeyDto::class,   // api 密钥
         Config::PROTOCOL => ProtocolDto::class,
+        Config::PAYMENT => PaymentDto::class,  // 支付配置
 	];
 
 	// 根据类型 直接new相应的dto并传入数据

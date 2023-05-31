@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto\Config;
 
-use Cblink\Dto\Dto;
+use Cblink\HyperfExt\Dto;
 
 /**
  * @property string $client_id appid

@@ -41,15 +41,17 @@ trait CdkTrait
      * 生成cdk
      *
      * @param $packageId
+     * @param $groupId
      * @param $expiredAt
      * @return Cdk|\Hyperf\Database\Model\Builder|\Hyperf\Database\Model\Model
      */
-    public static function generate($packageId, $expiredAt = null)
+    public static function generate($packageId, $groupId = 0, $expiredAt = null)
     {
         return Cdk::query()->create([
             'package_id' => $packageId,
             'code' => Str::random(20),
             'status' => Cdk::STATUS_INIT,
+            'group_id' => $groupId,
             'expired_at' => $expiredAt,
         ]);
     }
