@@ -71,8 +71,8 @@
 
 常见问题汇总：[点击查看](./docs/FAQ.md)
 
-## 交流群
-
+## 微信交流群
+微信扫码加入
 <img src="https://github.com/gptlink/gptlink/assets/1472352/904f0b13-b4d7-4fba-867b-c9ad170336cc" width="300" />
 
 
