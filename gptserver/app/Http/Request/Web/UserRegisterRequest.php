@@ -13,7 +13,7 @@ class UserRegisterRequest extends BaseFormRequest
     {
         return [
             'nickname' => ['required', 'string', 'max:40', Rule::unique((new Member())->getTable(), 'nickname')],
-            'mobile' => ['required', new MobileRule(), Rule::unique((new Member())->getTable(), 'mobile')],
+            'mobile' => ['nullable', new MobileRule()],
             'password' => ['required', 'string', 'min:6', 'max:40'],
         ];
     }
@@ -21,8 +21,7 @@ class UserRegisterRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'nickname.unique' => '用户信息已存在，请更换后重试',
-            'mobile.unique' => '用户信息已存在，请更换后重试',
+            'nickname.unique' => '用户名已被使用，请更换后再试',
         ];
     }
 }

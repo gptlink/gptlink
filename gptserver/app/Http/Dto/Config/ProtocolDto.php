@@ -22,9 +22,8 @@ class ProtocolDto extends Dto implements ConfigDtoInterface
     {
         return [
             'type'    => $this->getItem('type'),
-            'account'    => $this->getItem('account'),
-            'password'    => $this->getItem('password'),
-            'sign'    => $this->getItem('sign'),
+            'title'    => $this->getItem('title'),
+            'agreement'    => $this->getItem('agreement'),
         ];
     }
 
@@ -35,10 +34,8 @@ class ProtocolDto extends Dto implements ConfigDtoInterface
     {
         return [
             'config' => [
-                'enable' => $this->getItem('enable', false),
-                'account'    => $this->getItem('account'),
-                'password'    => $this->getItem('password'),
-                'sign'    => $this->getItem('sign'),
+                'title'    => $this->getItem('title'),
+                'agreement'    => $this->getItem('agreement'),
             ]
         ];
     }

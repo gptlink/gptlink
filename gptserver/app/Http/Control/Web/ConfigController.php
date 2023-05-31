@@ -4,6 +4,7 @@ namespace App\Http\Control\Web;
 
 use App\Http\Dto\Config\GptSecretKeyDto;
 use App\Http\Dto\Config\PaymentDto;
+use App\Http\Dto\Config\ProtocolDto;
 use App\Model\Config;
 use Cblink\HyperfExt\BaseController;
 use Hyperf\Utils\Arr;
@@ -28,9 +29,14 @@ class ConfigController extends BaseController
         ]));
 
         // 默认微信登陆
-		return $this->success(array_merge([
-            'login_type' => GptSecretKeyDto::LOGIN_TYPE_WECHAT,
-        ], $result));
+		return $this->success([
+            'name' => $result['name'] ?? '',
+            'icp' => $result['icp'] ?? '',
+            'web_logo' => $result['web_logo'] ?? '',
+            'admin_logo' => $result['admin_logo'] ?? '',
+            'user_logo' => $result['user_logo'] ?? '',
+            'login_type' => $result['login_type'] ?: GptSecretKeyDto::LOGIN_TYPE_WECHAT,
+        ]);
 	}
 
     /**
@@ -45,8 +51,25 @@ class ConfigController extends BaseController
         $config = Config::toDto(Config::PAYMENT);
 
         return $this->success([
-            'channel' => $config->channel ?: [],
+            'channel' => $config->channel,
             'offline' => $config->offline,
+        ]);
+    }
+
+    /**
+     * 获取支付配置
+     *
+     * @return ResponseInterface
+     * @throws \Throwable
+     */
+    public function getProtocol()
+    {
+        /* @var ProtocolDto $config */
+        $config = Config::toDto(Config::PROTOCOL);
+
+        return $this->success([
+            'title' => $config->title,
+            'agreement' => $config->agreement,
         ]);
     }
 }

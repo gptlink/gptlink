@@ -20,7 +20,7 @@ class DocsController extends BaseController
     {
         $response = Context::get(ResponseInterface::class);
 
-        $path = sprintf('%s/storage/%s-swagger.json',BASE_PATH, $project);
+        $path = sprintf('%s/storage/swagger/%s-swagger.json',BASE_PATH, $project);
 
         $result = file_exists($path) ?
             file_get_contents($path) :

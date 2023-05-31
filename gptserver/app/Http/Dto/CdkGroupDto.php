@@ -5,7 +5,7 @@ namespace App\Http\Dto;
 use Cblink\Dto\Dto;
 
 /**
- * @property string $name 服务对象名称
+ * @property string $name 分组名称
  * @property int $num CDK生成数量
  * @property int $package_id 套餐包ID
  * @property int $price 价格

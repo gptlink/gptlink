@@ -66,6 +66,7 @@ Router::addGroup('/sms', function () {
 Router::addGroup('/config', function () {
     Router::get('/basic-info', [Api\Web\ConfigController::class, 'getBasicInfo']);
     Router::get('/payment', [Api\Web\ConfigController::class, 'getPayment']);
+    Router::get('/agreement', [Api\Web\ConfigController::class, 'getProtocol']);
 });
 
 // 通知路由

@@ -50,7 +50,7 @@ class PaymentConfigTest extends TestCase
 
         $response = $this->post(sprintf('/admin/config/%s', Config::PAYMENT), [
             'config' => [
-                'channel' => PaymentDto::TYPE_OFFICIAL,
+                'channel' => PaymentDto::TYPE_OFFLINE,
                 'official' => '线下支付内容',
             ],
         ]);

@@ -15,6 +15,7 @@ use Hyperf\Database\Model\ModelNotFoundException;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Exception\HttpException;
 use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\Pool\Exception\ConnectionException;
 use Hyperf\Validation\ValidationException;
 use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
 use Psr\Http\Message\ResponseInterface;
@@ -77,6 +78,10 @@ class AppExceptionHandler extends ExceptionHandler
             return $this->error($response, $throwable->getCode(), '', [
                 'data' => json_decode($throwable->getMessage(), true),
             ]);
+        }
+
+        if ($throwable instanceof ConnectionException || $throwable instanceof \PDOException) {
+            return $this->error($response, ErrCode::SERVER_CONNECTION_FAIL, $throwable->getMessage());
         }
 
         $payload = config('app_debug', false) ?

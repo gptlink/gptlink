@@ -42,6 +42,9 @@ class ErrCode extends AbstractConstants
      * @Message("服务器错误")
      */
     const SERVER_ERROR = 500;
+
+    const SERVER_CONNECTION_FAIL = 2002;
+
     /**
      * @Message("请求的资源不存在")
      */

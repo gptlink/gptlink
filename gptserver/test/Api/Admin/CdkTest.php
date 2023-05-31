@@ -40,14 +40,14 @@ class CdkTest extends TestCase
             'desc' => '【原型页面兑换码 - 兑换码列表】',
             'request' => [
                 'with_query' => 'package 关联套餐',
-                'name' => '服务对象搜索',
+                'name' => '分组名称搜索',
                 'created_at' => '时间区间： 2023-01-01~2023-12-31',
             ],
             'request_except' => [],
             'response' => [
                 '*.id' => '兑换码批次号',
                 '*.num' => '生成数量',
-                '*.name' => '服务对象',
+                '*.name' => '分组名称',
                 '*.package_id' => '关联的套餐id',
                 '*.created_at' => '创建时间',
                 '*.package' => '套餐信息',
@@ -82,7 +82,7 @@ class CdkTest extends TestCase
             'params' => [],
             'desc' => '',
             'request' => [
-                'name' => '服务对象',
+                'name' => '分组名称',
                 'package_id' => '关联的套餐id',
                 'num' => '生成兑换码数量',
                 'remark' => '备注信息',
@@ -90,7 +90,7 @@ class CdkTest extends TestCase
             'request_except' => [],
             'response' => [
                 'id' => '兑换码批次号',
-                'name' => '服务对象',
+                'name' => '分组名称',
                 'num' => '生成兑换码数量',
                 'package_id' => '关联的套餐id',
                 'remark' => '备注信息',
@@ -127,7 +127,7 @@ class CdkTest extends TestCase
             'request_except' => [],
             'response' => [
                 'id' => '兑换码批次号',
-                'name' => '服务对象',
+                'name' => '分组名称',
                 'num' => '生成兑换码数量',
                 'package_id' => '关联的套餐id',
                 'remark' => '备注信息',
@@ -166,13 +166,13 @@ class CdkTest extends TestCase
             ],
             'desc' => '',
             'request' => [
-                'name' => '服务对象',
+                'name' => '分组名称',
                 'remark' => '备注信息',
             ],
             'request_except' => [],
             'response' => [
                 'id' => '兑换码批次号',
-                'name' => '服务对象',
+                'name' => '分组名称',
                 'num' => '生成兑换码数量',
                 'package_id' => '关联的套餐id',
                 'remark' => '备注信息',
@@ -213,7 +213,7 @@ class CdkTest extends TestCase
             'desc' => '【原型页面兑换码 - 查询兑换码】',
             'request' => [
                 'with_query' => 'package 关联套餐 member 关联用户 group 关联批次',
-                'name' => '服务对象搜索',
+                'name' => '分组名称搜索',
                 'code' => '兑换码搜索',
                 'nickname' => '用户昵称搜索',
                 'mobile' => "用户手机号搜索",
@@ -224,7 +224,7 @@ class CdkTest extends TestCase
             'request_except' => [],
             'response' => [
                 '*.id' => '兑换码批次号',
-                '*.name' => '服务对象',
+                '*.name' => '分组名称',
                 '*.code' => '兑换码',
                 '*.user_id' => '用户id',
                 '*.group_id' => '批次id',
@@ -243,7 +243,7 @@ class CdkTest extends TestCase
                 '*.member.mobile' => '用户手机号',
                 '*.group' => '批次信息',
                 '*.group.id' => '批次id',
-                '*.group.name' => '服务对象名称',
+                '*.group.name' => '分组名称',
             ],
         ]));
     }
@@ -277,7 +277,7 @@ class CdkTest extends TestCase
             'desc' => '直接访问接口，导出兑换码列表，文件流自动下载',
             'request' => [
                 'with_query' => 'package 关联套餐 member 关联用户 group 关联批次',
-                'name' => '服务对象搜索',
+                'name' => '分组名称搜索',
                 'is_all' => '获取全部数据传true 【必传参数】',
                 'code' => '兑换码搜索',
                 'nickname' => '用户昵称搜索',

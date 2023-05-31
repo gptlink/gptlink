@@ -11,11 +11,11 @@ use Cblink\HyperfExt\Dto;
  */
 class PaymentDto extends Dto implements ConfigDtoInterface
 {
-    const TYPE_OFFICIAL = 'official';
+    const TYPE_OFFLINE = 'offline';
     const TYPE_WECHAT = 'wechat';
 
     const TYPES = [
-        self::TYPE_OFFICIAL => '线下支付',
+        self::TYPE_OFFLINE => '线下支付',
         self::TYPE_WECHAT => '微信支付',
     ];
 
