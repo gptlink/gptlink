@@ -10,6 +10,6 @@ class BaseDto extends Dto
 {
     public function getConfig(): array
     {
-        return require BASE_PATH . '/test/yapi.php';
+        return require BASE_PATH . '/test/TestDto/config.php';
     }
 }

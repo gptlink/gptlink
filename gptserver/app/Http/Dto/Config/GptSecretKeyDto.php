@@ -2,6 +2,7 @@
 
 namespace App\Http\Dto\Config;
 
+use App\Model\Config;
 use Cblink\Dto\Dto;
 
 /**
@@ -20,6 +21,12 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
     const LOGIN_TYPE_MOBILE = 3;
 
     const LOGIN_TYPE_WECHAT_AND_MOBILE = 4;
+    const LOGIN_TYPE = [
+        self::LOGIN_TYPE_USERNAME => '用户名密码',
+        self::LOGIN_TYPE_WECHAT => '微信登陆',
+        self::LOGIN_TYPE_MOBILE => '手机号登录',
+        self::LOGIN_TYPE_WECHAT_AND_MOBILE => '微信+手机号登录'
+    ];
 
 	protected $fillable = [
 		'type',
@@ -72,7 +79,7 @@ class GptSecretKeyDto extends Dto implements ConfigDtoInterface
 	public function getUniqueFillable(): array
 	{
 		return [
-			'type'    => $this->getItem('type'),
+			'type'    => $this->getItem('type', Config::GPT_SECRET_KEY),
 		];
 	}
 }

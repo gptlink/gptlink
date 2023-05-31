@@ -69,18 +69,17 @@ class LoginTest extends TestCase
                 'mobile' => '手机号',
                 'code' => '手机短信 code',
                 'oauth_id' => '第一次注册时第三方登陆接口返回的 oauth_id',
-                'platform' => BaseDto::mapDesc('注册平台', Member::PLATFORM),
-                'business_id' => '商户ID，或模型ID',
                 'source' => '用户来源，通常为给第三方的标识',
             ],
             'request_except' => ['source', 'platform', 'business_id'],
             'response' => [
                 'user' => '用户信息',
+                'user.openid' => '用户ID',
                 'user.nickname' => 'nickname',
                 'user.avatar' => '头像',
-                'user.mobile' => '手机号',
                 'access_token' => 'token',
-                'expire_in' => '失效时间'
+                'expire_in' => '有效期',
+                'token_type' => '认证方式',
             ],
         ]));
     }

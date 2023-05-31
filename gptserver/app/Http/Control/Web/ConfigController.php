@@ -45,7 +45,7 @@ class ConfigController extends BaseController
         $config = Config::toDto(Config::PAYMENT);
 
         return $this->success([
-            'channel' => $config->channel,
+            'channel' => $config->channel ?: [],
             'offline' => $config->offline,
         ]);
     }

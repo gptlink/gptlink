@@ -2,6 +2,7 @@
 
 namespace App\Http\Dto\Config;
 
+use App\Model\Config;
 use Cblink\HyperfExt\Dto;
 
 /**
@@ -29,7 +30,7 @@ class PaymentDto extends Dto implements ConfigDtoInterface
     public function getDefaultConfig(): array
     {
         return [
-            'channel' => $this->getItem('channel', []),
+            'channel' => $this->getItem('channel'),
             'offline' => $this->getItem('offline'),
         ];
     }
@@ -53,7 +54,7 @@ class PaymentDto extends Dto implements ConfigDtoInterface
     public function getUniqueFillable(): array
     {
         return [
-            'type' => $this->getItem('type'),
+            'type' => $this->getItem('type', Config::PAYMENT),
         ];
     }
 }

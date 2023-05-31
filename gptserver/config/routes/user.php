@@ -39,6 +39,7 @@ Router::addGroup('', function () {
 
 // 模型
 Router::get('/chat-gpt-model', [Api\Web\ChatGptModelController::class, 'index']);
+Router::get('/docs/{project}/swagger', [Api\Common\DocsController::class, 'swagger']);
 
 // 微信相关
 Router::addGroup('/wechat', function () {

@@ -161,7 +161,9 @@ class CdkTest extends TestCase
             'project' => ['admin'],
             'name' => '修改兑换码',
             'category' => '兑换码',
-            'params' => [],
+            'params' => [
+                3 => '兑换码组ID'
+            ],
             'desc' => '',
             'request' => [
                 'name' => '服务对象',

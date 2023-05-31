@@ -12,4 +12,3 @@ runtime/
 *.cache
 vendor/
 yapi.php
-test/yapi.php

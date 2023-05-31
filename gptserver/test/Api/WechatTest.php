@@ -123,13 +123,14 @@ class WechatTest extends TestCase
             ],
             'request_except' => [],
             'response' => [
-                'oauth_id' => '认证 id(当第一次注册的时候只会返回此参数)',
+                'oauth_id' => '认证 id，返回此字段时候需要前往手机号登录页',
                 'user' => '用户信息',
+                'user.openid' => '用户ID',
                 'user.nickname' => 'nickname',
                 'user.avatar' => '头像',
-                'user.mobile' => '手机号',
                 'access_token' => 'token',
-                'expire_in' => '失效时间',
+                'expire_in' => '有效期',
+                'token_type' => '认证方式',
             ],
         ]));
     }

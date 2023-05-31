@@ -59,10 +59,10 @@ trait MemberTrait
     /**
      * 修改密码
      *
-     * @param $password
+     * @param string $password
      * @return void
      */
-    public function changePassword($password)
+    public function changePassword(string $password)
     {
         $this->password = sha1($password);
         $this->save();

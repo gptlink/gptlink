@@ -2,6 +2,7 @@
 
 namespace App\Http\Dto\Config;
 
+use App\Model\Config;
 use Cblink\HyperfExt\Dto;
 
 /**
@@ -50,7 +51,7 @@ class WechatPaymentDto extends Dto implements ConfigDtoInterface
 	public function getUniqueFillable(): array
 	{
 		return [
-			'type'    => $this->getItem('type'),
+			'type'    => $this->getItem('type', Config::WECHAT_PAYMENT),
 		];
 	}
 }

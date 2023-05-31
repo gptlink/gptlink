@@ -88,7 +88,10 @@ class MemberOauthService
     {
         if ($dto->mobile) {
             // 创建用户
-            $member = Member::query()->where('mobile', $dto->mobile)->first();
+            $member = Member::query()
+                ->where('mobile', $dto->mobile)
+                ->where('account_type', Member::ACCOUNT_MOBILE)
+                ->first();
 
             if ($member) {
                 // 查询是否绑定其他的认证信息

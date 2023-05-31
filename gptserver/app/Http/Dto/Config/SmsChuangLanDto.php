@@ -2,6 +2,7 @@
 
 namespace App\Http\Dto\Config;
 
+use App\Model\Config;
 use Cblink\HyperfExt\Dto;
 
 /**
@@ -52,7 +53,7 @@ class SmsChuangLanDto extends Dto implements ConfigDtoInterface
 	public function getUniqueFillable(): array
 	{
 		return [
-			'type' => $this->getItem('type'),
+			'type' => $this->getItem('type', Config::SMS_CHUANG_LAN),
 		];
 	}
 }

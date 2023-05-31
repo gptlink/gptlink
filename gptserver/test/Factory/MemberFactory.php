@@ -26,9 +26,7 @@ class MemberFactory
             'nickname' => 'test',
             'avatar' => 'test.jpg',
             'mobile' => '13100010001',
-            'platform',
-            'business_id',
-            'source',
+            'account_type' => Member::ACCOUNT_MOBILE,
         ], $payload)));
     }
 

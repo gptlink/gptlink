@@ -44,7 +44,9 @@ class AuthController extends BaseController
     /**
      * 用户注册
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param UserRegisterRequest $request
+     * @return ResponseInterface
+     * @throws \Throwable
      */
     public function register(UserRegisterRequest $request)
     {
@@ -57,9 +59,13 @@ class AuthController extends BaseController
             ErrCode::REGISTER_TYPE_NOT_SUPPORT
         );
 
-        $member = Member::createByDto(new MemberDto($request->inputs([
+        $member = Member::createByDto(new MemberDto(array_merge($request->inputs([
             'nickname', 'mobile', 'source', 'share_openid',
+        ]), [
+            'account_type' => Member::ACCOUNT_USERNAME,
         ])));
+
+        $member->changePassword($request->input('password'));
 
         return $this->success($member->getLoginInfo());
     }
@@ -74,10 +80,15 @@ class AuthController extends BaseController
     public function reset(UserResetRequest $request)
     {
         $member = Member::query()
-            ->where($request->inputs(['nickname', 'mobile']))
+            ->where($request->inputs(['nickname']))
+            ->where('account_type', Member::ACCOUNT_USERNAME)
             ->first();
 
-        throw_unless($member, LogicException::class, ErrCode::USER_NOT_FOUND);
+        $verify = $request->input('account_type') == UserResetRequest::VERIFY_TYPE_MOBILE ?
+            $request->input('verify') == $member->mobile :
+            $member->verifyPassword($request->input('verify'));
+
+        throw_unless($verify, LogicException::class, ErrCode::USER_NOT_FOUND);
 
         $member->changePassword($request->input('password'));
 

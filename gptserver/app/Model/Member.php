@@ -36,7 +36,7 @@ class Member extends Model implements Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['nickname', 'avatar', 'mobile', 'password', 'code', 'status', 'platform', 'source'];
+    protected $fillable = ['nickname', 'avatar', 'mobile', 'password', 'code', 'status', 'platform', 'source', 'account_type'];
 
     const PLATFORM_GPT = 1;
     const PLATFORM = [

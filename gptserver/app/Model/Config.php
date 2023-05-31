@@ -24,7 +24,7 @@ class Config extends Model
 		self::WECHAT_PAYMENT => '微信支付',
         self::WECHAT_WEB   => '微信PC应用配置',
         self::SMS_CHUANG_LAN => '创蓝短信配置',
-        self::GPT_SECRET_KEY => 'api密钥',
+        self::GPT_SECRET_KEY => '站点基础配置',
         self::PROTOCOL => '协议配置',
         self::PAYMENT => '支付配置',
 	];
