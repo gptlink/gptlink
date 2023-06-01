@@ -14,6 +14,7 @@ class CdkController extends BaseController
      * 兑换码
      *
      * @param CdkExchangeRequest $request
+     * @param LimitService $service
      * @return ResponseInterface
      * @throws \Throwable
      */

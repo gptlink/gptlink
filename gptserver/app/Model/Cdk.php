@@ -34,15 +34,13 @@ class Cdk extends Model
      *
      * @var array
      */
-    protected $fillable = ['package_id', 'code', 'user_id', 'status', 'expired_at', 'group_id', 'updated_at'];
+    protected $fillable = ['package_id', 'code', 'user_id', 'status', 'expired_at', 'group_id'];
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-
-    public $timestamps = false;
 
     /**
      * @return \Hyperf\Database\Model\Relations\HasOne

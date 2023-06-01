@@ -84,11 +84,11 @@ class AuthController extends BaseController
             ->where('account_type', Member::ACCOUNT_USERNAME)
             ->first();
 
-        $verify = $request->input('account_type') == UserResetRequest::VERIFY_TYPE_MOBILE ?
-            $request->input('verify') == $member->mobile :
+        $verify = $request->input('verify_type') == UserResetRequest::VERIFY_TYPE_MOBILE ?
+            ($request->input('verify') == $member->mobile) :
             $member->verifyPassword($request->input('verify'));
 
-        throw_unless($verify, LogicException::class, ErrCode::USER_NOT_FOUND);
+        throw_unless($verify, LogicException::class, ErrCode::USER_VERIFY_FAIL);
 
         $member->changePassword($request->input('password'));
 

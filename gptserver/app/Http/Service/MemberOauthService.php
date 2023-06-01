@@ -59,11 +59,6 @@ class MemberOauthService
 
         // 判断是否存在会员信息
         if ($oauth->member_id && $member = Member::query()->findOrFail($oauth->member_id)) {
-            // 如果开启了手机号登录，并且手机号为空，也前往登录页
-            if ($loginConfig->login_type == GptSecretKeyDto::LOGIN_TYPE_WECHAT_AND_MOBILE && empty($member->mobile)) {
-                return $oauth;
-            }
-
             return $member;
         }
 

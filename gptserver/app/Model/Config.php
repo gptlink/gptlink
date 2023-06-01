@@ -18,6 +18,7 @@ class Config extends Model
     public const GPT_SECRET_KEY=5;
     public const PROTOCOL = 6;
     public const PAYMENT = 7;
+    public const KEYWORD = 8;
 
     public const TYPE = [
 		self::WECHAT_PLATFORM => '微信公众平台',
@@ -27,6 +28,7 @@ class Config extends Model
         self::GPT_SECRET_KEY => '站点基础配置',
         self::PROTOCOL => '协议配置',
         self::PAYMENT => '支付配置',
+        self::KEYWORD => '关键词配置',
 	];
 
     /**

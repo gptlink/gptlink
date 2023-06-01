@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Resource\Admin;
 
 use App\Model\Cdk;
+use Carbon\Carbon;
 use Cblink\HyperfExt\BaseCollection;
 
 class CdkListCollection extends BaseCollection
@@ -19,8 +20,8 @@ class CdkListCollection extends BaseCollection
                 'user_id' => $model->user_id,
                 'group_id' => $model->group_id,
                 'status' => $model->status,
-                'created_at' => $model->created_at,
-                'updated_at' => $model->updated_at,
+                'created_at' => $this->format($model),
+                'updated_at' => $this->format($model->updated_at, $model->status == Cdk::STATUS_USED),
             ];
 
             if($model->relationLoaded('package')){
@@ -49,5 +50,23 @@ class CdkListCollection extends BaseCollection
 
             return $item;
         })->toArray();
+    }
+
+    /**
+     * @param $date
+     * @param $show
+     * @return string
+     */
+    public function format($date, $show = true)
+    {
+        if (! $show) {
+            return '';
+        }
+
+        if ($date instanceof Carbon) {
+            return $date->toDateTimeString();
+        }
+
+        return $date;
     }
 }

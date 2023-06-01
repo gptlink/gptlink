@@ -110,6 +110,11 @@ class ErrCode extends AbstractConstants
     const REGISTER_TYPE_NOT_SUPPORT = 10009;
 
     /**
+     * @Message("验证失败，请重新校验")
+     */
+    const USER_VERIFY_FAIL = 10010;
+
+    /**
      * @Message("该套餐以下线，请刷新页面后重试")
      */
     const PACKAGE_IS_OFFLINE = 10107;
