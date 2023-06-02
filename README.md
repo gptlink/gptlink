@@ -35,12 +35,12 @@
 项目提供有限的权限控制功能，项目配置文件位于 `gptserver/.env`，如诺不存在此文件，将 `gptserver/.env.example` 更名为 `.env` 作为配置项进行使用，详细的配置说明 [点此查看](./docs/ENV.md)
 
 ## 部署
-项目支持多种部署方式，部署文档参考：[点此查看](./docs/DEPLOY.md)
+项目支持多种部署方式，部署文档参考：[点此查看](https://github.com/gptlink/gptlink-deploy)
 
 - PHP 环境部署
 - Docker 部署
 - Docker Compose 部署
-- 云主机镜像部署
+- ...
 
 ### 访问
 
