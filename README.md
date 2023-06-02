@@ -25,7 +25,10 @@
 2. 准备好一个 API Key，推荐使用 [GPTLINK](https://gpt-link.com) Key；
    - [GPTLINK](https://gpt-link.com) Key ，注册完成之后进入个人中心申请开发者后获取 API Key，过程非常简单，无需审核，接口无需代理；
    - OpenAi 官方 Key；
-3. 微信相关资源（[网站应用](https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html)，[微信公众号](https://mp.weixin.qq.com/)，[微信支付](https://pay.weixin.qq.com/)），网站应用用于 PC 端扫码登录，公众号用于微信内网页登录，缺省情况将无法在对应渠道使用；
+3. 微信相关应用（非必须）
+   - [微信网站应用](https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html)
+   - [微信公众号](https://mp.weixin.qq.com/)
+   - [微信支付](https://pay.weixin.qq.com/)
 
 ## 项目配置
 
@@ -46,9 +49,9 @@
 ## 版本计划
 - [ ] 前端开源
 - [ ] 管理端开源
-- [ ] 账号密码登录
-- [ ] 线下收款配置
-- [ ] 兑换码
+- [x] 账号密码登录
+- [x] 线下收款配置
+- [x] 兑换码
 - [ ] 对话记录
 - [ ] AI 生图
 - [ ] 分销
