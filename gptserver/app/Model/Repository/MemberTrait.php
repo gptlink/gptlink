@@ -16,10 +16,8 @@ trait MemberTrait
     {
         $member = Member::query()->create($dto->getData());
 
-        if ($dto->share_openid) {
-            // 如果存在分享 share_openid 需要触发
-            asyncQueue(new UserRegisterRecordJob($member->id, $dto->share_openid));
-        }
+        // 如果存在分享 share_openid 需要触发
+        asyncQueue(new UserRegisterRecordJob($member->id, $dto->share_openid));
 
         return $member;
     }
