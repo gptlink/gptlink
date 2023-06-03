@@ -46,10 +46,7 @@ class ChatController extends BaseController
         ]));
 
         // 数据量输出
-        $this->service->chatProcess(
-            $userId,
-            $chatDto
-        );
+        $this->service->chatProcess($userId, $chatDto);
 
         return $this->success();
     }

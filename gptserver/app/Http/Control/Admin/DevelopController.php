@@ -26,7 +26,12 @@ class DevelopController extends BaseController
         $config = \App\Model\Config::toDto(Config::GPT_SECRET_KEY);
 
         if (empty($config->secret_key) || GptSecretKeyDto::OPENAI == $config->key_type) {
-            $response = [];
+            $response = [
+                'name' => null,
+                'num' => null,
+                'used' => null,
+                'expired_at' => null,
+            ];
         } else {
             $response = $service->getPackage();
         }

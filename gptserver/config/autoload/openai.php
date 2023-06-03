@@ -5,10 +5,9 @@ return [
 
     'base_url' => env('OPENAI_BASE_URL', 'https://api.gpt-link.com/'),
 
-
     'chat' => [
-        'host' => env('OPENAI_HOST', 'api.gpt-link.com'),
-        'port' => env('OPENAI_PORT', 443),
+        'host' => env('OPENAI_HOST'),
+        'port' => env('OPENAI_PORT'),
 
         'proxy' => [
             'socks5_host' => env('OPENAI_PROXY_HOST'),

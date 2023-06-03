@@ -2,13 +2,11 @@
 
 namespace App\Base\OpenAi;
 
-use App\Http\Dto\ChatDto;
+use App\Http\Dto\Config\GptSecretKeyDto;
 use Hyperf\HttpMessage\Server\Connection\SwooleConnection;
 use Hyperf\HttpServer\Contract\ResponseInterface;
-use Hyperf\Utils\Arr;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Psr\SimpleCache\InvalidArgumentException;
 use Swoole\Coroutine\Http2\Client;
 use Swoole\Http2\Request;
 
@@ -39,9 +37,15 @@ class OpenAIClient
      */
     protected $debug = '';
 
-    public function __construct()
+    /**
+     * @var mixed|null
+     */
+    protected $chatKeyType;
+
+    public function __construct($keyType = null)
     {
         $this->connect();
+        $this->chatKeyType = $keyType;
     }
 
     /**
@@ -132,18 +136,25 @@ class OpenAIClient
     protected function getClient()
     {
         if (! $this->client) {
-            $this->client = new Client(
-                config('openai.chat.host'),
-                config('openai.chat.port'),
-                config('openai.chat.port') == 443
-            );
+            $clientConfig = [config('openai.chat.host'), config('openai.chat.port')];
+
+            if (! array_filter($clientConfig)) {
+                $clientConfig = match ($this->chatKeyType){
+                    GptSecretKeyDto::OPENAI => ['api.openai.com', 443, true],
+                    default => ['api.gpt-link.com', 443, true],
+                };
+            } else {
+                $clientConfig[] = config('openai.chat.port') == 443;
+            }
+
+            $this->client = new Client(...$clientConfig);
 
             if (config('openai.chat.proxy.socks5_host') && config('openai.chat.proxy.socks5_port')) {
                 $this->client->set([
                     'socks5_host' => config('openai.chat.proxy.socks5_host'),
                     'socks5_port' => config('openai.chat.proxy.socks5_port'),
                     'timeout' => -1,
-                    'ssl_host_name' => 'api.openai.com',
+                    'ssl_host_name' => config('openai.chat.host'),
                 ]);
             }
 

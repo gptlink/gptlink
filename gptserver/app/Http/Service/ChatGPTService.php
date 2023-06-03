@@ -23,25 +23,7 @@ class ChatGPTService
      */
     public function chatProcess($userId, ChatDto $dto)
     {
-        // 发送请求
-        $client = new OpenAIClient();
-
-        $request = Config::toDto(Config::GPT_SECRET_KEY)->key_type == GptSecretKeyDto::OPENAI ?
-            new OpenaiChatCompletionsRequest($dto):
-            new ChatCompletionsRequest($dto);
-
-        /* @var ChatCompletionsRequest $result */
-        $result = $client->exec($request);
-
-        logger()->info('openai result', [
-            'user_id' => $userId,
-            'result' => $result->result,
-            'request' => $result->data,
-            'debug' => $result->debug,
-            'class' => $request::class,
-            'key' => DevelopService::getApikey(),
-            'key_type' => Config::toDto(Config::GPT_SECRET_KEY)->key_type,
-        ]);
+        [$result, $request] = $this->exec($dto, $userId);
 
         // 如果没有正常返回，不进行扣费与记录
         if ($result->result) {
@@ -59,5 +41,42 @@ class ChatGPTService
                 $cacheMessage['first_id'] ?? ''
             ));
         }
+    }
+
+    /**
+     * 发送请求
+     *
+     * @param ChatDto $dto
+     * @param $userId
+     * @return array
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Throwable
+     */
+    public function exec(ChatDto $dto, $userId)
+    {
+        $keyType = Config::toDto(Config::GPT_SECRET_KEY)->key_type;
+
+        // 发送请求
+        $client = new OpenAIClient($keyType);
+
+        $request = match ($keyType){
+            GptSecretKeyDto::OPENAI => new OpenaiChatCompletionsRequest($dto),
+            default => new ChatCompletionsRequest($dto),
+        };
+
+        /* @var ChatCompletionsRequest $result */
+        $result = $client->exec($request);
+
+        logger()->info('openai result', [
+            'user_id' => $userId,
+            'result' => $result->result,
+            'request' => $result->data,
+            'debug' => $result->debug,
+            'class' => $request::class,
+            'key' => DevelopService::getApikey(),
+            'key_type' => Config::toDto(Config::GPT_SECRET_KEY)->key_type,
+        ]);
+
+        return [$result, $request];
     }
 }
