@@ -51,8 +51,14 @@ PS : 不要填写 `127.0.0.1` 或 `localhost`，此地址是指向容器内，�
 
 ### 如何查看服务日志
 
-docker-compose 方式启动的项目，可以在 `docker-compose/data/logs` 目录中查看异常日志。如为 `Docker`方式运行，
+1. 异常日志与调用日志
+
+`docker-compose` 方式启动的项目，可以在 `docker-compose/data/logs` 目录中查看异常日志。如为 `Docker`方式运行，
 可查看 `/app/gptserver/runtime/logs` 目录中的日志内容，或将此目录与宿主机共享
+
+2. 运行时的日志
+
+可通过 `docker-compose logs gptlink` 或 `docker` 部署时使用 `docker logs gptlink` 查看运行日志。
 
 
 ## 其他
