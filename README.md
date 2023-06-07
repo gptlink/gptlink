@@ -75,7 +75,7 @@
 常见问题汇总：[点击查看](./docs/FAQ.md)
 
 ## 微信交流群
-<img src="https://github.com/gptlink/gptlink/assets/1472352/904f0b13-b4d7-4fba-867b-c9ad170336cc" width="300" />
+<img src="https://raw.githubusercontent.com/gptlink/gptlink/master/docs/images/qrcode.png" width="300" />
 
 
 ## 开源协议
