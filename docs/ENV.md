@@ -21,8 +21,8 @@
 | APP_NAME               | gptlink                          | gptlink          | 站点名称，可自行修改为系统标识名称，无限制内容               |
 | APP_URL                | http://127.0.0.1                 | http://127.0.0.1 | 访问的项目地址，域名或IP或域名+端口号,填写错误可能导致支付无法成功回调 |
 | JWT_SECRET             | wY3f28d8Wq4md2dNuXPHEdUccv2YWbKf |                  | 密钥，填入随机的32位字符即可                       |
-| OPENAI配置（使用GPTLink可忽略） | &nbsp;                           | &nbsp;           | &nbsp;                                |
-| OPENAI_HOST            | api.openai.com                   |                  | Openai请求地址                            |
-| OPENAI_PORT            | 443                              |                  | 访问端口                                  |
+| OPENAI配置 | &nbsp;                           | &nbsp;           | &nbsp;                                |
+| OPENAI_HOST            | api.openai.com                   | api.openai.com   | 请求地址或代理地址，不填写则默认为 api.openai.com |
+| OPENAI_PORT            | 443                              | 443              | 访问端口，不填写则默认为 443                           |
 | OPENAI_PROXY_HOST      | 172.0.0.1                        |                  | 代理地址，域名或ip都可，不填写则直连                   |
 | OPENAI_PROXY_PORT      | 8888                             |                  | 代理端口，不填写则直连                           |
