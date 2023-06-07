@@ -44,8 +44,8 @@ class OpenAIClient
 
     public function __construct($keyType = null)
     {
-        $this->connect();
         $this->chatKeyType = $keyType;
+        $this->connect();
     }
 
     /**
@@ -149,15 +149,16 @@ class OpenAIClient
 
             $this->client = new Client(...$clientConfig);
 
+            $options = ['timeout' => -1,];
+
             if (config('openai.chat.proxy.socks5_host') && config('openai.chat.proxy.socks5_port')) {
-                $this->client->set([
+                $options = array_merge([
                     'socks5_host' => config('openai.chat.proxy.socks5_host'),
                     'socks5_port' => config('openai.chat.proxy.socks5_port'),
-                    'timeout' => -1,
                     'ssl_host_name' => config('openai.chat.host'),
-                ]);
+                ], $options);
             }
-
+            $this->client->set($options);
         }
 
         return $this->client;

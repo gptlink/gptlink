@@ -74,7 +74,7 @@ class ChatGPTService
             'debug' => $result->debug,
             'class' => $request::class,
             'key' => DevelopService::getApikey(),
-            'key_type' => Config::toDto(Config::GPT_SECRET_KEY)->key_type,
+            'key_type' => $keyType,
         ]);
 
         return [$result, $request];
