@@ -67,6 +67,9 @@ PS : 不要填写 `127.0.0.1` 或 `localhost`，此地址是指向容器内，�
 
 可通过 `docker-compose logs gptlink` 或 `docker` 部署时使用 `docker logs gptlink` 查看运行日志。
 
+### 数据表没有成功创建
+
+通过容器运行时的日志查看运行失败原因，处理后重新运行容器。或可以在容器内通过  `php /app/gptserver/hyperf migrate` 命令完成数据表结构的迁移。
 
 ## 其他
 ### 用户登录方式切换后原账号无法使用
