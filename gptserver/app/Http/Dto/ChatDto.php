@@ -9,6 +9,7 @@ use Cblink\Dto\Dto;
 use Gioni06\Gpt3Tokenizer\Gpt3Tokenizer;
 
 /**
+ * @property string $model 使用的模型
  * @property string $message 提示词
  * @property bool $stream 是否已数据流格式返回
  *
@@ -17,9 +18,6 @@ use Gioni06\Gpt3Tokenizer\Gpt3Tokenizer;
  */
 class ChatDto extends Dto
 {
-    const MAX_MODEL_TOKENS = 3800;
-    const MAX_RESPONSE_TOKEN = 1000;
-
     protected $fillable = [
         'model',
         'message',
@@ -72,41 +70,63 @@ class ChatDto extends Dto
             'top_p' => $this->getItem('top_p', 1),
             'stream' => $this->getItem('stream', true),
             'presence_penalty' => $this->getItem('presence_penalty', 1),
-            'max_tokens' => self::MAX_RESPONSE_TOKEN,
+            'max_tokens' => config('openai.chat.max_response_tokens', 1000),
             'messages' => $this->getMessage(),
         ];
     }
 
+    /**
+     * @return array
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
     public function getMessage()
     {
         $messages = [];
 
-        $this->getLastMessages($this->getItem('last_id'), $messages);
+        $system = $this->getItem('system') ?: sprintf('You are GPTLink, a large language model trained by GPT-LINK. Answer as concisely as possible.\nKnowledge cutoff: %s\nCurrent date: %s', '2021-09-01', Carbon::now()->toDateString());
+        $systemTokens = $system ? app()->get(Gpt3Tokenizer::class)->count($system) : 0;
+
+        $this->getLastMessages($this->getItem('last_id'), $messages, $systemTokens);
 
         $messages = array_reverse($messages);
 
         $messages[] = ['role' => 'user', 'content' => $this->getItem('message')];
 
-        if ($system = $this->getItem('system')) {
+        if ($system) {
             array_unshift($messages, ['role' => 'system', 'content' => $system]);
         }
 
         return $messages;
     }
 
+    /**
+     * @param $lastId
+     * @param array $messages
+     * @param int $totalTokens
+     * @param int $count
+     * @return void
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
     public function getLastMessages($lastId, array &$messages = [], int $totalTokens = 0, int $count = 8)
     {
         if (! $lastId || ! $message = cache()->get('chat-'. $lastId)) {
             return;
         }
 
-        $totalTokens += ($message['tokens'] ?: 0);
-
-        if ($totalTokens >= (self::MAX_MODEL_TOKENS - self::MAX_RESPONSE_TOKEN)) {
+        if ($count-- <= 0) {
             return;
         }
 
-        if ($count-- <= 0) {
+        $totalTokens += ($message['tokens'] ?: 0);
+
+        $maxTokens = bcsub(
+            (string) config('openai.chat.max_tokens', 4000),
+            (string) config('openai.chat.max_response_tokens', 1000)
+        );
+
+        if ($totalTokens >= $maxTokens) {
             return;
         }
 
@@ -140,7 +160,7 @@ class ChatDto extends Dto
             'last_id' => $this->getItem('last_id'),
             'message' => $this->getItem('message'),
             'result' => $result,
-            'tokens' => count($tokenizer->encode($string)),
+            'tokens' => $tokenizer->count($string),
         ], 86400);
     }
 }
