@@ -47,7 +47,7 @@ APP_URL=https://abc.com/api/
 ### Docker 部署时提示服务器错误
 
 1. 检查数据库与 Redis 配置地址是否可正常访问；
-2. 确保 Mysql 版本大于5.7；
+2. 确保 Mysql 版本大于等于5.7；
 3. 可以通过命令 `docker logs gptlink` 查看容器运行是否产生异常；
 
 PS : 不要填写 `127.0.0.1` 或 `localhost`，此地址是指向容器内，容器内并不包含 `Mysql` 和 `Redis` 服务，可以填写本机的内网 IP 如 `192.168.1.100` 或 容器的网关 IP。
