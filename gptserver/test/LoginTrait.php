@@ -23,7 +23,7 @@ trait LoginTrait
         return $member;
     }
 
-    public function adminLogin(string $appid = null, string $secret = null, array $info = [])
+    public function adminLogin(array $info = [])
     {
         $userInfo = array_merge(['user_id' => $username = config('custom.admin.username')], $info);
 

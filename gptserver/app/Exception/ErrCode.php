@@ -43,6 +43,9 @@ class ErrCode extends AbstractConstants
      */
     const SERVER_ERROR = 500;
 
+    /**
+     * @Message("数据库/redis链接失败")
+     */
     const SERVER_CONNECTION_FAIL = 2002;
 
     /**
@@ -93,27 +96,30 @@ class ErrCode extends AbstractConstants
      * @Message("系统未初始化完成，请先前往配置")
      */
     const APIKEY_NOT_FOUND = 10006;
-
     /**
      * @Message("用户名或密码错误")
      */
     const USER_LOGIN_FAIL = 10007;
-
     /**
      * @Message("用户未注册，请先进行注册")
      */
     const USER_NOT_FOUND = 10008;
-
     /**
      * @Message("未开启此渠道注册")
      */
     const REGISTER_TYPE_NOT_SUPPORT = 10009;
-
     /**
      * @Message("验证失败，请重新校验")
      */
     const USER_VERIFY_FAIL = 10010;
-
+    /**
+     * @Message("用户已注册，请更换后再试")
+     */
+    const USER_MOBILE_IS_REGISTER = 10011;
+    /**
+     * @Message("存在违禁词，请修改后再重尝试")
+     */
+    const CHAT_CONTAINS_PROHIBITED_WORDS = 10012;
     /**
      * @Message("该套餐以下线，请刷新页面后重试")
      */
@@ -150,8 +156,4 @@ class ErrCode extends AbstractConstants
      * @Message("获取七牛云文件信息失败")
      */
     const MATERIAL_CATEGORY_FILE_INFO=40200;
-    /**
-     * @Message("素材已被使用,请勿删除")
-     */
-    const MATERIAL_MODEL_EXISTS=40201;
 }

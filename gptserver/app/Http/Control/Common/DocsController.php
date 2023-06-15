@@ -3,8 +3,8 @@
 namespace App\Http\Control\Common;
 
 use Cblink\HyperfExt\BaseController;
+use Hyperf\Context\Context;
 use Hyperf\HttpMessage\Stream\SwooleStream;
-use Hyperf\Utils\Context;
 use Psr\Http\Message\ResponseInterface;
 
 class DocsController extends BaseController

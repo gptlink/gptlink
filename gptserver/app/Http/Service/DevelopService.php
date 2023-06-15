@@ -5,7 +5,7 @@ namespace App\Http\Service;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Exception\RemoteException;
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Model\Config;
 use GuzzleHttp\Exception\GuzzleException;
 use Hyperf\Guzzle\ClientFactory;
@@ -55,15 +55,10 @@ class DevelopService
      */
     public static function getApikey()
     {
-        if ($apiKey = cache()->get('api_key')) {
-            return $apiKey;
-        }
-
-        /* @var GptSecretKeyDto $config */
+        /* @var WebsiteConfigDto $config */
         $config = Config::toDto(Config::GPT_SECRET_KEY);
 
         if ($config->secret_key) {
-            cache()->set('api_key', $config->secret_key);
             return $config->secret_key;
         }
 
@@ -74,9 +69,9 @@ class DevelopService
      * @return void
      * @throws InvalidArgumentException
      */
-    public static function clearApiKeyCache()
+    public static function clearApiKeyCache($key)
     {
-        cache()->delete('api_key');
+        cache()->delete($key);
     }
 
     /**

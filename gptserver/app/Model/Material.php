@@ -22,19 +22,11 @@ class Material extends Model
      *
      * @var array
      */
-    protected $fillable = ['type', 'title', 'file_url', 'size', 'format', 'width', 'height'];
+    protected $fillable = ['type', 'title', 'file_url', 'size', 'format', 'width', 'height', 'content'];
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-
-    public const TYPE_MASTER_IMAGE = 1;
-    public const TYPE_MODEL = 2;
-    public const TYPE = [
-        self::TYPE_MODEL => '魔法书咒语图片',
-        self::TYPE_MASTER_IMAGE => '咒语大师形象',
-    ];
-
 }

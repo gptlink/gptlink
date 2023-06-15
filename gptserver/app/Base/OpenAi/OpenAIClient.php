@@ -2,7 +2,7 @@
 
 namespace App\Base\OpenAi;
 
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use Hyperf\HttpMessage\Server\Connection\SwooleConnection;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -136,11 +136,11 @@ class OpenAIClient
     protected function getClient()
     {
         if (! $this->client) {
-            $clientConfig = [config('openai.chat.host'), config('openai.chat.port')];
+            $clientConfig = array_filter([config('openai.chat.host'), config('openai.chat.port')]);
 
-            if (! array_filter($clientConfig)) {
+            if (! $clientConfig) {
                 $clientConfig = match ($this->chatKeyType){
-                    GptSecretKeyDto::OPENAI => ['api.openai.com', 443, true],
+                    WebsiteConfigDto::OPENAI => ['api.openai.com', 443, true],
                     default => ['api.gpt-link.com', 443, true],
                 };
             } else {
@@ -149,7 +149,7 @@ class OpenAIClient
 
             $this->client = new Client(...$clientConfig);
 
-            $options = ['timeout' => -1,];
+            $options = ['timeout' => -1];
 
             if (config('openai.chat.proxy.socks5_host') && config('openai.chat.proxy.socks5_port')) {
                 $options = array_merge([

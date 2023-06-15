@@ -2,7 +2,7 @@
 
 namespace Api\Admin\Config;
 
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Dto\Config\WechatPaymentDto;
 use App\Model\Config;
 use HyperfTest\LoginTrait;

@@ -4,7 +4,7 @@ namespace App\Http\Control\Web;
 
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Dto\MemberDto;
 use App\Http\Request\Web\UserLoginRequest;
 use App\Http\Request\Web\UserRegisterRequest;
@@ -50,13 +50,20 @@ class AuthController extends BaseController
      */
     public function register(UserRegisterRequest $request)
     {
-        /* @var GptSecretKeyDto $config */
+        /* @var WebsiteConfigDto $config */
         $loginConfig = Config::toDto(Config::GPT_SECRET_KEY);
 
         throw_unless(
-            $loginConfig->login_type == GptSecretKeyDto::LOGIN_TYPE_USERNAME,
+            $loginConfig->login_type == WebsiteConfigDto::LOGIN_TYPE_USERNAME,
             LogicException::class,
             ErrCode::REGISTER_TYPE_NOT_SUPPORT
+        );
+
+        // 手机号查重
+        throw_if(
+            $request->input('mobile') && Member::query()->where('mobile', $request->input('mobile'))->first(),
+            LogicException::class,
+            ErrCode::USER_MOBILE_IS_REGISTER
         );
 
         $member = Member::createByDto(new MemberDto(array_merge($request->inputs([

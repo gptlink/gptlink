@@ -9,14 +9,14 @@ return [
 
     'chat' => [
         'host' => env('OPENAI_HOST'),
-        'port' => env('OPENAI_PORT'),
+        'port' => (int) env('OPENAI_PORT'),
         'model' => env('OPENAI_MODEL', ModelConst::GPT_35_TURBO),
         'max_tokens' => (int) env('OPENAI_MAX_TOKENS', 4000),
         'max_response_tokens' => (int) env('OPENAI_MAX_RESPONSE_TOKENS', 1000),
 
         'proxy' => [
             'socks5_host' => env('OPENAI_PROXY_HOST'),
-            'socks5_port' => env('OPENAI_PROXY_PORT'),
+            'socks5_port' => (int) env('OPENAI_PROXY_PORT'),
         ]
     ],
 ];

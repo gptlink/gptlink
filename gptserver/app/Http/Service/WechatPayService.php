@@ -25,6 +25,11 @@ class WechatPayService
     protected $app;
 
     /**
+     * @var string $appid
+     */
+    protected $hashed;
+
+    /**
      *  获取支付实例
      *
      * @return Application
@@ -32,21 +37,33 @@ class WechatPayService
      */
     public function pay(array $config = [])
     {
-        if (! $this->app) {
-            /* @var WechatPaymentDto $payDto */
-            $payDto = Config::toDto(Config::WECHAT_PAYMENT);
+        /* @var WechatPaymentDto $payDto */
+        $payDto = Config::toDto(Config::WECHAT_PAYMENT);
+        $hashed = $this->getHashed($payDto);
 
+        // 如果配置项发生了变更，则重载配置
+        if (! $this->app || $hashed != $this->hashed) {
             $this->app = new Application(array_merge($config, [
                 'app_id' => $payDto->appid,
                 'mch_id' => $payDto->mch_id,
                 'key' => $payDto->key,
             ]));
-
             $this->app->rebind('logger', logger());
             $this->app->rebind('cache', cache());
+
+            $this->hashed = $hashed;
         }
 
         return $this->app;
+    }
+
+    /**
+     * @param WechatPaymentDto $payDto
+     * @return string
+     */
+    public function getHashed(WechatPaymentDto $payDto)
+    {
+        return base64_encode(sprintf('%s%s%s', $payDto->appid, $payDto->mch_id, $payDto->key));
     }
 
     /**

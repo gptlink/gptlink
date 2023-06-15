@@ -17,9 +17,7 @@ class ConfigController extends BaseController
 	 */
 	public function show($type)
 	{
-		$config = Config::query()->where([
-			'type' => $type,
-		])->first();
+		$config = Config::query()->where('type', $type)->first();
 
 		return $this->success($config ? $config->toArray() : []);
 	}

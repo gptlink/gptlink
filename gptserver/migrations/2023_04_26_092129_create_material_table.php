@@ -14,11 +14,11 @@ class CreateMaterialTable extends Migration
         Schema::create('material', function (Blueprint $table) {
             $table->comment('素材表');
             $table->bigIncrements('id');
-            $table->unsignedTinyInteger('type')->comment('类型:1.魔法书咒语图片;2.咒语大师形象');
+            $table->unsignedTinyInteger('type')->comment('类型');
             $table->string('title')->default('')->comment('文件名称');
-            $table->string('file_url')->comment('文件url');
+            $table->string('file_url')->comment('文件路径');
             $table->unsignedBigInteger('size')->comment('大小 bytes');
-            $table->string('format', 10)->comment('格式');
+            $table->string('format', 10)->comment('格式，后缀');
             $table->unsignedInteger('width')->comment('宽 px');
             $table->unsignedInteger('height')->comment('长 px');
             $table->timestamps();

@@ -31,6 +31,7 @@ class MemberDto extends Dto
             'platform' => Member::PLATFORM_GPT,
             'source' => $this->getItem('source'),
             'account_type' => $this->getItem('account_type', Member::ACCOUNT_MOBILE),
+            'parent_openid' => $this->getItem('share_openid'),
         ];
     }
 }

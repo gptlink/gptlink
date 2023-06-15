@@ -12,7 +12,7 @@ use Cblink\Dto\Dto;
  */
 class ProtocolDto extends Dto implements ConfigDtoInterface
 {
-    protected $fillable = ['type', 'title', 'agreement'];
+    protected $fillable = ['type', 'enable', 'title', 'agreement'];
 
     /**
      * 默认数据
@@ -22,6 +22,7 @@ class ProtocolDto extends Dto implements ConfigDtoInterface
     {
         return [
             'type'    => $this->getItem('type'),
+            'enable' => $this->getItem('enable', true),
             'title'    => $this->getItem('title'),
             'agreement'    => $this->getItem('agreement'),
         ];
@@ -34,6 +35,7 @@ class ProtocolDto extends Dto implements ConfigDtoInterface
     {
         return [
             'config' => [
+                'enable' => $this->getItem('enable', true),
                 'title'    => $this->getItem('title'),
                 'agreement'    => $this->getItem('agreement'),
             ]

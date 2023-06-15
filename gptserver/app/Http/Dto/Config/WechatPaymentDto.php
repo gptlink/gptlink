@@ -24,8 +24,8 @@ class WechatPaymentDto extends Dto implements ConfigDtoInterface
 	public function getDefaultConfig(): array
 	{
 		return [
-			'type'    => $this->getItem('type'),
-			'mch_id'   => $this->getItem('mch_id'),
+			'type' => $this->getItem('type'),
+			'mch_id' => $this->getItem('mch_id'),
 			'key' => $this->getItem('key'),
 			'appid' => $this->getItem('appid'),
 		];

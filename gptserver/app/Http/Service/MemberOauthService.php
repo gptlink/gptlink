@@ -5,7 +5,7 @@ namespace App\Http\Service;
 use App\Event\UserRegisterTaskEvent;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Dto\Config\SmsChuangLanDto;
 use App\Http\Dto\MemberDto;
 use App\Http\Dto\MemberRegisterDto;
@@ -49,7 +49,7 @@ class MemberOauthService
         // 1. 判断第三方来源根据来源创建数据或者查询返回
         $oauth = MemberOauth::findOrcreateByDto($dto);
 
-        /* @var GptSecretKeyDto $config */
+        /* @var WebsiteConfigDto $config */
         $loginConfig = Config::toDto(Config::GPT_SECRET_KEY);
 
         if ($oauth->member_id == 0 && $dto->unionid && $thirdOauth = MemberOauth::query()->where('member_id', '>', 0)->where('unionid', $dto->unionid)->first()) {
@@ -63,7 +63,7 @@ class MemberOauthService
         }
 
         // 如果手机号登录未开启，则不进行下一步操作
-        return $loginConfig->login_type == GptSecretKeyDto::LOGIN_TYPE_WECHAT_AND_MOBILE ?
+        return $loginConfig->login_type == WebsiteConfigDto::LOGIN_TYPE_WECHAT_AND_MOBILE ?
             $oauth :
             $this->createMember(new MemberRegisterDto([
                 'share_openid' => $dto->share_openid,

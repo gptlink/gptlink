@@ -6,7 +6,7 @@ use App\Base\OpenAi\ChatCompletionsRequest;
 use App\Base\OpenAi\OpenaiChatCompletionsRequest;
 use App\Base\OpenAi\OpenAIClient;
 use App\Http\Dto\ChatDto;
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Job\MemberConsumptionJob;
 use App\Job\UserChatLogRecordJob;
 use App\Model\Config;
@@ -60,7 +60,7 @@ class ChatGPTService
         $client = new OpenAIClient($keyType);
 
         $request = match ($keyType){
-            GptSecretKeyDto::OPENAI => new OpenaiChatCompletionsRequest($dto),
+            WebsiteConfigDto::OPENAI => new OpenaiChatCompletionsRequest($dto),
             default => new ChatCompletionsRequest($dto),
         };
 

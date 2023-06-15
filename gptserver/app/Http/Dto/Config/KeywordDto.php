@@ -2,13 +2,12 @@
 
 namespace App\Http\Dto\Config;
 
-
 use App\Model\Config;
 use Cblink\Dto\Dto;
 
 /**
- * @property $title
- * @property $agreement
+ * @property bool $enable
+ * @property string $keywords
  */
 class KeywordDto extends Dto implements ConfigDtoInterface
 {

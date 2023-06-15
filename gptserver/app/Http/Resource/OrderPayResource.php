@@ -26,7 +26,7 @@ class OrderPayResource extends BaseResource
     public function getData($payType)
     {
         if ($this->resource->channel == Order::CHANNEL_WECHAT) {
-            $service = make(WechatPayService::class);
+            $service = app()->get(WechatPayService::class);
 
             // 小程序/微信内置打开
             if ($payType == Order::PAY_JSAPI) {

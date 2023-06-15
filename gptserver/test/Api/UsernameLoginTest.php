@@ -2,7 +2,7 @@
 
 namespace Api;
 
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Request\Web\UserResetRequest;
 use App\Model\Config;
 use App\Model\Member;
@@ -55,9 +55,9 @@ class UsernameLoginTest extends TestCase
 
     public function testUsernameRegister()
     {
-        Config::updateOrCreateByDto(new GptSecretKeyDto([
+        Config::updateOrCreateByDto(new WebsiteConfigDto([
             'type' => Config::GPT_SECRET_KEY,
-            'login_type' => GptSecretKeyDto::LOGIN_TYPE_USERNAME,
+            'login_type' => WebsiteConfigDto::LOGIN_TYPE_USERNAME,
         ]));
 
         $response = $this->post('/auth/register', [

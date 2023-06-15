@@ -2,7 +2,8 @@
 
 namespace App\Http\Control\Web;
 
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\ShareConfigDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Dto\Config\PaymentDto;
 use App\Http\Dto\Config\ProtocolDto;
 use App\Model\Config;
@@ -20,7 +21,7 @@ class ConfigController extends BaseController
      */
 	public function getBasicInfo()
 	{
-        /* @var GptSecretKeyDto $config */
+        /* @var WebsiteConfigDto $config */
         $config = Config::toDto(Config::GPT_SECRET_KEY);
 
         $result = array_filter(Arr::only($config->toArray(), [
@@ -35,7 +36,7 @@ class ConfigController extends BaseController
             'web_logo' => $result['web_logo'] ?? '',
             'admin_logo' => $result['admin_logo'] ?? '',
             'user_logo' => $result['user_logo'] ?? '',
-            'login_type' => $result['login_type'] ?: GptSecretKeyDto::LOGIN_TYPE_WECHAT,
+            'login_type' => $result['login_type'] ?: WebsiteConfigDto::LOGIN_TYPE_WECHAT,
         ]);
 	}
 
@@ -67,9 +68,14 @@ class ConfigController extends BaseController
         /* @var ProtocolDto $config */
         $config = Config::toDto(Config::PROTOCOL);
 
-        return $this->success([
-            'title' => $config->title,
-            'agreement' => $config->agreement,
-        ]);
+        return $this->success($config->toArray());
+    }
+
+    public function getShare()
+    {
+        /* @var ShareConfigDto $config */
+        $config = Config::toDto(Config::SHARE);
+
+        return $this->success($config->toArray());
     }
 }

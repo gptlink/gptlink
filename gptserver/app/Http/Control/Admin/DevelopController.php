@@ -2,7 +2,7 @@
 
 namespace App\Http\Control\Admin;
 
-use App\Http\Dto\Config\GptSecretKeyDto;
+use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Resource\Admin\DevelopPackageResource;
 use App\Http\Service\DevelopService;
 use App\Model\Config;
@@ -22,10 +22,10 @@ class DevelopController extends BaseController
      */
     public function getPackage(DevelopService $service)
     {
-        /* @var GptSecretKeyDto $config  */
+        /* @var WebsiteConfigDto $config  */
         $config = \App\Model\Config::toDto(Config::GPT_SECRET_KEY);
 
-        if (empty($config->secret_key) || GptSecretKeyDto::OPENAI == $config->key_type) {
+        if (empty($config->secret_key) || WebsiteConfigDto::OPENAI == $config->key_type) {
             $response = [
                 'name' => null,
                 'num' => null,

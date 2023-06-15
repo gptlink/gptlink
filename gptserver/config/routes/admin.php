@@ -70,9 +70,10 @@ Router::addGroup('/admin', function () {
         Router::put('/{id}', [Api\Admin\CdkController::class, 'update']);
     });
 
-    // 七牛云
-    Router::addGroup('/qiniu', function () {
-        Router::get('/token', [Api\Common\QiniuController::class, 'getUploadToken']);
+
+    Router::addGroup('/upload', function () {
+        Router::get('/qiniu/token', [Api\Common\UploadController::class, 'getQiniuToken']);
+        Router::post('/image', [Api\Common\UploadController::class, 'uploadImage']);
     });
 
     // 素材管理
