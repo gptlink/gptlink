@@ -47,7 +47,7 @@
 部署完成后访问 `http://域名或IP` 进入对话页面，`/admin/` 路径访问管理页，管理员账号密码为配置项设置的 `ADMIN_USERNAME` 与 `ADMIN_USERNAME` ，如不传入，默认账号密码为 `admin` `admin888`
 
 ## 版本计划
-- [ ] 前端开源
+- [x] [前端开源](https://github.com/gptlink/gptlink-web)
 - [ ] 管理端开源
 - [x] 账号密码登录
 - [x] 线下收款配置
