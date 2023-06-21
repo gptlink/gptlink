@@ -2,6 +2,9 @@
 
 namespace App\Http\Control\Web;
 
+use App\Exception\ErrCode;
+use App\Exception\LogicException;
+use App\Http\Dto\Config\SalesmanDto;
 use App\Http\Resource\MemberPackageRecordCollection;
 use App\Http\Resource\MemberResource;
 use App\Http\Resource\UserOrderCollection;
@@ -9,12 +12,14 @@ use App\Http\Resource\UserPackageCollection;
 use App\Http\Resource\UserResource;
 use App\Model\ChatGptModel;
 use App\Model\ChatGptModelCount;
+use App\Model\Config;
 use App\Model\GptModelCollect;
 use App\Model\Member;
 use App\Model\MemberPackage;
 use App\Model\MemberPackageRecord;
 use App\Model\Order;
 use Cblink\HyperfExt\BaseController;
+use Psr\Http\Message\ResponseInterface;
 
 class UserController extends BaseController
 {
@@ -100,5 +105,33 @@ class UserController extends BaseController
             ->page();
 
         return new MemberPackageRecordCollection($records);
+    }
+
+    /**
+     * 开通分销员
+     *
+     * @return ResponseInterface
+     * @throws \Throwable
+     */
+    public function salesman()
+    {
+        /* @var SalesmanDto $config */
+        $config = Config::toDto(Config::SALESMAN);
+
+        throw_unless(
+            ($config->enable && $config->open),
+            LogicException::class,
+            ErrCode::SYSTEM_FEATURE_DISABLED
+        );
+
+        throw_if(
+            auth()->user()->identity == Member::IDENTITY_SALESMAN,
+            LogicException::class,
+            ErrCode::MEMBER_IS_SALESMAN
+        );
+
+        auth()->user()->setSalesman();
+
+        return $this->success();
     }
 }

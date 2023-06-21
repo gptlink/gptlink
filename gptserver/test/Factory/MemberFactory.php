@@ -12,6 +12,8 @@ use App\Model\MemberOauth;
 use App\Model\MemberPackage;
 use App\Model\MemberPackageRecord;
 use App\Model\Order;
+use App\Model\Package;
+use App\Model\SalesmanOrder;
 use App\Model\TaskRecord;
 
 class MemberFactory
@@ -55,7 +57,9 @@ class MemberFactory
         MemberPackageRecord::query()->truncate();
         Member::query()->truncate();
         Order::query()->truncate();
+        SalesmanOrder::query()->truncate();
         ChatLog::query()->truncate();
         TaskRecord::query()->truncate();
+        Package::query()->truncate();
     }
 }

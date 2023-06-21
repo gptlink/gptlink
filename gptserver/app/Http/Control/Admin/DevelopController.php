@@ -2,6 +2,8 @@
 
 namespace App\Http\Control\Admin;
 
+use App\Http\Dto\Config\AiChatConfigDto;
+use App\Http\Dto\Config\SmsConfigDto;
 use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Resource\Admin\DevelopPackageResource;
 use App\Http\Service\DevelopService;
@@ -14,28 +16,41 @@ class DevelopController extends BaseController
 {
     /**
      * 获取开发者套餐信息
+     *
      * @param DevelopService $service
-     * @return DevelopPackageResource
+     * @return DevelopPackageResource|\Psr\Http\Message\ResponseInterface
      * @throws GuzzleException
      * @throws InvalidArgumentException
      * @throws \Throwable
      */
     public function getPackage(DevelopService $service)
     {
-        /* @var WebsiteConfigDto $config  */
-        $config = \App\Model\Config::toDto(Config::GPT_SECRET_KEY);
+        $data = [];
 
-        if (empty($config->secret_key) || WebsiteConfigDto::OPENAI == $config->key_type) {
-            $response = [
-                'name' => null,
-                'num' => null,
-                'used' => null,
-                'expired_at' => null,
-            ];
-        } else {
+        $default = ['name' => null, 'num' => 0, 'used' => 0, 'expired_at' => null];
+
+        /* @var AiChatConfigDto $aiChat  */
+        $aiChat = Config::toDto(Config::AI_CHAT);
+
+        if (AiChatConfigDto::GPTLINK == $aiChat->channel) {
             $response = $service->getPackage();
+
+            if ($response['err_code'] == 0) {
+                $data['chat'] = $response['data'] ?: $default;
+            }
         }
 
-        return new DevelopPackageResource($response);
+        /* @var SmsConfigDto $sms  */
+        $sms = Config::toDto(Config::SMS);
+
+        if (AiChatConfigDto::GPTLINK == $sms->channel) {
+            $response = $service->getPackage(['type' => 3]);
+
+            if ($response['err_code'] == 0) {
+                $data['sms'] = $response['data'] ?: $default;
+            }
+        }
+
+        return $this->success($data);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Base\OpenAi;
 
 use App\Http\Dto\ChatDto;
+use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Service\DevelopService;
 use Hyperf\Utils\Arr;
 use Psr\Container\ContainerExceptionInterface;
@@ -32,14 +33,19 @@ class OpenaiChatCompletionsRequest extends Request implements RequestInterface
      */
     public $dto;
 
-    public function __construct(ChatDto $dto)
+    /**
+     * @var AiChatConfigDto
+     */
+    public $config;
+
+    public function __construct(ChatDto $dto, AiChatConfigDto $config)
     {
         $this->dto = $dto;
-        $this->data = json_encode($dto->toOpenAi(), JSON_UNESCAPED_UNICODE);
+        $this->data = json_encode($dto->toOpenAi($config), JSON_UNESCAPED_UNICODE);
         $this->headers = [
             'Accept' => 'text/event-stream',
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . DevelopService::getApikey(),
+            'Authorization' => 'Bearer ' . $config->getOpenAiKey(),
         ];
     }
 

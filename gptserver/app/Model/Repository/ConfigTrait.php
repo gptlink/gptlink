@@ -5,10 +5,6 @@ namespace App\Model\Repository;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\Config\ConfigDtoInterface;
-use App\Http\Dto\Config\WebsiteConfigDto;
-use App\Http\Dto\Config\WechatPaymentDto;
-use App\Http\Dto\Config\WechatPlatformDto;
-use App\Http\Service\DevelopService;
 use App\Model\Config;
 use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Model\Model;
@@ -16,18 +12,20 @@ use Psr\SimpleCache\InvalidArgumentException;
 
 trait ConfigTrait
 {
-
 	// 动态的dto类型
 	public static $transfer = [
-		Config::WECHAT_PLATFORM => WechatPlatformDto::class, // 公众平台
-		Config::WECHAT_PAYMENT => WechatPaymentDto::class, // 微信支付
+		Config::WECHAT_PLATFORM => \App\Http\Dto\Config\WechatPlatformDto::class, // 公众平台
+		Config::WECHAT_PAYMENT => \App\Http\Dto\Config\WechatPaymentDto::class, // 微信支付
         Config::WECHAT_WEB => \App\Http\Dto\Config\WechatWebDto::class,  // 微信 web 端
-        Config::SMS_CHUANG_LAN => \App\Http\Dto\Config\SmsChuangLanDto::class,   // 创蓝
-        Config::GPT_SECRET_KEY => \App\Http\Dto\Config\WebsiteConfigDto::class,   // 站点配置
+        Config::SMS => \App\Http\Dto\Config\SmsConfigDto::class,   // 创蓝
+        Config::WEBSITE => \App\Http\Dto\Config\WebsiteConfigDto::class,   // 站点配置
         Config::PROTOCOL => \App\Http\Dto\Config\ProtocolDto::class, // 协议配置
         Config::PAYMENT => \App\Http\Dto\Config\PaymentDto::class,  // 支付配置
         Config::KEYWORD => \App\Http\Dto\Config\KeywordDto::class, // 关键词配置
-        Config::SHARE => \App\Http\Dto\Config\ShareConfigDto::class,
+        Config::SHARE => \App\Http\Dto\Config\ShareConfigDto::class, // 分享配置
+        Config::SALESMAN => \App\Http\Dto\Config\SalesmanDto::class, // 分销员
+        Config::AI_CHAT => \App\Http\Dto\Config\AiChatConfigDto::class, // AI对话
+        Config::LOGIN => \App\Http\Dto\Config\LoginConfigDto::class, // 登陆配置
 	];
 
 	// 根据类型 直接new相应的dto并传入数据
@@ -44,7 +42,7 @@ trait ConfigTrait
      */
 	public static function updateOrCreateByDto(ConfigDtoInterface $dto)
 	{
-        DevelopService::clearApiKeyCache($dto::class);
+        cache()->delete($dto::class);
 
         return Config::query()->updateOrCreate(
 			$dto->getUniqueFillable(),

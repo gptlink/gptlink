@@ -3,7 +3,7 @@
 namespace Api\Admin\Config;
 
 use App\Http\Dto\Config\WebsiteConfigDto;
-use App\Http\Dto\Config\SmsChuangLanDto;
+use App\Http\Dto\Config\SmsConfigDto;
 use App\Model\Config;
 use HyperfTest\LoginTrait;
 use HyperfTest\TestCase;
@@ -17,9 +17,9 @@ class SmsConfigTest extends TestCase
     {
         $this->AdminLogin();
 
-        Config::updateOrCreateByDto(new SmsChuangLanDto([]));
+        Config::updateOrCreateByDto(new SmsConfigDto([]));
 
-        $response = $this->get(sprintf('/admin/config/%s',  Config::SMS_CHUANG_LAN));
+        $response = $this->get(sprintf('/admin/config/%s',  Config::SMS));
 
         $this->assertApiSuccess($response);
 
@@ -49,7 +49,7 @@ class SmsConfigTest extends TestCase
     {
         $this->AdminLogin();
 
-        $response = $this->post(sprintf('/admin/config/%s', Config::SMS_CHUANG_LAN), [
+        $response = $this->post(sprintf('/admin/config/%s', Config::SMS), [
             'config' => [
                 'account' => '创蓝账号',
                 'password' => '创蓝密码',

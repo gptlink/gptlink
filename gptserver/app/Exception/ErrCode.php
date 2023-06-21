@@ -68,6 +68,11 @@ class ErrCode extends AbstractConstants
      * @Message("未配置正确的apikey")
      */
     const SYSTEM_KEY_INVALID = 1003;
+
+    /**
+     * @Message("此功能未开放")
+     */
+    const SYSTEM_FEATURE_DISABLED = 1004;
     /**
      * @Message("用户信息获取失败，清刷新页面后重试")
      */
@@ -121,9 +126,26 @@ class ErrCode extends AbstractConstants
      */
     const CHAT_CONTAINS_PROHIBITED_WORDS = 10012;
     /**
+     * @Message("套餐已存在使用记录，不可删除")
+     */
+    const PACKAGE_IS_BIND_USER = 10013;
+    /**
+     * @Message("套餐已存在使用记录，不可删除")
+     */
+    const PACKAGE_IS_BIND_TASK = 10014;
+    /**
      * @Message("该套餐以下线，请刷新页面后重试")
      */
     const PACKAGE_IS_OFFLINE = 10107;
+    /**
+     * @Message("您已是分销员，无需重复申请")
+     */
+    const MEMBER_IS_SALESMAN = 10108;
+
+    /**
+     * @Message("余额不足")
+     */
+    const SALESMAN_INSUFFICIENT_BALANCE = 10109;
     /**
      * @Message("你的账号已被禁用")
      */

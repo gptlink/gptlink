@@ -2,10 +2,8 @@
 
 namespace App\Http\Service;
 
-use App\Exception\ErrCode;
-use App\Exception\LogicException;
 use App\Exception\RemoteException;
-use App\Http\Dto\Config\WebsiteConfigDto;
+use App\Http\Dto\Config\AiChatConfigDto;
 use App\Model\Config;
 use GuzzleHttp\Exception\GuzzleException;
 use Hyperf\Guzzle\ClientFactory;
@@ -22,9 +20,15 @@ class DevelopService
      */
     private $clientFactory;
 
+    /**
+     * @var AiChatConfigDto
+     */
+    protected $config;
+
     public function __construct(ClientFactory $clientFactory)
     {
         $this->clientFactory = $clientFactory;
+        $this->config = Config::toDto(Config::AI_CHAT);
     }
 
     /**
@@ -34,44 +38,13 @@ class DevelopService
      * @throws GuzzleException
      * @throws \Throwable
      */
-    public function getPackage()
+    public function getPackage(array $query = [])
     {
-        throw_if(
-            empty(self::getApikey()),
-            LogicException::class,
-            ErrCode::APIKEY_NOT_FOUND
-        );
-
-        return $this->request('/v1/user/package', [], [
-            'Authorization' => sprintf('Bearer %s', self::getApikey()),
+        return $this->request('/v1/user/package', [
+            'query' => $query,
+        ], [
+            'Authorization' => sprintf('Bearer %s', $this->config->gptlink_key),
         ]);
-    }
-
-    /**
-     * 获取api key
-     *
-     * @return \Hyperf\Utils\HigherOrderTapProxy|mixed|null
-     * @throws InvalidArgumentException
-     */
-    public static function getApikey()
-    {
-        /* @var WebsiteConfigDto $config */
-        $config = Config::toDto(Config::GPT_SECRET_KEY);
-
-        if ($config->secret_key) {
-            return $config->secret_key;
-        }
-
-        return null;
-    }
-
-    /**
-     * @return void
-     * @throws InvalidArgumentException
-     */
-    public static function clearApiKeyCache($key)
-    {
-        cache()->delete($key);
     }
 
     /**
@@ -97,16 +70,16 @@ class DevelopService
         ], $options));
 
         // 获取响应内容
-        $response = json_decode($response->getBody()->getContents(), true);
+        return json_decode($response->getBody()->getContents(), true);
 
+        /*
         throw_unless(
             Arr::get($response, 'err_code') == 0,
             RemoteException::class,
             Arr::get($response, 'err_msg', ''),
             Arr::get($response, 'err_code', 0),
         );
-
-        return $response['data'];
+        */
     }
 
     /**

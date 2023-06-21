@@ -181,6 +181,30 @@ class MemberTest extends TestCase
         ]));
     }
 
+    public function testAdminMemberChangeStatus()
+    {
+        $this->adminLogin();
+
+        $member = MemberFactory::createByData();
+
+        $response = $this->put(sprintf('/admin/member/%s/status', $member->id));
+
+        $this->assertApiSuccess($response);
+
+        $response->build(new BaseDto([
+            'project' => ['admin'],
+            'name' => '启用/禁用用户',
+            'category' => '用户管理',
+            'params' => [
+                3 => '用户ID',
+            ],
+            'desc' => '',
+            'request' => [],
+            'request_except' => [],
+            'response' => [],
+        ]));
+    }
+
     // 微信记录
     public function testAdminMemberWechatOauth()
     {

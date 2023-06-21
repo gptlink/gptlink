@@ -8,6 +8,10 @@ use App\Model\Order;
 
 class OrderFactory
 {
+    /**
+     * @param array $payload
+     * @return \Hyperf\Database\Model\Builder|\Hyperf\Database\Model\Model|Order
+     */
     public static function createByData(array $payload = [])
     {
         return Order::query()->create(array_merge([

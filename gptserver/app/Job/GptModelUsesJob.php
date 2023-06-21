@@ -20,7 +20,9 @@ class GptModelUsesJob extends Job
 
     public function handle()
     {
-        $gptModelUses = ChatGptModelCount::query()->firstOrCreate(['chat_gpt_model_id' => $this->gptModelId]);
+        $gptModelUses = ChatGptModelCount::query()
+            ->firstOrCreate(['chat_gpt_model_id' => $this->gptModelId]);
+
         // 使用量增加
         $gptModelUses->increment('uses');
     }

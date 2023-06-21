@@ -96,4 +96,19 @@ class PackageController extends BaseController
 
         return $this->success();
     }
+
+    /**
+     * 删除套餐
+     *
+     * @param $id
+     * @return ResponseInterface
+     */
+    public function destroy($id)
+    {
+        $package = Package::query()->findOrFail($id);
+
+        $package->destroyPackage();
+
+        return $this->success();
+    }
 }

@@ -79,9 +79,11 @@ class TaskController extends BaseController
     public function getRecordUnread(TaskCompletionRequest $request)
     {
         $type = $request->input('type');
+
         $task = Task::query()->withCount(['record' => function($query) use ($type) {
             $query->where(['user_id' => auth()->id(), 'is_read' => TaskRecord::IS_READ_N]);
         }])->where(['type' => $type])->with(['package'])->first();
+
         if (!$task->record_count) {
             return $this->success();
         }

@@ -23,6 +23,7 @@ class UserResetRequest extends BaseFormRequest
             'verify_type' => ['required', Rule::in(array_keys(self::VERIFY_TYPE))],
             'verify' => ['required', 'string', 'max:40'],
             'password' => ['required', 'string', 'min:6', 'max:40'],
+            'code' => ['nullable', 'string', 'max:6'],
         ];
     }
 }

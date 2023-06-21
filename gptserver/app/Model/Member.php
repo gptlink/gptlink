@@ -24,6 +24,14 @@ class Member extends Model implements Authenticatable
         self::ACCOUNT_EMAIL => '邮件账号',
     ];
 
+
+    const IDENTITY_MEMBER = 1;
+    const IDENTITY_SALESMAN = 2;
+    const IDENTITY = [
+        self::IDENTITY_MEMBER => '用户',
+        self::IDENTITY_SALESMAN => '分销员',
+    ];
+
     /**
      * The table associated with the model.
      *
@@ -38,7 +46,8 @@ class Member extends Model implements Authenticatable
      */
     protected $fillable = [
         'nickname', 'avatar', 'mobile', 'password', 'code', 'status',
-        'platform', 'source', 'account_type', 'parent_openid', 'balance',
+        'platform', 'source', 'account_type', 'parent_openid',
+        'balance', 'identity', 'ratio',
     ];
 
     const PLATFORM_GPT = 1;
@@ -77,5 +86,13 @@ class Member extends Model implements Authenticatable
     public function oauth()
     {
         return $this->hasMany(MemberOauth::class, 'member_id', 'id');
+    }
+
+    /**
+     * @return \Hyperf\Database\Model\Relations\HasMany
+     */
+    public function customSalesmanOrder()
+    {
+        return $this->hasMany(SalesmanOrder::class, 'custom_id', 'id');
     }
 }

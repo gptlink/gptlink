@@ -2,6 +2,7 @@
 
 namespace App\Base\OpenAi;
 
+use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Dto\Config\WebsiteConfigDto;
 use Hyperf\HttpMessage\Server\Connection\SwooleConnection;
 use Hyperf\HttpServer\Contract\ResponseInterface;
@@ -38,13 +39,13 @@ class OpenAIClient
     protected $debug = '';
 
     /**
-     * @var mixed|null
+     * @var AiChatConfigDto|null
      */
-    protected $chatKeyType;
+    protected $config;
 
-    public function __construct($keyType = null)
+    public function __construct(AiChatConfigDto $config = null)
     {
-        $this->chatKeyType = $keyType;
+        $this->config = $config;
         $this->connect();
     }
 
@@ -136,27 +137,36 @@ class OpenAIClient
     protected function getClient()
     {
         if (! $this->client) {
-            $clientConfig = array_filter([config('openai.chat.host'), config('openai.chat.port')]);
+            $clientConfig = match ($this->config->channel){
+                AiChatConfigDto::OPENAI => function () {
+                    if (! empty($this->config->openai_host)) {
+                        $host = parse_url($this->config->openai_host);
+                        $port = (int) $host['port'] ?: ($host['scheme'] == 'https' ? 443: 80);
+                        return [$host['host'], $port, $port == 443];
+                    }
+                    return ['api.openai.com', 443, true];
+                },
+                default => ['api.gpt-link.com', 443, true],
+            };
 
-            if (! $clientConfig) {
-                $clientConfig = match ($this->chatKeyType){
-                    WebsiteConfigDto::OPENAI => ['api.openai.com', 443, true],
-                    default => ['api.gpt-link.com', 443, true],
-                };
-            } else {
-                $clientConfig[] = config('openai.chat.port') == 443;
+            if ($clientConfig instanceof \Closure) {
+                $clientConfig = $clientConfig();
             }
 
             $this->client = new Client(...$clientConfig);
 
             $options = ['timeout' => -1];
 
-            if (config('openai.chat.proxy.socks5_host') && config('openai.chat.proxy.socks5_port')) {
-                $options = array_merge([
-                    'socks5_host' => config('openai.chat.proxy.socks5_host'),
-                    'socks5_port' => config('openai.chat.proxy.socks5_port'),
-                    'ssl_host_name' => config('openai.chat.host'),
-                ], $options);
+            if ($this->config->channel == AiChatConfigDto::OPENAI) {
+                // 如果有代理，则添加代理
+                if (! empty($this->config->openai_proxy_host)) {
+                    $proxy = explode(':', $this->config->openai_proxy_host);
+                    $options = array_merge([
+                        'socks5_host' => $proxy[0],
+                        'socks5_port' => $proxy[1],
+                        'ssl_host_name' => $clientConfig[0],
+                    ], $options);
+                }
             }
             $this->client->set($options);
         }

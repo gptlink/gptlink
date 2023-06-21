@@ -4,7 +4,6 @@ use App\Http\Control as Api;
 use Hyperf\HttpServer\Router\Router;
 
 Router::addGroup('', function () {
-    // openai接口
     Router::post('/openai/chat-process', [Api\Web\ChatController::class, 'process']);
 
     Router::addGroup('/user', function () {
@@ -13,6 +12,7 @@ Router::addGroup('', function () {
         Router::get('/order', [Api\Web\UserController::class, 'order']);
         Router::get('/package/record', [Api\Web\UserController::class, 'packageRecord']);
         Router::get('/profile', [Api\Web\UserController::class, 'profile']);
+        Router::post('/salesman', [Api\Web\UserController::class, 'salesman']);
     });
 
     Router::addGroup('/order', function () {
@@ -37,9 +37,9 @@ Router::addGroup('', function () {
     ],
 ]);
 
-// 模型
 Router::get('/chat-gpt-model', [Api\Web\ChatGptModelController::class, 'index']);
 Router::get('/docs/{project}/swagger', [Api\Common\DocsController::class, 'swagger']);
+Router::get('/docs/{project}', [Api\Common\DocsController::class, 'docs']);
 Router::get('/images/{fileName}', [Api\Common\ImageController::class, 'show']);
 
 // 微信相关
@@ -64,12 +64,12 @@ Router::addGroup('/sms', function () {
     Router::post('/login', [Api\Web\SmsController::class, 'login']);
 });
 
+// 配置相关
 Router::addGroup('/config', function () {
     Router::get('/basic-info', [Api\Web\ConfigController::class, 'getBasicInfo']);
+    Router::get('/login-type', [Api\Web\ConfigController::class, 'getLoginType']);
     Router::get('/payment', [Api\Web\ConfigController::class, 'getPayment']);
     Router::get('/agreement', [Api\Web\ConfigController::class, 'getProtocol']);
     Router::get('/share', [Api\Web\ConfigController::class, 'getShare']);
+    Router::get('/salesman', [Api\Web\ConfigController::class, 'getSalesman']);
 });
-
-// 通知路由
-Router::post('/hook/{orderNo}/paid', [Api\Hook\WechatPayController::class, 'hook']);

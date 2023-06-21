@@ -11,6 +11,7 @@ use App\Model\ChatGptModel;
 use App\Model\GptModelCollect;
 use Cblink\HyperfExt\BaseController;
 use Hyperf\HttpServer\Contract\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class ChatGptModelController extends BaseController
 {
@@ -89,9 +90,26 @@ class ChatGptModelController extends BaseController
     }
 
     /**
+     * 模型删除
+     *
+     * @param $id
+     * @return ResponseInterface
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        $model = ChatGptModel::query()->findOrFail($id);
+
+        $model->destroyModel();
+
+        return $this->success();
+    }
+
+    /**
      * 编辑状态
      *
      * @param $id
+     * @param ChatGptModelStatusRequest $request
      * @return ChatGptModelResource
      */
     public function updateStatus($id, ChatGptModelStatusRequest $request)
@@ -99,12 +117,7 @@ class ChatGptModelController extends BaseController
         /** @var ChatGptModel $model */
         $model = ChatGptModel::query()->where(['id' => $id])->firstOrFail();
         $model = $model->updateStatus($request->input('status'));
-        if($request->input('status') == ChatGptModel::STATUS_ON && $model->user_id){
-            GptModelCollect::firstOrCreate([
-                'chat_gpt_model_id' => $model->id,
-                'user_id' => $model->user_id
-            ]);
-        }
+
         return new ChatGptModelResource($model);
     }
 

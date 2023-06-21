@@ -45,7 +45,7 @@ class KeywordDto extends Dto implements ConfigDtoInterface
     public function getUniqueFillable(): array
     {
         return [
-            'type' => $this->getItem('type', Config::PROTOCOL),
+            'type' => $this->getItem('type', Config::KEYWORD),
         ];
     }
 }

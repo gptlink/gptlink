@@ -47,6 +47,19 @@ trait ChatGptModelTrait
     }
 
     /**
+     * 删除模型
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function destroyModel()
+    {
+        ChatGptModelCount::query()->where('chat_gpt_model_id', $this->id)->delete();
+
+        $this->delete();
+    }
+
+    /**
      * 排序
      *
      * @param int $sort

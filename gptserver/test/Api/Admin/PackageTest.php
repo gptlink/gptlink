@@ -219,4 +219,26 @@ class PackageTest extends TestCase
             'response' => [],
         ]));
     }
+
+    public function testAdminPackageDestroy()
+    {
+        $this->AdminLogin();
+
+        $package = PackageFactory::createByData(['code' => substr(md5((string) time()), 0, 17) . rand(111, 999)]);
+
+        $response = $this->delete(sprintf('/admin/package/%s', $package->id));
+
+        $this->assertApiSuccess($response);
+
+        $response->build(new BaseDto([
+            'project' => ['admin'],
+            'name' => '删除套餐',
+            'category' => '套餐管理',
+            'params' => [3 => '套餐 id'],
+            'desc' => '',
+            'request' => [],
+            'request_except' => [],
+            'response' => [],
+        ]));
+    }
 }

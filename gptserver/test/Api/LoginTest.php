@@ -53,6 +53,7 @@ class LoginTest extends TestCase
             'oauth_id' => base64_encode($memberOrOath->id),
             'code' => $code,
             'source' => '',
+            'share_openid' => '',
         ]);
 
         MemberFactory::truncate();
@@ -70,6 +71,7 @@ class LoginTest extends TestCase
                 'code' => '手机短信 code',
                 'oauth_id' => '第一次注册时第三方登陆接口返回的 oauth_id',
                 'source' => '用户来源，通常为给第三方的标识',
+                'share_openid' => '分享人的openid',
             ],
             'request_except' => ['source', 'platform', 'business_id'],
             'response' => [

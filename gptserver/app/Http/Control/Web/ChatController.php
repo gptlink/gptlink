@@ -56,11 +56,7 @@ class ChatController extends BaseController
             asyncQueue(new GptModelUsesJob($model->id));
         }
 
-        $gptModel = config('openai.chat.model', ModelConst::GPT_35_TURBO);
-        $gptModel = array_key_exists($gptModel, ModelConst::MODEL) ? $gptModel : ModelConst::GPT_35_TURBO;
-
         $chatDto = new ChatDto(array_merge($request->inputs(['message', 'last_id']), [
-            'model' => $gptModel,
             'system' => $system,
             'stream' => true,
             'format_after' => ',',

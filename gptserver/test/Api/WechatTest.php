@@ -27,7 +27,7 @@ class WechatTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => 'jssdk',
-            'category' => '微信相关',
+            'category' => '公共分类',
             'params' => [],
             'desc' => '',
             'request' => [
@@ -104,6 +104,7 @@ class WechatTest extends TestCase
 
         $response = $this->post('/wechat/weixin/login', [
             'code' => 'xxxx',
+            'share_openid' => '分享人的openid',
         ]);
 
         $this->assertApiSuccess($response);
@@ -120,6 +121,8 @@ class WechatTest extends TestCase
             'desc' => '',
             'request' => [
                 'code' => '微信回跳返回的code',
+                'share_openid' => '分享人的openid',
+                'source' => '注册来源渠道',
             ],
             'request_except' => [],
             'response' => [

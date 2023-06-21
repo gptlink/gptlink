@@ -2,6 +2,9 @@
 
 namespace App\Http\Control\Web;
 
+use App\Http\Dto\Config\AiChatConfigDto;
+use App\Http\Dto\Config\LoginConfigDto;
+use App\Http\Dto\Config\SalesmanDto;
 use App\Http\Dto\Config\ShareConfigDto;
 use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Dto\Config\PaymentDto;
@@ -22,11 +25,10 @@ class ConfigController extends BaseController
 	public function getBasicInfo()
 	{
         /* @var WebsiteConfigDto $config */
-        $config = Config::toDto(Config::GPT_SECRET_KEY);
+        $config = Config::toDto(Config::WEBSITE);
 
         $result = array_filter(Arr::only($config->toArray(), [
-            'name', 'icp', 'web_logo', 'admin_logo',
-            'user_logo', 'login_type',
+            'name', 'icp', 'web_logo', 'admin_logo', 'user_logo',
         ]));
 
         // 默认微信登陆
@@ -36,9 +38,25 @@ class ConfigController extends BaseController
             'web_logo' => $result['web_logo'] ?? '',
             'admin_logo' => $result['admin_logo'] ?? '',
             'user_logo' => $result['user_logo'] ?? '',
-            'login_type' => $result['login_type'] ?: WebsiteConfigDto::LOGIN_TYPE_WECHAT,
         ]);
 	}
+
+    /**
+     *  获取登录配置
+     *
+     * @return ResponseInterface
+     * @throws \Throwable
+     */
+    public function getLoginType()
+    {
+        /* @var LoginConfigDto $config */
+        $config = Config::toDto(Config::LOGIN);
+
+        return $this->success([
+            'login_type' => $config->login_type,
+            'mobile_verify' => $config->mobile_verify,
+        ]);
+    }
 
     /**
      * 获取支付配置
@@ -71,11 +89,35 @@ class ConfigController extends BaseController
         return $this->success($config->toArray());
     }
 
+    /**
+     * 获取分享配置
+     *
+     * @return ResponseInterface
+     * @throws \Throwable
+     */
     public function getShare()
     {
         /* @var ShareConfigDto $config */
         $config = Config::toDto(Config::SHARE);
 
         return $this->success($config->toArray());
+    }
+
+    /**
+     * 获取分销配置
+     *
+     * @return ResponseInterface
+     * @throws \Throwable
+     */
+    public function getSalesman()
+    {
+        /* @var SalesmanDto $config */
+        $config = Config::toDto(Config::SHARE);
+
+        return $this->success([
+            'enable' => $config->enable,
+            'open' => $config->open,
+            'rules' => $config->rules,
+        ]);
     }
 }

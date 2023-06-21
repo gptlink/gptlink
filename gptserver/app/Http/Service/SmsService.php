@@ -2,8 +2,10 @@
 
 namespace App\Http\Service;
 
+use App\Base\Sms\GptlinkGateway;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
+use App\Http\Dto\Config\SmsConfigDto;
 use App\Model\Config;
 use Hyperf\Utils\Arr;
 use Overtrue\EasySms\EasySms;
@@ -26,26 +28,13 @@ class SmsService
     public $sendExpireAt = 60;
 
     /**
-     * @var EasySms
+     * @var SmsConfigDto
      */
-    protected $sms;
-
     protected $config;
 
     public function __construct()
     {
-        $this->sms = new EasySms([
-            'timeout' => 5.0,
-            'default' => [
-                'gateways' => ['chuanglan'],
-            ],
-            'gateways' => [
-                'chuanglan' => [
-                    'account' => config('sms.chuanglan.account'),
-                    'password' => config('sms.chuanglan.password'),
-                ],
-            ],
-        ]);
+        $this->config = Config::toDto(Config::SMS);
     }
 
     /**
@@ -81,8 +70,10 @@ class SmsService
      * @throws InvalidArgumentException
      * @throws \RedisException
      */
-    public function verifyCode($mobile, $code, int $attempts = 10)
+    public function verifyCode($mobile, $code, int $attempts = 6)
     {
+        throw_if(is_null($code), LogicException::class, ErrCode::LOGIN_SMS_CODE_ERROR);
+
         // 获取缓存与用户提交做对比
         $data = cache()->get($this->getLoginKey($mobile));
 
@@ -113,13 +104,8 @@ class SmsService
     protected function sendCode($mobilePhone)
     {
         $code = mt_rand(1000, 9999);
-        $expireAt = bcdiv((string) $this->expireAt, '60');
-        $config = Config::toDto(Config::SMS_CHUANG_LAN);
-        $sign = Arr::get($config, 'sign');
 
-        $this->sms->send($mobilePhone, [
-            'content' => sprintf("【%s】您的验证码是%s。有效期 %s 分钟", $sign, $code, $expireAt)
-        ]);
+        $this->sms()->send($mobilePhone, $this->getData($code));
 
         $this->deleteLoginCache($mobilePhone);
 
@@ -130,6 +116,55 @@ class SmsService
         ], $this->expireAt);
 
         return $code;
+    }
+
+    /**
+     * @param $code
+     * @return array
+     */
+    public function getData($code)
+    {
+        return match ($this->config->channel) {
+            'aliyun' => [
+                'template' => $this->config->getItem('aliyun.template'),
+                'data' => ['code' => $code]
+            ],
+            'gptlink' => [
+                'template' => 'register',
+                'data' =>  ['rand_code' => $code]
+            ],
+            'chuanglan' => [
+                'content' => sprintf("【%s】您的验证码是%s。请尽快使用", $this->config->getItem('chuanglan.sign'), $code)
+            ],
+        };
+    }
+
+    /**
+     * @return EasySms
+     */
+    public function sms()
+    {
+        $sms = new EasySms(array_merge([
+            'timeout' => 5.0,
+            'default' => [
+                'gateways' => [$this->config->channel],
+            ],
+            'gateways' => Arr::except($this->config->toArray(), ['type', 'channel']),
+        ]));
+
+        logger()->info('sms config', array_merge([
+            'timeout' => 5.0,
+            'default' => [
+                'gateways' => [$this->config->channel],
+            ],
+            'gateways' => Arr::except($this->config->toArray(), ['type', 'channel']),
+        ]));
+
+        $sms->extend('gptlink', function ($config) {
+            return new GptlinkGateway($config);
+        });
+
+        return $sms;
     }
 
     public function deleteLoginCache($mobile)

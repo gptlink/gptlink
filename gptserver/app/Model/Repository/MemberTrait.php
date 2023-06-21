@@ -3,8 +3,10 @@
 namespace App\Model\Repository;
 
 use App\Http\Dto\MemberDto;
+use App\Http\Dto\WithdrawalDto;
 use App\Job\UserRegisterRecordJob;
 use App\Model\Member;
+use App\Model\Withdraw;
 
 trait MemberTrait
 {
@@ -23,6 +25,32 @@ trait MemberTrait
     }
 
     /**
+     * 申请提现
+     *
+     * @param WithdrawalDto $dto
+     * @return void
+     */
+    public function applyWithdrawal(WithdrawalDto $dto)
+    {
+        $this->decrement('balance', $dto->price);
+
+        Withdraw::query()->create($dto->toModel($this->id));
+    }
+
+    /**
+     * 设置分销员
+     *
+     * @return Member
+     */
+    public function setSalesman()
+    {
+        $this->identity = Member::IDENTITY_SALESMAN;
+        $this->save();
+
+        return $this;
+    }
+
+    /**
      * 登陆信息
      *
      * @return array
@@ -35,6 +63,7 @@ trait MemberTrait
                 'nickname' => $this->nickname,
                 'avatar' => $this->avatar,
                 'status' => $this->status,
+                'identity' => $this->identity,
             ],
             'token_type' => 'Bearer',
             'access_token' => auth('user')->login($this),

@@ -5,7 +5,6 @@ namespace App\Listener\Member;
 use App\Event\UserRegisterTaskEvent;
 use App\Model\Member;
 use App\Model\Task;
-use App\Model\UserTree;
 use Hyperf\Event\Contract\ListenerInterface;
 
 /**

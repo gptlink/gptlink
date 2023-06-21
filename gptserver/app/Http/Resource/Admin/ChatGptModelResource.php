@@ -26,11 +26,6 @@ class ChatGptModelResource extends BaseResource
             'remark' => $this->resource->remark,
             'type' => $this->resource->type,
         ];
-        // 违规记录数据存在
-        if($this->resource->lastRecord){
-            $data['violation_record']['label'] = Arr::get($this->resource->record, 'label');
-            $data['violation_record']['trigger'] = Arr::get($this->resource->record, 'trigger');
-        }
 
         return $data;
     }

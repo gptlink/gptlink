@@ -2,6 +2,7 @@
 
 namespace Api\Admin\Config;
 
+use App\Http\Dto\Config\LoginConfigDto;
 use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Model\Config;
 use HyperfTest\LoginTrait;
@@ -18,7 +19,7 @@ class SiteConfigTest extends TestCase
 
         Config::updateOrCreateByDto(new WebsiteConfigDto([]));
 
-        $response = $this->get(sprintf('/admin/config/%s',  Config::GPT_SECRET_KEY));
+        $response = $this->get(sprintf('/admin/config/%s',  Config::WEBSITE));
 
         $this->assertApiSuccess($response);
 
@@ -38,7 +39,7 @@ class SiteConfigTest extends TestCase
                 'web_logo' => '站点logo',
                 'user_logo' => '用户默认头像',
                 'admin_logo' => '管理端logo',
-                'login_type' => BaseDto::mapDesc('登录方式', WebsiteConfigDto::LOGIN_TYPE),
+                'login_type' => BaseDto::mapDesc('登录方式', LoginConfigDto::LOGIN_TYPE),
             ],
         ]));
     }
@@ -53,7 +54,7 @@ class SiteConfigTest extends TestCase
     {
         $this->AdminLogin();
 
-        $response = $this->post(sprintf('/admin/config/%s', Config::GPT_SECRET_KEY), [
+        $response = $this->post(sprintf('/admin/config/%s', Config::WEBSITE), [
             'config' => [
                 'icp' => '备案号',
                 'name' => '站点名称',
@@ -62,7 +63,7 @@ class SiteConfigTest extends TestCase
                 'web_logo' => '站点logo',
                 'user_logo' => '用户默认头像',
                 'admin_logo' => '管理端logo',
-                'login_type' => BaseDto::mapDesc('登录方式', WebsiteConfigDto::LOGIN_TYPE),
+                'login_type' => BaseDto::mapDesc('登录方式', LoginConfigDto::LOGIN_TYPE),
             ],
         ]);
 
@@ -83,7 +84,7 @@ class SiteConfigTest extends TestCase
                 'config.web_logo' => '站点logo',
                 'config.user_logo' => '用户默认头像',
                 'config.admin_logo' => '管理端logo',
-                'config.login_type' => BaseDto::mapDesc('登录方式', WebsiteConfigDto::LOGIN_TYPE),
+                'config.login_type' => BaseDto::mapDesc('登录方式', LoginConfigDto::LOGIN_TYPE),
             ],
             'request_except' => [],
             'response' => [],

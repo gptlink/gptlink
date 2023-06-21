@@ -18,6 +18,7 @@ class UserRegisterRequest extends BaseFormRequest
             'nickname' => ['required', 'string', 'max:40', $unique],
             'mobile' => ['nullable', new MobileRule()],
             'password' => ['required', 'string', 'min:6', 'max:40'],
+            'code' => ['nullable', 'string', 'max:6'],
         ];
     }
 

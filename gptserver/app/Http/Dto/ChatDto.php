@@ -3,10 +3,12 @@
 namespace App\Http\Dto;
 
 use App\Base\Consts\ModelConst;
+use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Service\ChatGPTService;
 use Carbon\Carbon;
 use Cblink\Dto\Dto;
 use Gioni06\Gpt3Tokenizer\Gpt3Tokenizer;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * @property string $model 使用的模型
@@ -48,30 +50,32 @@ class ChatDto extends Dto
     /**
      * @return array
      */
-    public function toGPTLink()
+    public function toGPTLink(AiChatConfigDto $config)
     {
+        $system = $this->getItem('system') ?: $config->default_system_prompt;
+
         return [
-            'model' => $this->getItem('model', ModelConst::GPT_35_TURBO),
+            'model' => ModelConst::GPT_35_TURBO,
             'temperature' => $this->getItem('temperature', 0.8),
             'top_p' => $this->getItem('top_p', 1),
-            'stream' => $this->getItem('stream', true),
+            'stream' => true,
             'presence_penalty' => $this->getItem('presence_penalty', 1),
-            'system_prompt' => $this->getItem('system'),
+            'system_prompt' => $system,
             'prompt' => $this->getItem('message'),
             'last_message_id' => $this->getItem('last_id'),
         ];
     }
 
-    public function toOpenAi()
+    public function toOpenAi(AiChatConfigDto $config)
     {
         return [
-            'model' => $this->getItem('model', ModelConst::GPT_35_TURBO),
+            'model' => $config->openai_model,
             'temperature' => $this->getItem('temperature', 0.8),
             'top_p' => $this->getItem('top_p', 1),
-            'stream' => $this->getItem('stream', true),
+            'stream' => true,
             'presence_penalty' => $this->getItem('presence_penalty', 1),
-            'max_tokens' => config('openai.chat.max_response_tokens', 1000),
-            'messages' => $this->getMessage(),
+            'max_tokens' => (int) $config->openai_tokens,
+            'messages' => $this->getMessage($config),
         ];
     }
 
@@ -81,14 +85,14 @@ class ChatDto extends Dto
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function getMessage()
+    public function getMessage(AiChatConfigDto $config)
     {
         $messages = [];
 
-        $system = $this->getItem('system') ?: sprintf('You are GPTLink, a large language model trained by GPT-LINK. Answer as concisely as possible.\nKnowledge cutoff: %s\nCurrent date: %s', '2021-09-01', Carbon::now()->toDateString());
+        $system = $this->getItem('system') ?: $config->default_system_prompt;
         $systemTokens = $system ? app()->get(Gpt3Tokenizer::class)->count($system) : 0;
 
-        $this->getLastMessages($this->getItem('last_id'), $messages, $systemTokens);
+        $this->getLastMessages($config, $this->getItem('last_id'), $messages, $systemTokens);
 
         $messages = array_reverse($messages);
 
@@ -102,14 +106,15 @@ class ChatDto extends Dto
     }
 
     /**
+     * @param AiChatConfigDto $configDto
      * @param $lastId
      * @param array $messages
      * @param int $totalTokens
      * @param int $count
      * @return void
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function getLastMessages($lastId, array &$messages = [], int $totalTokens = 0, int $count = 8)
+    public function getLastMessages(AiChatConfigDto $configDto, $lastId, array &$messages = [], int $totalTokens = 0, int $count = 8)
     {
         if (! $lastId || ! $message = cache()->get('chat-'. $lastId)) {
             return;
@@ -122,8 +127,8 @@ class ChatDto extends Dto
         $totalTokens += ($message['tokens'] ?: 0);
 
         $maxTokens = bcsub(
-            (string) config('openai.chat.max_tokens', 4000),
-            (string) config('openai.chat.max_response_tokens', 1000)
+            (string) $configDto->openai_tokens,
+            (string) $configDto->openai_response_tokens
         );
 
         if ($totalTokens >= $maxTokens) {
@@ -134,7 +139,7 @@ class ChatDto extends Dto
         $messages[] = ['role' => 'user', 'content' => $message['message']];
 
         if ($message['last_id']) {
-            $this->getLastMessages($message['last_id'], $messages, $totalTokens, $count);
+            $this->getLastMessages($configDto, $message['last_id'], $messages, $totalTokens, $count);
         }
     }
 

@@ -2,11 +2,14 @@
 
 namespace App\Model\Repository;
 
+use App\Exception\ErrCode;
+use App\Exception\LogicException;
 use App\Http\Dto\MemberPackageDto;
 use App\Http\Dto\PackageDto;
 use App\Model\MemberPackage;
 use App\Model\MemberPackageRecord;
 use App\Model\Package;
+use App\Model\Task;
 use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Model\Model;
 
@@ -48,6 +51,31 @@ trait PackageTrait
         MemberPackageRecord::createByPackageDto($userId, $this->id, $dto);
 
         return $result;
+    }
+
+    public function destroyPackage()
+    {
+        $packageRecord = MemberPackageRecord::query()
+            ->where('package_id', $this->id)
+            ->exists();
+
+        throw_if(
+            $packageRecord,
+            LogicException::class,
+            ErrCode::PACKAGE_IS_BIND_USER
+        );
+
+        $task = Task::query()
+            ->where('package_id', $this->id)
+            ->count();
+
+        throw_if(
+            $task,
+            LogicException::class,
+            ErrCode::PACKAGE_IS_BIND_TASK
+        );
+
+        $this->delete();
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Base\OpenAi\ChatCompletionsRequest;
 use App\Base\OpenAi\OpenaiChatCompletionsRequest;
 use App\Base\OpenAi\OpenAIClient;
 use App\Http\Dto\ChatDto;
+use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Job\MemberConsumptionJob;
 use App\Job\UserChatLogRecordJob;
@@ -54,14 +55,15 @@ class ChatGPTService
      */
     public function exec(ChatDto $dto, $userId)
     {
-        $keyType = Config::toDto(Config::GPT_SECRET_KEY)->key_type;
+        /* @var AiChatConfigDto $config */
+        $config = Config::toDto(Config::AI_CHAT);
 
         // 发送请求
-        $client = new OpenAIClient($keyType);
+        $client = new OpenAIClient($config);
 
-        $request = match ($keyType){
-            WebsiteConfigDto::OPENAI => new OpenaiChatCompletionsRequest($dto),
-            default => new ChatCompletionsRequest($dto),
+        $request = match ($config->channel){
+            AiChatConfigDto::OPENAI => new OpenaiChatCompletionsRequest($dto, $config),
+            default => new ChatCompletionsRequest($dto, $config),
         };
 
         /* @var ChatCompletionsRequest $result */
@@ -73,8 +75,6 @@ class ChatGPTService
             'request' => $result->data,
             'debug' => $result->debug,
             'class' => $request::class,
-            'key' => DevelopService::getApikey(),
-            'key_type' => $keyType,
         ]);
 
         return [$result, $request];

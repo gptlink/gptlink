@@ -322,4 +322,26 @@ class ChatGptModelTest extends TestCase
             ],
         ]));
     }
+
+    public function testAdminChatGptModelDestroy()
+    {
+        $this->AdminLogin();
+
+        $chatGptModel = ChatGptModelFactory::createByData();
+
+        $response = $this->delete(sprintf('/admin/chat-gpt-model/%s', $chatGptModel->id));
+
+        $this->assertApiSuccess($response);
+
+        $response->build(new BaseDto([
+            'project' => ['admin'],
+            'name' => '删除模型',
+            'category' => '模型管理',
+            'params' => [3 => '模型 id'],
+            'desc' => '',
+            'request' => [],
+            'request_except' => [],
+            'response' => [],
+        ]));
+    }
 }

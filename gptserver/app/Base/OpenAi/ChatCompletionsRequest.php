@@ -5,6 +5,7 @@ namespace App\Base\OpenAi;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\ChatDto;
+use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Service\ChatGPTService;
 use App\Http\Service\DevelopService;
 use Swoole\Http2\Request;
@@ -32,14 +33,20 @@ class ChatCompletionsRequest extends Request implements RequestInterface
      */
     public $dto;
 
-    public function __construct(ChatDto $dto)
+    /**
+     * @var AiChatConfigDto
+     */
+    public $config;
+
+    public function __construct(ChatDto $dto, AiChatConfigDto $config)
     {
         $this->dto = $dto;
-        $this->data = json_encode($dto->toGPTLink(), JSON_UNESCAPED_UNICODE);
+        $this->config = $config;
+        $this->data = json_encode($dto->toGPTLink($config), JSON_UNESCAPED_UNICODE);
         $this->headers = [
             'Accept' => 'text/event-stream',
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . DevelopService::getApikey(),
+            'Authorization' => 'Bearer ' . $config->gptlink_key,
         ];
     }
 

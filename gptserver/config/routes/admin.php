@@ -30,6 +30,7 @@ Router::addGroup('/admin', function () {
         Router::post('', [Api\Admin\PackageController::class, 'store']);
         Router::put('/{id}', [Api\Admin\PackageController::class, 'update']);
         Router::put('/{id}/show', [Api\Admin\PackageController::class, 'updateShow']);
+        Router::delete('/{id}', [Api\Admin\PackageController::class, 'destroy']);
     });
 
     // 模型
@@ -38,11 +39,10 @@ Router::addGroup('/admin', function () {
         Router::get('/{id}', [Api\Admin\ChatGptModelController::class, 'show']);
         Router::post('', [Api\Admin\ChatGptModelController::class, 'store']);
         Router::put('/{id}', [Api\Admin\ChatGptModelController::class, 'update']);
+        Router::delete('/{id}', [Api\Admin\ChatGptModelController::class, 'destroy']);
         Router::put('/{id}/status', [Api\Admin\ChatGptModelController::class, 'updateStatus']);
         Router::post('/{id}/top', [Api\Admin\ChatGptModelController::class, 'top']);
         Router::post('/{id}/cancel-top', [Api\Admin\ChatGptModelController::class, 'cancelTop']);
-        Router::post('/{id}/copy-gpt', [Api\Admin\ChatGptModelController::class, 'copyModel']);
-        Router::get('/{id}/violation', [Api\Admin\ChatGptModelController::class, 'getViolationRecord']);
     });
 
     // 任务
@@ -74,13 +74,6 @@ Router::addGroup('/admin', function () {
     Router::addGroup('/upload', function () {
         Router::get('/qiniu/token', [Api\Common\UploadController::class, 'getQiniuToken']);
         Router::post('/image', [Api\Common\UploadController::class, 'uploadImage']);
-    });
-
-    // 素材管理
-    Router::addGroup('/material', function () {
-        Router::get('', [Api\Admin\MaterialController::class, 'index']);
-        Router::post('', [Api\Admin\MaterialController::class, 'store']);
-        Router::delete('/{id}', [Api\Admin\MaterialController::class, 'destroy']);
     });
 
     // 开发者套餐
