@@ -74,7 +74,7 @@ class ChatDto extends Dto
             'top_p' => $this->getItem('top_p', 1),
             'stream' => true,
             'presence_penalty' => $this->getItem('presence_penalty', 1),
-            'max_tokens' => (int) $config->openai_tokens,
+            'max_tokens' => (int) $config->openai_response_tokens,
             'messages' => $this->getMessage($config),
         ];
     }
