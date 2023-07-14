@@ -49,7 +49,17 @@
 
 ### 访问
 
-部署完成后访问 `http://域名或IP` 进入对话页面，`/admin/` 路径访问管理页，管理员账号密码为配置项设置的 `ADMIN_USERNAME` 与 `ADMIN_USERNAME` ，如不传入，默认账号密码为 `admin` `admin888`
+**项目访问**
+
+- 对话端 访问 `http://域名或IP` 进入对话页面
+- 管理端 访问 `http://域名或IP/admin` 进入管理页
+
+管理员账号密码为配置项设置的 `ADMIN_USERNAME` 与 `ADMIN_USERNAME`，如不传入，默认账号密码为 `admin` `admin888`
+
+**API 文档地址：**
+
+- 用户端 API 文档访问 `/api/docs/default` 
+- 管理端 API 文档访问 `/api/docs/admin`
 
 ## 版本计划
 - [x] [前端开源](https://github.com/gptlink/gptlink-web)
