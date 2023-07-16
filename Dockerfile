@@ -36,4 +36,4 @@ RUN cd /app/gptserver && \
     rm -rf /var/cache/apk/* /tmp/* /usr/share/man
 
 
-CMD ["bash", "-i", "/app/gptserver/start.sh"]
+CMD ["bash", "/app/gptserver/start.sh"]
