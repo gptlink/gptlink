@@ -59,7 +59,7 @@ class ChatController extends BaseController
         $chatDto = new ChatDto(array_merge($request->inputs(['message', 'last_id']), [
             'system' => $system,
             'stream' => true,
-            'format_after' => ',',
+            'format_after' => "\n\ndata :",
         ]));
 
         // 数据量输出
