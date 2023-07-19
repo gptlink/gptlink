@@ -19,7 +19,7 @@ class DocsController extends BaseController
     {
         $response = Context::get(ResponseInterface::class);
 
-        $path = sprintf('%s/storage/swagger/%s-swagger.json',BASE_PATH, $project);
+        $path = sprintf('%s/storage/swagger/%s-swagger.json', BASE_PATH, $project);
 
         $result = file_exists($path) ?
             file_get_contents($path) :
@@ -39,14 +39,14 @@ class DocsController extends BaseController
      */
     public function docs($project)
     {
-        $content = file_get_contents(BASE_PATH.'/storage/swagger.html');
+        $content = file_get_contents(BASE_PATH . '/storage/swagger.html');
 
         $content = str_replace([
             '{{ url }}',
-            '{{ title }}'
+            '{{ title }}',
         ], [
             url(sprintf('/docs/%s/swagger', $project)),
-            sprintf('%s api docs', $project)
+            sprintf('%s api docs', $project),
         ], $content);
 
         return Context::get(ResponseInterface::class)
@@ -54,5 +54,4 @@ class DocsController extends BaseController
             ->withAddedHeader('content-type', 'text/html; charset=utf-8')
             ->withBody(new SwooleStream($content));
     }
-
 }

@@ -17,21 +17,20 @@ class TaskRecordController extends BaseController
     {
         $tasks = TaskRecord::query()
             ->search([
-				'nickname' => ['type' => 'keyword', 'field' => 'nickname', 'relate' => 'member'],
-				'mobile' => ['type' => 'keyword', 'field' => 'mobile', 'relate' => 'member'],
+                'nickname' => ['type' => 'keyword', 'field' => 'nickname', 'relate' => 'member'],
+                'mobile' => ['type' => 'keyword', 'field' => 'mobile', 'relate' => 'member'],
                 'user_id' => ['type' => 'eq'],
                 'type' => ['type' => 'eq'],
                 'created_at' => ['type' => 'date'],
                 'task_id' => ['type' => 'eq'],
             ])
-			->whenWith([
-				'member' => ['member:id,nickname,mobile']
-			])
+            ->whenWith([
+                'member' => ['member:id,nickname,mobile'],
+            ])
             ->select(['id', 'task_id', 'user_id', 'type', 'package_name', 'expired_day', 'num', 'created_at'])
             ->orderByDesc('created_at')
             ->page();
 
         return new TaskRecordCollection($tasks);
     }
-
 }

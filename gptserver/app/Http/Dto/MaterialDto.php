@@ -19,9 +19,9 @@ class MaterialDto extends Dto
 
     public function getCreateData()
     {
-        [$string, $content] = explode(",", $this->getItem('content'));
+        [$string, $content] = explode(',', $this->getItem('content'));
 
-        preg_match("/image\/(png|jpg|jpeg)/", $string, $result);
+        preg_match('/image\\/(png|jpg|jpeg)/', $string, $result);
 
         return [
             'type' => $result[0],

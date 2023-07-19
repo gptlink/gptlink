@@ -15,5 +15,4 @@ class CdkUsedEvent
     {
         $this->cdk = $cdk;
     }
-
 }

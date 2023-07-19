@@ -21,7 +21,7 @@ class CdkGroupCollection extends BaseCollection
                 'created_at' => $model->created_at->toDateTimeString(),
             ];
 
-            if($model->relationLoaded('package')){
+            if ($model->relationLoaded('package')) {
                 $item['package'] = [
                     'id' => $model->package->id,
                     'name' => $model->package->name,

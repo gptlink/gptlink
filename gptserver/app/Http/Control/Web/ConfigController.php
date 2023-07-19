@@ -2,13 +2,12 @@
 
 namespace App\Http\Control\Web;
 
-use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Dto\Config\LoginConfigDto;
+use App\Http\Dto\Config\PaymentDto;
+use App\Http\Dto\Config\ProtocolDto;
 use App\Http\Dto\Config\SalesmanDto;
 use App\Http\Dto\Config\ShareConfigDto;
 use App\Http\Dto\Config\WebsiteConfigDto;
-use App\Http\Dto\Config\PaymentDto;
-use App\Http\Dto\Config\ProtocolDto;
 use App\Model\Config;
 use Cblink\HyperfExt\BaseController;
 use Hyperf\Utils\Arr;
@@ -22,8 +21,8 @@ class ConfigController extends BaseController
      * @return ResponseInterface
      * @throws \Throwable
      */
-	public function getBasicInfo()
-	{
+    public function getBasicInfo()
+    {
         /* @var WebsiteConfigDto $config */
         $config = Config::toDto(Config::WEBSITE);
 
@@ -32,14 +31,14 @@ class ConfigController extends BaseController
         ]));
 
         // 默认微信登陆
-		return $this->success([
+        return $this->success([
             'name' => $result['name'] ?? '',
             'icp' => $result['icp'] ?? '',
             'web_logo' => $result['web_logo'] ?? '',
             'admin_logo' => $result['admin_logo'] ?? '',
             'user_logo' => $result['user_logo'] ?? '',
         ]);
-	}
+    }
 
     /**
      *  获取登录配置

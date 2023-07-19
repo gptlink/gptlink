@@ -25,7 +25,7 @@ class ChatGptModelDto extends Dto
 {
     protected $fillable = [
         'user_id', 'icon', 'name', 'prompt', 'system', 'status', 'sort',
-        'platform', 'desc', 'remark', 'source', 'type', 'verify_result', 'verify_data'
+        'platform', 'desc', 'remark', 'source', 'type', 'verify_result', 'verify_data',
     ];
 
     public function getFillableData()

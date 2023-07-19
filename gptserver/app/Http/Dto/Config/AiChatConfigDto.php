@@ -6,7 +6,7 @@ use App\Model\Config;
 use Cblink\Dto\Dto;
 
 /**
- * @property string $channel  渠道
+ * @property string $channel 渠道
  * @property string $default_system_prompt 默认系统咒语
  * @property string $gptlink_key gptlink key
  * @property string $openai_key openai key
@@ -22,8 +22,9 @@ use Cblink\Dto\Dto;
  */
 class AiChatConfigDto extends Dto implements ConfigDtoInterface
 {
-    const GPTLINK = 'gptlink';
-    const OPENAI = 'openai';
+    public const GPTLINK = 'gptlink';
+
+    public const OPENAI = 'openai';
 
     protected $fillable = [
         'type',
@@ -78,7 +79,7 @@ class AiChatConfigDto extends Dto implements ConfigDtoInterface
                 'azure_model' => $this->getItem('azure_model'),
                 'azure_key' => $this->getItem('azure_key'),
                 'azure_api_version' => $this->getItem('azure_api_version'),
-            ]
+            ],
         ];
     }
 

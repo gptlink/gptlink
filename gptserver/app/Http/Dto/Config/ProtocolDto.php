@@ -2,7 +2,6 @@
 
 namespace App\Http\Dto\Config;
 
-
 use App\Model\Config;
 use Cblink\Dto\Dto;
 
@@ -21,10 +20,10 @@ class ProtocolDto extends Dto implements ConfigDtoInterface
     public function getDefaultConfig(): array
     {
         return [
-            'type'    => $this->getItem('type'),
+            'type' => $this->getItem('type'),
             'enable' => $this->getItem('enable', true),
-            'title'    => $this->getItem('title'),
-            'agreement'    => $this->getItem('agreement'),
+            'title' => $this->getItem('title'),
+            'agreement' => $this->getItem('agreement'),
         ];
     }
 
@@ -36,9 +35,9 @@ class ProtocolDto extends Dto implements ConfigDtoInterface
         return [
             'config' => [
                 'enable' => $this->getItem('enable', true),
-                'title'    => $this->getItem('title'),
-                'agreement'    => $this->getItem('agreement'),
-            ]
+                'title' => $this->getItem('title'),
+                'agreement' => $this->getItem('agreement'),
+            ],
         ];
     }
 

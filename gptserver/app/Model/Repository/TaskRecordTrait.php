@@ -2,7 +2,6 @@
 
 namespace App\Model\Repository;
 
-
 use App\Http\Dto\TaskRecordDto;
 use App\Model\TaskRecord;
 
@@ -26,6 +25,4 @@ trait TaskRecordTrait
         $this->update(['is_read' => $isRead]);
         return $this->refresh();
     }
-
-
 }

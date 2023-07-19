@@ -6,8 +6,6 @@ use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\ChatDto;
 use App\Http\Dto\Config\AiChatConfigDto;
-use App\Http\Service\ChatGPTService;
-use App\Http\Service\DevelopService;
 use Swoole\Http2\Request;
 
 class ChatCompletionsRequest extends Request implements RequestInterface
@@ -118,7 +116,7 @@ class ChatCompletionsRequest extends Request implements RequestInterface
 
         // 如果没有json错误，则表示返回的是json
         if (! json_last_error()) {
-            switch ($data['err_code']){
+            switch ($data['err_code']) {
                 case ErrCode::MEMBER_INSUFFICIENT_BALANCE:
                     throw new LogicException(ErrCode::SYSTEM_INSUFFICIENT_BALANCE);
                 case ErrCode::AUTHENTICATION:

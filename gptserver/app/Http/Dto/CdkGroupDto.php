@@ -14,7 +14,7 @@ use Cblink\Dto\Dto;
 class CdkGroupDto extends Dto
 {
     protected $fillable = [
-        'name', 'num', 'package_id', 'remark'
+        'name', 'num', 'package_id', 'remark',
     ];
 
     /**
@@ -37,5 +37,4 @@ class CdkGroupDto extends Dto
             'remark' => $this->getItem('remark'),
         ];
     }
-
 }

@@ -80,7 +80,7 @@ trait PackageTrait
 
     /**
      * @param PackageDto $dto
-     * @return Package|Builder|Model
+     * @return Builder|Model|Package
      */
     public static function createByDto(PackageDto $dto)
     {
@@ -99,6 +99,7 @@ trait PackageTrait
 
         return $this->refresh();
     }
+
     /**
      * 修改状态
      *

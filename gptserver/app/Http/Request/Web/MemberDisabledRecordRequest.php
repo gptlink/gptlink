@@ -2,7 +2,6 @@
 
 namespace App\Http\Request\Web;
 
-
 use App\Http\Request\BaseFormRequest;
 
 class MemberDisabledRecordRequest extends BaseFormRequest
@@ -11,7 +10,7 @@ class MemberDisabledRecordRequest extends BaseFormRequest
     {
         return [
             'mobile' => ['nullable', 'string', 'size:11'],
-            'appeal' => ['required', 'string', 'min:10', 'max:200']
+            'appeal' => ['required', 'string', 'min:10', 'max:200'],
         ];
     }
 }

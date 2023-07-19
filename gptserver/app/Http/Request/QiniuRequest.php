@@ -2,8 +2,6 @@
 
 namespace App\Http\Request;
 
-use App\Exception\ErrCode;
-use App\Exception\LogicException;
 use Hyperf\Validation\Request\FormRequest;
 
 class QiniuRequest extends FormRequest
@@ -12,6 +10,7 @@ class QiniuRequest extends FormRequest
     {
         return true;
     }
+
     public function rules()
     {
         return [
@@ -19,10 +18,10 @@ class QiniuRequest extends FormRequest
         ];
     }
 
-	public function messages(): array
-	{
-		return [
-			'path.regex' => '上传路径不合法',
-		];
-	}
+    public function messages(): array
+    {
+        return [
+            'path.regex' => '上传路径不合法',
+        ];
+    }
 }

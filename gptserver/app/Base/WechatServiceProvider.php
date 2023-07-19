@@ -6,7 +6,6 @@ use HyperfSocialiteProviders\Weixin\Provider;
 
 class WechatServiceProvider extends Provider
 {
-
     public function getAuthUrl($state)
     {
         return $this->buildAuthUrlFromBase($this->getJumpUrl(), $state);

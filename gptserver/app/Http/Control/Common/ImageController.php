@@ -29,5 +29,4 @@ class ImageController extends BaseController
             ->withAddedHeader('content-type', $material->format)
             ->withBody(new SwooleStream(base64_decode($material->content)));
     }
-
 }

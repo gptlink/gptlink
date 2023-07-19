@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exception;
 
-use RuntimeException;
-
-class RemoteException extends RuntimeException
+class RemoteException extends \RuntimeException
 {
     public $errCode;
 

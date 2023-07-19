@@ -7,7 +7,6 @@ use Cblink\HyperfExt\BaseCollection;
 
 class withdrawalCollection extends BaseCollection
 {
-
     public function toArray(): array
     {
         return $this->resource->map(function (Withdraw $withdraw) {
@@ -22,5 +21,4 @@ class withdrawalCollection extends BaseCollection
             ];
         })->toArray();
     }
-
 }

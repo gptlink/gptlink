@@ -45,6 +45,6 @@ class SalesmanOrderCollection extends BaseCollection
             return $str;
         }
 
-        return mb_substr($str, 0, 2) . str_pad('', ($len - $num), '*');
+        return mb_substr($str, 0, 2) . str_pad('', $len - $num, '*');
     }
 }

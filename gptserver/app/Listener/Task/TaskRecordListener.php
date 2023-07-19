@@ -2,7 +2,6 @@
 
 namespace App\Listener\Task;
 
-use App\Event\OrderPaidEvent;
 use App\Event\TaskRecordEvent;
 use App\Http\Dto\TaskRecordDto;
 use App\Model\MemberPackage;
@@ -17,7 +16,6 @@ use Hyperf\Utils\Arr;
  */
 class TaskRecordListener implements ListenerInterface
 {
-
     public function listen(): array
     {
         return [
@@ -27,7 +25,6 @@ class TaskRecordListener implements ListenerInterface
 
     /**
      * @param TaskRecordEvent $event
-     * @return void
      */
     public function process(object $event)
     {

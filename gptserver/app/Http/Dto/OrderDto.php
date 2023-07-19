@@ -6,9 +6,6 @@ use App\Model\Order;
 use Cblink\Dto\Dto;
 use Hyperf\Snowflake\IdGeneratorInterface;
 
-/**
- *
- */
 class OrderDto extends Dto
 {
     protected $fillable = [

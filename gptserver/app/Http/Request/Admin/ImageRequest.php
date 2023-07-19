@@ -3,7 +3,6 @@
 namespace App\Http\Request\Admin;
 
 use App\Http\Request\BaseFormRequest;
-use Hyperf\Validation\Rule;
 
 class ImageRequest extends BaseFormRequest
 {
@@ -24,5 +23,4 @@ class ImageRequest extends BaseFormRequest
             'content.regx' => '图片类型错误',
         ];
     }
-
 }

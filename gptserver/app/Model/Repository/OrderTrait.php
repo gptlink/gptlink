@@ -37,7 +37,6 @@ trait OrderTrait
      *
      * @param $payment
      * @param null $paidNo
-     * @return void
      */
     public function paid($payment, $paidNo = null)
     {
@@ -48,5 +47,4 @@ trait OrderTrait
 
         event(new OrderPaidEvent($this));
     }
-
 }

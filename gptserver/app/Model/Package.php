@@ -12,8 +12,9 @@ class Package extends Model
 {
     use PackageTrait, SearchableTrait;
 
-    const PLATFORM_GPT = 1;
-    const PLATFORM = [
+    public const PLATFORM_GPT = 1;
+
+    public const PLATFORM = [
         self::PLATFORM_GPT => 'gptlink',
     ];
 
@@ -30,7 +31,9 @@ class Package extends Model
     ];
 
     public const CODE_NUM = 'num';
+
     public const CODE_DATE = 'date';
+
     public const CODE = [
         self::CODE_NUM => '按次数',
         self::CODE_DATE => '按天数',

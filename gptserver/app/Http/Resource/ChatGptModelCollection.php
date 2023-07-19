@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resource;
 
-use App\Base\BaseRemoteCollection;
 use App\Model\ChatGptModel;
 use Cblink\HyperfExt\BaseCollection;
 

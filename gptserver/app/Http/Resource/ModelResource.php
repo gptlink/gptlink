@@ -14,5 +14,4 @@ class ModelResource extends BaseResource
     {
         return Arr::get($this->resource, 'data', []);
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resource\Admin;
 
-use App\Model\Task;
 use Cblink\HyperfExt\BaseResource;
 use Hyperf\Utils\Arr;
 
@@ -25,9 +24,8 @@ class TaskResource extends BaseResource
             'package_id' => $this->resource->package_id,
             'package' => [
                 'id' => Arr::get($this->resource->package, 'id'),
-                'name' => Arr::get($this->resource->package, 'name')
+                'name' => Arr::get($this->resource->package, 'name'),
             ],
         ];
     }
-
 }

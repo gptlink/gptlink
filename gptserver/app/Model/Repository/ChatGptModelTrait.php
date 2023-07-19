@@ -2,16 +2,9 @@
 
 namespace App\Model\Repository;
 
-use App\Exception\ErrCode;
-use App\Exception\LogicException;
 use App\Http\Dto\ChatGptModelDto;
-use App\Http\Dto\ChatGptModelRecordDto;
 use App\Model\ChatGptModel;
 use App\Model\ChatGptModelCount;
-use App\Model\ChatGptModelRecord;
-use App\Model\GptModelCollect;
-use Hyperf\DbConnection\Db;
-use Hyperf\Utils\Arr;
 
 trait ChatGptModelTrait
 {
@@ -49,7 +42,6 @@ trait ChatGptModelTrait
     /**
      * 删除模型
      *
-     * @return void
      * @throws \Exception
      */
     public function destroyModel()
@@ -63,7 +55,7 @@ trait ChatGptModelTrait
      * 排序
      *
      * @param int $sort
-     * @return ChatGptModel|\App\Model\ChatGptModelRecord
+     * @return \App\Model\ChatGptModelRecord|ChatGptModel
      */
     public function updateSort(int $sort)
     {

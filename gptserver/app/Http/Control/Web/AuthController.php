@@ -5,7 +5,6 @@ namespace App\Http\Control\Web;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\Config\LoginConfigDto;
-use Closure;
 use App\Http\Dto\MemberDto;
 use App\Http\Request\Web\UserLoginRequest;
 use App\Http\Request\Web\UserRegisterRequest;
@@ -133,7 +132,7 @@ class AuthController extends BaseController
         };
 
         // 如果是方法，则直接调用
-        if ($callback instanceof Closure) {
+        if ($callback instanceof \Closure) {
             $callback();
         }
 
@@ -141,5 +140,4 @@ class AuthController extends BaseController
 
         return $this->success();
     }
-
 }

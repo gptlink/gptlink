@@ -6,9 +6,6 @@ use App\Model\MemberPackage;
 use App\Model\Package;
 use Hyperf\AsyncQueue\Job;
 
-/**
- *
- */
 class MemberConsumptionJob extends Job
 {
     /**

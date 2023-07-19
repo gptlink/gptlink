@@ -6,14 +6,16 @@ use App\Model\Config;
 use Cblink\Dto\Dto;
 
 /**
- * @property  int $login_type 登录方式
+ * @property int $login_type 登录方式
  * @property int $mobile_verify 是否验证手机号
  */
 class LoginConfigDto extends Dto implements ConfigDtoInterface
 {
-    const LOGIN_TYPE_USERNAME = 1;
-    const LOGIN_TYPE_WECHAT = 2;
-    const LOGIN_TYPE = [
+    public const LOGIN_TYPE_USERNAME = 1;
+
+    public const LOGIN_TYPE_WECHAT = 2;
+
+    public const LOGIN_TYPE = [
         self::LOGIN_TYPE_USERNAME => '用户名密码',
         self::LOGIN_TYPE_WECHAT => '微信登陆',
     ];
@@ -27,7 +29,7 @@ class LoginConfigDto extends Dto implements ConfigDtoInterface
     public function getDefaultConfig(): array
     {
         return [
-            'type'    => $this->getItem('type'),
+            'type' => $this->getItem('type'),
             'login_type' => $this->getItem('login_type'),
             'mobile_verify' => $this->getItem('mobile_verify', false),
         ];
@@ -42,7 +44,7 @@ class LoginConfigDto extends Dto implements ConfigDtoInterface
             'config' => [
                 'login_type' => $this->getItem('login_type'),
                 'mobile_verify' => $this->getItem('mobile_verify', false),
-            ]
+            ],
         ];
     }
 

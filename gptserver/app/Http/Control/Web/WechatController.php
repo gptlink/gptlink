@@ -4,9 +4,9 @@ namespace App\Http\Control\Web;
 
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
-use App\Http\Service\WechatService;
 use App\Http\Dto\OauthDto;
 use App\Http\Service\MemberOauthService;
+use App\Http\Service\WechatService;
 use App\Model\Config;
 use Cblink\Hyperf\Socialite\Contracts\SocialiteInterface;
 use Cblink\HyperfExt\BaseController;
@@ -27,8 +27,9 @@ class WechatController extends BaseController
         $redirectUrl = $request->input('redirect_url');
         // 读取配置项
         $config = Config::getWechatConfig($platform);
-        $data = array_merge(array_filter(['redirect_url' => $redirectUrl]
-        ),$config);
+        $data = array_merge(array_filter(
+            ['redirect_url' => $redirectUrl]
+        ), $config);
 
         // 跳板地址
         return make(SocialiteInterface::class)
@@ -51,7 +52,7 @@ class WechatController extends BaseController
 
         // 读取配置项
         $config = Config::getWechatConfig($platform);
-        $data = array_merge(array_filter(['redirect_url' => $redirectUrl]),$config);
+        $data = array_merge(array_filter(['redirect_url' => $redirectUrl]), $config);
 
         $qrCode = make(SocialiteInterface::class)
             ->driver($platform)
@@ -102,8 +103,7 @@ class WechatController extends BaseController
     {
         try {
             $jssdk = $service->getJsSdk($request->input('url'), $request->input('apis', []), false);
-        }catch (\Exception $exception) {
-
+        } catch (\Exception $exception) {
             logger('exception')->info('jssdk exception', [
                 'message' => $exception->getMessage(),
             ]);

@@ -22,14 +22,14 @@ class TaskController extends BaseController
 
     /**
      * @param $type
-     * @return TaskResource|\Psr\Http\Message\ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface|TaskResource
      */
     public function show($type)
     {
         $task = Task::query()->where(['type' => $type])
             ->with('package:id,name')
             ->first();
-        if(!$task){
+        if (! $task) {
             return $this->success();
         }
 
@@ -46,7 +46,7 @@ class TaskController extends BaseController
     public function store($type, TaskStoreRequest $request)
     {
         $task = Task::createByDto(new TaskDto(array_merge($request->validated(), [
-            'type' => $type
+            'type' => $type,
         ])));
 
         return new TaskResource($task);
@@ -63,9 +63,7 @@ class TaskController extends BaseController
         /** @var Task $task */
         $task = Task::query()->where(['type' => $type])->first();
         throw_unless($task, LogicException::class, ErrCode::TASK_ONT_FOUND_UPDATE_STATUS);
-        $status = $task->status == Task::STATUS_ON ? Task::STATUS_OFF: Task::STATUS_ON;
+        $status = $task->status == Task::STATUS_ON ? Task::STATUS_OFF : Task::STATUS_ON;
         return new TaskResource($task->updateStatus($status));
-
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Control\Web;
 
-use App\Base\Consts\ModelConst;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\ChatDto;
@@ -39,10 +38,9 @@ class ChatController extends BaseController
         /* @var KeywordDto $keywordDto */
         $keywordDto = Config::toDto(Config::KEYWORD);
         if ($keywordDto->enable) {
-
             $keywords = json_decode($keywordDto->keywords, true);
 
-            $pattern = "/".implode("|", $keywords)."/i";
+            $pattern = '/' . implode('|', $keywords) . '/i';
 
             preg_match_all($pattern, $request->input('message'), $matches);
 

@@ -2,7 +2,6 @@
 
 namespace App\Model\Repository;
 
-
 use App\Event\TaskRecordEvent;
 use App\Http\Dto\TaskDto;
 use App\Model\Task;
@@ -36,6 +35,7 @@ trait TaskTrait
      *
      * @param string $type
      * @param int $userId
+     * @param mixed $skipCheck
      * @return bool
      */
     public static function completion(string $type, int $userId, $skipCheck = false)
@@ -43,14 +43,14 @@ trait TaskTrait
         /** @var Task $task */
         $task = Task::query()->where([
             'type' => $type,
-            'status' => Task::STATUS_ON
+            'status' => Task::STATUS_ON,
         ])->with(['package'])->first();
-        if (!$task || !Arr::get($task, 'package')) {
+        if (! $task || ! Arr::get($task, 'package')) {
             return false;
         }
         $checkRes = $task->checkCompleted($type, $userId);
         // 2. 查询对应任务触发发送任务
-        if (!$checkRes || $skipCheck) {
+        if (! $checkRes || $skipCheck) {
             event(new TaskRecordEvent($task, $userId));
             return true;
         }
@@ -61,6 +61,7 @@ trait TaskTrait
      * 验证任务完成
      *
      * @param $userId
+     * @param mixed $type
      * @return bool
      */
     public function checkCompleted($type, $userId)
@@ -80,5 +81,4 @@ trait TaskTrait
         }
         return $checkRes;
     }
-
 }

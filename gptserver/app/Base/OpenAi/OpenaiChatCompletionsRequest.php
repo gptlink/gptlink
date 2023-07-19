@@ -4,7 +4,6 @@ namespace App\Base\OpenAi;
 
 use App\Http\Dto\ChatDto;
 use App\Http\Dto\Config\AiChatConfigDto;
-use App\Http\Service\DevelopService;
 use Hyperf\Utils\Arr;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

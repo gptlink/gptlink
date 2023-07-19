@@ -3,9 +3,6 @@
 namespace App\Http\Request\Admin;
 
 use App\Http\Request\BaseFormRequest;
-use App\Model\CdkGroup;
-use App\Model\Package;
-use Hyperf\Validation\Rule;
 
 class CdkGroupRequest extends BaseFormRequest
 {

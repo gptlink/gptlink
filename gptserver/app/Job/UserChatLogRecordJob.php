@@ -6,11 +6,7 @@ use App\Http\Dto\ChatDto;
 use App\Http\Dto\ChatLogDto;
 use App\Model\ChatLog;
 use Hyperf\AsyncQueue\Job;
-use Hyperf\DbConnection\Db;
 
-/**
- *
- */
 class UserChatLogRecordJob extends Job
 {
     protected $firstId;
@@ -39,7 +35,7 @@ class UserChatLogRecordJob extends Job
     {
         // 没开启记录就不记录日志
         if (! config('custom.user_chat_log')) {
-            return ;
+            return;
         }
 
         if ($this->dto->last_id) {

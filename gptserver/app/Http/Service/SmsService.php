@@ -94,31 +94,6 @@ class SmsService
     }
 
     /**
-     * 发送短信
-     *
-     * @param $mobilePhone
-     * @return int
-     * @throws \Overtrue\EasySms\Exceptions\InvalidArgumentException
-     * @throws \Overtrue\EasySms\Exceptions\NoGatewayAvailableException
-     */
-    protected function sendCode($mobilePhone)
-    {
-        $code = mt_rand(1000, 9999);
-
-        $this->sms()->send($mobilePhone, $this->getData($code));
-
-        $this->deleteLoginCache($mobilePhone);
-
-        // 加入缓存时间
-        cache()->set($this->getLoginKey($mobilePhone), [
-            'code' => $code,
-            'lock_at' => time(),
-        ], $this->expireAt);
-
-        return $code;
-    }
-
-    /**
      * @param $code
      * @return array
      */
@@ -127,14 +102,14 @@ class SmsService
         return match ($this->config->channel) {
             'aliyun' => [
                 'template' => $this->config->getItem('aliyun.template'),
-                'data' => ['code' => $code]
+                'data' => ['code' => $code],
             ],
             'gptlink' => [
                 'template' => 'register',
-                'data' =>  ['rand_code' => $code]
+                'data' => ['rand_code' => $code],
             ],
             'chuanglan' => [
-                'content' => sprintf("【%s】您的验证码是%s。请尽快使用", $this->config->getItem('chuanglan.sign'), $code)
+                'content' => sprintf('【%s】您的验证码是%s。请尽快使用', $this->config->getItem('chuanglan.sign'), $code),
             ],
         };
     }
@@ -189,5 +164,30 @@ class SmsService
     public function getLoginAttemptsKey($mobile)
     {
         return sprintf('sms_code_attempts_login_%s', $mobile);
+    }
+
+    /**
+     * 发送短信
+     *
+     * @param $mobilePhone
+     * @return int
+     * @throws \Overtrue\EasySms\Exceptions\InvalidArgumentException
+     * @throws \Overtrue\EasySms\Exceptions\NoGatewayAvailableException
+     */
+    protected function sendCode($mobilePhone)
+    {
+        $code = mt_rand(1000, 9999);
+
+        $this->sms()->send($mobilePhone, $this->getData($code));
+
+        $this->deleteLoginCache($mobilePhone);
+
+        // 加入缓存时间
+        cache()->set($this->getLoginKey($mobilePhone), [
+            'code' => $code,
+            'lock_at' => time(),
+        ], $this->expireAt);
+
+        return $code;
     }
 }

@@ -7,7 +7,7 @@ use Cblink\HyperfExt\Dto;
 use Hyperf\Utils\Str;
 
 /**
- * @property string|null $share_openid
+ * @property null|string $share_openid
  */
 class MemberDto extends Dto
 {

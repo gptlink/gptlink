@@ -2,8 +2,6 @@
 
 namespace App\Command;
 
-use App\Model\Cdk;
-use App\Model\Package;
 use Hyperf\Command\Annotation\Command;
 use Hyperf\Command\Command as HyperfCommand;
 use Hyperf\DbConnection\Db;
@@ -34,18 +32,16 @@ class CreateCdkCommand extends HyperfCommand
     {
         try {
             Db::connection('default')->statement('show tables');
-            $this->line("mysql successfully!");
-        }catch (\Exception $exception) {
-            $this->line("mysql fail: " . $exception->getMessage());
+            $this->line('mysql successfully!');
+        } catch (\Exception $exception) {
+            $this->line('mysql fail: ' . $exception->getMessage());
         }
 
         try {
             redis()->get('test');
-            $this->line("redis successfully!");
-        }catch (\Exception $exception) {
-            $this->line("redis fail: " . $exception->getMessage());
+            $this->line('redis successfully!');
+        } catch (\Exception $exception) {
+            $this->line('redis fail: ' . $exception->getMessage());
         }
-
-
     }
 }

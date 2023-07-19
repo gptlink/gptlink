@@ -2,7 +2,6 @@
 
 namespace App\Event;
 
-
 use App\Http\Dto\MemberDisabledRcordDto;
 
 class MemberDisabledEvent
@@ -11,7 +10,6 @@ class MemberDisabledEvent
      * @var MemberDisabledRcordDto
      */
     public $dto;
-
 
     public function __construct(MemberDisabledRcordDto $dto)
     {

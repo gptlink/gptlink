@@ -2,7 +2,6 @@
 
 namespace App\Http\Dto;
 
-use App\Model\Task;
 use Cblink\Dto\Dto;
 
 /**
@@ -16,7 +15,7 @@ use Cblink\Dto\Dto;
 class TaskRecordDto extends Dto
 {
     protected $fillable = [
-        'user_id', 'task_id', 'type', 'package_name', 'expired_day', 'num'
+        'user_id', 'task_id', 'type', 'package_name', 'expired_day', 'num',
     ];
 
     public function getFillableData()
@@ -30,5 +29,4 @@ class TaskRecordDto extends Dto
             'num' => $this->getItem('num'),
         ];
     }
-
 }

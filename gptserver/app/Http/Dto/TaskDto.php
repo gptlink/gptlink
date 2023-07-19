@@ -4,7 +4,6 @@ namespace App\Http\Dto;
 
 use App\Model\Task;
 use Cblink\Dto\Dto;
-use Hyperf\Validation\Rule;
 
 /**
  * @property int $user_id
@@ -18,7 +17,7 @@ use Hyperf\Validation\Rule;
 class TaskDto extends Dto
 {
     protected $fillable = [
-        'type', 'title', 'desc', 'platform', 'share_image', 'rule', 'package_id'
+        'type', 'title', 'desc', 'platform', 'share_image', 'rule', 'package_id',
     ];
 
     public function getFillableData()
@@ -39,5 +38,4 @@ class TaskDto extends Dto
             'type' => $this->getItem('type'),
         ];
     }
-
 }

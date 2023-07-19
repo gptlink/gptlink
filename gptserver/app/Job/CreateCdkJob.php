@@ -5,9 +5,6 @@ namespace App\Job;
 use App\Model\Cdk;
 use Hyperf\AsyncQueue\Job;
 
-/**
- *
- */
 class CreateCdkJob extends Job
 {
     /**

@@ -4,7 +4,6 @@ namespace App\Http\Request\Admin;
 
 use App\Http\Request\BaseFormRequest;
 use App\Model\ChatGptModel;
-use App\Model\Package;
 use Hyperf\Validation\Rule;
 
 class ChatGptStoreRequest extends BaseFormRequest

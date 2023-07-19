@@ -15,7 +15,6 @@ use Hyperf\Event\Contract\ListenerInterface;
  */
 class SalesmanOrderPaidListener implements ListenerInterface
 {
-
     public function listen(): array
     {
         return [
@@ -25,7 +24,6 @@ class SalesmanOrderPaidListener implements ListenerInterface
 
     /**
      * @param OrderPaidEvent $event
-     * @return void
      * @throws \Throwable
      */
     public function process(object $event)

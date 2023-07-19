@@ -8,7 +8,6 @@ use Cblink\HyperfExt\BaseController;
 
 class ChildController extends BaseController
 {
-
     /**
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -19,9 +18,8 @@ class ChildController extends BaseController
             ->withCount(['customSalesmanOrder as order_num'])
             ->withSum(['customSalesmanOrder as order_price'], 'price')
             ->orderByDesc('id')
-            ->page(['id', 'nickname', 'avatar','code', 'status', 'parent_openid', 'identity',]);
+            ->page(['id', 'nickname', 'avatar', 'code', 'status', 'parent_openid', 'identity']);
 
         return new CustomCollection($members);
     }
-
 }

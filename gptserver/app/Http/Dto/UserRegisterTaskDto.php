@@ -11,8 +11,6 @@ use Cblink\HyperfExt\Dto;
 class UserRegisterTaskDto extends Dto
 {
     protected $fillable = [
-        'parent_code', 'member_id'
+        'parent_code', 'member_id',
     ];
-
-
 }

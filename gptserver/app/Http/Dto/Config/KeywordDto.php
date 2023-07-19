@@ -20,9 +20,9 @@ class KeywordDto extends Dto implements ConfigDtoInterface
     public function getDefaultConfig(): array
     {
         return [
-            'type'    => $this->getItem('type'),
-            'enable'    => $this->getItem('enable'),
-            'keywords'    => $this->getItem('keywords'),
+            'type' => $this->getItem('type'),
+            'enable' => $this->getItem('enable'),
+            'keywords' => $this->getItem('keywords'),
         ];
     }
 
@@ -33,9 +33,9 @@ class KeywordDto extends Dto implements ConfigDtoInterface
     {
         return [
             'config' => [
-                'enable'    => $this->getItem('enable'),
-                'keywords'    => $this->getItem('keywords'),
-            ]
+                'enable' => $this->getItem('enable'),
+                'keywords' => $this->getItem('keywords'),
+            ],
         ];
     }
 

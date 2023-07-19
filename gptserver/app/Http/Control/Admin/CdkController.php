@@ -4,7 +4,6 @@ namespace App\Http\Control\Admin;
 
 use App\Http\Dto\CdkGroupDto;
 use App\Http\Request\Admin\CdkGroupRequest;
-use App\Http\Request\Admin\PackageStoreRequest;
 use App\Http\Resource\Admin\CdkGroupCollection;
 use App\Http\Resource\Admin\CdkGroupResource;
 use App\Http\Resource\Admin\CdkListCollection;
@@ -42,7 +41,6 @@ class CdkController extends BaseController
         return new CdkListCollection($cdks);
     }
 
-
     /**
      * CDK批次分组列表
      *
@@ -57,7 +55,7 @@ class CdkController extends BaseController
                 'created_at' => ['type' => 'date'],
             ])
             ->whenWith([
-                'package' => ['package:id,name,expired_day,num,price']
+                'package' => ['package:id,name,expired_day,num,price'],
             ])
             ->orderByDesc('created_at')
             ->page();

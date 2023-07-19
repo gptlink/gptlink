@@ -101,7 +101,7 @@ class MemberController extends BaseController
                 'mobile' => ['type' => 'keyword', 'field' => 'mobile', 'relate' => 'member'],
                 'channel' => ['type' => 'in'],
                 'type' => ['type' => 'in'],
-                'user_id' => ['type' => 'eq']
+                'user_id' => ['type' => 'eq'],
             ])
             ->whenWith([
                 'member' => ['member:id,nickname,mobile'],
@@ -121,7 +121,7 @@ class MemberController extends BaseController
     public function wechatOauthRecord(MemberOauthRecordRequest $request)
     {
         $oauth = MemberOauth::query()->search([
-            'user_id' => ['type' => 'eq', 'field' => 'member_id']
+            'user_id' => ['type' => 'eq', 'field' => 'member_id'],
         ])->get();
         return new MemberOauthCollection($oauth);
     }

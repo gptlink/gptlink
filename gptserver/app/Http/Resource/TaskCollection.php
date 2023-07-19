@@ -6,7 +6,6 @@ namespace App\Http\Resource;
 
 use App\Model\Task;
 use Cblink\HyperfExt\BaseCollection;
-use Hyperf\Utils\Arr;
 
 class TaskCollection extends BaseCollection
 {
@@ -19,12 +18,12 @@ class TaskCollection extends BaseCollection
                 'title' => $task->title,
                 'status' => $task->status,
                 'desc' => $task->desc,
-                'platform' =>  explode(',', $task->platform),
+                'platform' => explode(',', $task->platform),
                 'share_image' => $task->share_image,
                 'rule' => $task->rule,
                 'package_id' => $task->package_id,
                 'package' => $task->package,
-                'is_completed' => $this->checkTask($task)
+                'is_completed' => $this->checkTask($task),
             ];
         })->toArray();
     }

@@ -3,15 +3,15 @@
 namespace App\Http\Request\Web;
 
 use App\Http\Request\BaseFormRequest;
-use Cblink\HyperfExt\Rules\MobileRule;
 use Hyperf\Validation\Rule;
 
 class UserResetRequest extends BaseFormRequest
 {
-    const VERIFY_TYPE_PASSWORD = 1;
-    const VERIFY_TYPE_MOBILE = 2;
+    public const VERIFY_TYPE_PASSWORD = 1;
 
-    const VERIFY_TYPE = [
+    public const VERIFY_TYPE_MOBILE = 2;
+
+    public const VERIFY_TYPE = [
         self::VERIFY_TYPE_PASSWORD => '旧密码验证',
         self::VERIFY_TYPE_MOBILE => '手机号验证',
     ];

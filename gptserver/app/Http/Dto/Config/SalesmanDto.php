@@ -7,7 +7,7 @@ use Cblink\HyperfExt\Dto;
 
 /**
  * @property bool $enable 是否开启分销
- * @property bool $open   开放申请
+ * @property bool $open 开放申请
  * @property string $rules 规则说明
  * @property int $ratio 佣金比例
  */
@@ -40,7 +40,7 @@ class SalesmanDto extends Dto implements ConfigDtoInterface
                 'open' => $this->getItem('open', false),
                 'rules' => $this->getItem('rules'),
                 'ratio' => $this->getItem('ratio'),
-            ]
+            ],
         ];
     }
 

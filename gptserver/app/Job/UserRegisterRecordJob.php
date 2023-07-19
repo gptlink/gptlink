@@ -4,7 +4,6 @@ namespace App\Job;
 
 use App\Model\Member;
 use App\Model\Task;
-use App\Model\UserTree;
 use Hyperf\AsyncQueue\Job;
 
 class UserRegisterRecordJob extends Job

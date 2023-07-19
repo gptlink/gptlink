@@ -16,7 +16,7 @@ class AiImageConfigDto extends Dto implements ConfigDtoInterface
     public function getDefaultConfig(): array
     {
         return [
-            'type'    => $this->getItem('type'),
+            'type' => $this->getItem('type'),
         ];
     }
 
@@ -27,7 +27,7 @@ class AiImageConfigDto extends Dto implements ConfigDtoInterface
     {
         return [
             'config' => [
-            ]
+            ],
         ];
     }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Resource\Admin;
 
 use Cblink\HyperfExt\BaseResource;
-use Hyperf\Utils\Arr;
 
 /**
  * @property $resource
@@ -12,7 +11,7 @@ class ChatGptModelResource extends BaseResource
 {
     public function toArray(): array
     {
-        $data = [
+        return [
             'id' => $this->resource->id,
             'user_id' => $this->resource->user_id,
             'icon' => $this->resource->icon,
@@ -26,8 +25,5 @@ class ChatGptModelResource extends BaseResource
             'remark' => $this->resource->remark,
             'type' => $this->resource->type,
         ];
-
-        return $data;
     }
-
 }

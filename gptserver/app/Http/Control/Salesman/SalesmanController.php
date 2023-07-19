@@ -8,7 +8,6 @@ use Cblink\HyperfExt\BaseController;
 
 class SalesmanController extends BaseController
 {
-
     /**
      * 获取余额
      *
@@ -34,5 +33,4 @@ class SalesmanController extends BaseController
             'custom_num' => Member::query()->where('parent_openid', auth()->user()->openid)->count(),
         ]);
     }
-
 }

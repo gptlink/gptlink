@@ -22,6 +22,4 @@ class MemberResource extends BaseResource
             'status' => $this->resource->status,
         ];
     }
-
-
 }

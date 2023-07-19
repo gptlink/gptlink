@@ -8,7 +8,6 @@ use App\Http\Request\Admin\ChatGptStoreRequest;
 use App\Http\Resource\Admin\ChatGptModelCollection;
 use App\Http\Resource\Admin\ChatGptModelResource;
 use App\Model\ChatGptModel;
-use App\Model\GptModelCollect;
 use Cblink\HyperfExt\BaseController;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -39,7 +38,7 @@ class ChatGptModelController extends BaseController
             ->orderByDesc('created_at')
             ->select([
                 'id', 'user_id', 'icon', 'name', 'prompt', 'system', 'status',
-                'type', 'desc', 'sort', 'source', 'uses', 'likes', 'remark', 'created_at'
+                'type', 'desc', 'sort', 'source', 'uses', 'likes', 'remark', 'created_at',
             ])
             ->page();
 
@@ -55,7 +54,7 @@ class ChatGptModelController extends BaseController
         $model = ChatGptModel::query()->where(['id' => $id])
             ->select([
                 'id', 'user_id', 'icon', 'name', 'prompt', 'system', 'status', 'sort',
-                'platform', 'desc', 'remark', 'type'
+                'platform', 'desc', 'remark', 'type',
             ])
             ->firstOrFail();
 
@@ -68,10 +67,12 @@ class ChatGptModelController extends BaseController
      */
     public function store(ChatGptStoreRequest $request)
     {
-        $model = ChatGptModel::createByDto(new ChatGptModelDto(
-                array_merge($request->validated(), [
-                    'status' => ChatGptModel::STATUS_OFF
-                ]))
+        $model = ChatGptModel::createByDto(
+            new ChatGptModelDto(
+            array_merge($request->validated(), [
+                'status' => ChatGptModel::STATUS_OFF,
+            ])
+        )
         );
         return new ChatGptModelResource($model);
     }

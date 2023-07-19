@@ -8,6 +8,6 @@ class LogicException extends BaseLogicException
 {
     public function __construct($code = -1)
     {
-        parent::__construct("", $code);
+        parent::__construct('', $code);
     }
 }

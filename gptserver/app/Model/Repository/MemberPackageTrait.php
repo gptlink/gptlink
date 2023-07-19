@@ -30,7 +30,6 @@ trait MemberPackageTrait
      * 消费次数
      *
      * @param int $used
-     * @return void
      */
     public function consumption(int $used = 1)
     {
@@ -77,7 +76,6 @@ trait MemberPackageTrait
                 ->first();
 
             if ($memberPackage) {
-
                 // 状态如果是无效的，更新为有效状态
                 if ($memberPackage->status == MemberPackage::STATUS_UNAVAILABLE) {
                     $memberPackage->status = MemberPackage::STATUS_AVAILABLE;

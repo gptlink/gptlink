@@ -32,8 +32,8 @@ class AdminService
     public function login($username, $password, int $expire = 7200)
     {
         if (
-            $username != config('custom.admin.username') ||
-            $password != config('custom.admin.password')
+            $username != config('custom.admin.username')
+            || $password != config('custom.admin.password')
         ) {
             $tryAttempts = redis()->incr(sprintf('admin_login_%s', $username));
 
@@ -51,20 +51,19 @@ class AdminService
                 config('custom.admin.username'),
                 config('custom.admin.secret'),
                 $expire
-            )
+            ),
         ];
     }
 
     /**
      * @param $username
-     * @return void
      * @throws \RedisException
      * @throws \Throwable
      */
     public function isDisabled($username)
     {
         throw_if(
-            redis()->get($this->prefix.$username),
+            redis()->get($this->prefix . $username),
             LogicException::class,
             ErrCode::ADMIN_LOGIN_ATTEMPTS
         );

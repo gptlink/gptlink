@@ -2,9 +2,7 @@
 
 namespace App\Http\Dto;
 
-use App\Model\Member;
 use Cblink\HyperfExt\Dto;
-use Hyperf\Utils\Str;
 
 /**
  * @property string $nickname 名称
@@ -30,6 +28,7 @@ class OauthDto extends Dto
     ];
 
     /**
+     * @param mixed $memberId
      * @return array
      */
     public function getOauthData($memberId = 0)

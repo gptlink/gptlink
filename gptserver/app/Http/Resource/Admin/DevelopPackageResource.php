@@ -15,5 +15,4 @@ class DevelopPackageResource extends BaseResource
             'expired_at' => $this->resource['expired_at'],
         ];
     }
-
 }

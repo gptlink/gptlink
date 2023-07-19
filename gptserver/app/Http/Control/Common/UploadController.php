@@ -15,20 +15,19 @@ class UploadController extends BaseController
     /**
      * 获取七牛上传token
      *
-     *
      * @param QiniuRequest $request
      * @param QiniuService $qiniuService
      * @return ResponseInterface
      */
     public function getQiniuToken(QiniuRequest $request, QiniuService $qiniuService)
-	{
-		$token = $qiniuService->getUploadToken($request->input('path'));
+    {
+        $token = $qiniuService->getUploadToken($request->input('path'));
 
-		return $this->success([
-			'token' => $token,
-			'domain' => config('custom.qiniu.domain'),
-		]);
-	}
+        return $this->success([
+            'token' => $token,
+            'domain' => config('custom.qiniu.domain'),
+        ]);
+    }
 
     /**
      * 上传图片

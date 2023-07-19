@@ -2,16 +2,12 @@
 
 namespace App\Http\Service;
 
-use App\Event\UserRegisterTaskEvent;
 use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\Config\LoginConfigDto;
-use App\Http\Dto\Config\WebsiteConfigDto;
-use App\Http\Dto\Config\SmsConfigDto;
 use App\Http\Dto\MemberDto;
 use App\Http\Dto\MemberRegisterDto;
 use App\Http\Dto\OauthDto;
-use App\Job\UserRegisterRecordJob;
 use App\Model\Config;
 use App\Model\Member;
 use App\Model\MemberOauth;
@@ -42,7 +38,7 @@ class MemberOauthService
      * 注册或登陆
      *
      * @param OauthDto $dto
-     * @return null|Builder|Builder[]|Collection|Model|Member|Member[]|object
+     * @return null|Builder|Builder[]|Collection|Member|Member[]|Model|object
      * @throws \Throwable
      */
     public function registerOrLogin(OauthDto $dto)
@@ -77,7 +73,7 @@ class MemberOauthService
      *
      * @param MemberRegisterDto $dto
      * @param MemberOauth $oauth
-     * @return Member|array|Builder|Model
+     * @return array|Builder|Member|Model
      * @throws \Throwable
      */
     public function createMember(MemberRegisterDto $dto, MemberOauth $oauth)
@@ -111,7 +107,7 @@ class MemberOauthService
             'avatar' => $oauth->avatar,
             'mobile' => $dto->mobile,
             'source' => $dto->source,
-            'share_openid' => $dto->share_openid
+            'share_openid' => $dto->share_openid,
         ])));
 
         // 修改用户信息

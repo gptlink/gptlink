@@ -18,16 +18,16 @@ class StatisticsController extends BaseController
      */
     public function index(StatisticsRequest $request, StatisicsService $service)
     {
-        $data  = [];
+        $data = [];
         $types = array_flip($request->input('type', [])); // 交互数组的键和值
 
-        if(Arr::only($types, [StatisticsConst::MEMBER_COUNT])){
-            $method   = StatisticsConst::STATISTICS_METHOD[StatisticsConst::MEMBER_COUNT];
+        if (Arr::only($types, [StatisticsConst::MEMBER_COUNT])) {
+            $method = StatisticsConst::STATISTICS_METHOD[StatisticsConst::MEMBER_COUNT];
             $data['member_count'] = $service->{$method}();
         }
 
-        if(Arr::only($types, [StatisticsConst::PAYMENT_COUNT])){
-            $method   = StatisticsConst::STATISTICS_METHOD[StatisticsConst::PAYMENT_COUNT];
+        if (Arr::only($types, [StatisticsConst::PAYMENT_COUNT])) {
+            $method = StatisticsConst::STATISTICS_METHOD[StatisticsConst::PAYMENT_COUNT];
             $data['payment_count'] = $service->{$method}();
         }
 

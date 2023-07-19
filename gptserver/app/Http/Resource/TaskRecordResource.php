@@ -2,9 +2,7 @@
 
 namespace App\Http\Resource;
 
-use App\Model\Task;
 use Cblink\HyperfExt\BaseResource;
-use Hyperf\Utils\Arr;
 
 /**
  * @property $resource
@@ -22,8 +20,7 @@ class TaskRecordResource extends BaseResource
             'expired_day' => $this->expired_day,
             'num' => $this->num,
             'is_read' => $this->is_read,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
         ];
     }
-
 }

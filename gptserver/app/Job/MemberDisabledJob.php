@@ -5,9 +5,6 @@ namespace App\Job;
 use App\Http\Service\NotifyService;
 use Hyperf\AsyncQueue\Job;
 
-/**
- *
- */
 class MemberDisabledJob extends Job
 {
     /**
@@ -22,8 +19,8 @@ class MemberDisabledJob extends Job
 
     public function handle()
     {
-		// 发送飞书通知
-		$service = app()->get(NotifyService::class);
-		$service->sendNotify($this->notifyData);
+        // 发送飞书通知
+        $service = app()->get(NotifyService::class);
+        $service->sendNotify($this->notifyData);
     }
 }

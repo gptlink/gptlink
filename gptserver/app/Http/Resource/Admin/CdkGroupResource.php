@@ -17,7 +17,7 @@ class CdkGroupResource extends BaseResource
             'num' => $this->resource->num,
             'package_id' => $this->resource->package_id,
             'remark' => $this->resource->remark,
-            'created_at' => $this->resource->created_at->toDateTimeString()
+            'created_at' => $this->resource->created_at->toDateTimeString(),
         ];
 
         if ($this->resource->relationLoaded('package') && $this->resource->package) {
@@ -32,5 +32,4 @@ class CdkGroupResource extends BaseResource
 
         return $data;
     }
-
 }

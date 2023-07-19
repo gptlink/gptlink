@@ -7,7 +7,6 @@ use App\Base\OpenAi\OpenaiChatCompletionsRequest;
 use App\Base\OpenAi\OpenAIClient;
 use App\Http\Dto\ChatDto;
 use App\Http\Dto\Config\AiChatConfigDto;
-use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Job\MemberConsumptionJob;
 use App\Job\UserChatLogRecordJob;
 use App\Model\Config;
@@ -28,7 +27,6 @@ class ChatGPTService
 
         // 如果没有正常返回，不进行扣费与记录
         if ($result->result) {
-
             if (! $request instanceof ChatCompletionsRequest) {
                 $dto->cached($result->result['id'], $result->result['messages']);
             }
@@ -61,7 +59,7 @@ class ChatGPTService
         // 发送请求
         $client = new OpenAIClient($config);
 
-        $request = match ($config->channel){
+        $request = match ($config->channel) {
             AiChatConfigDto::OPENAI => new OpenaiChatCompletionsRequest($dto, $config),
             default => new ChatCompletionsRequest($dto, $config),
         };

@@ -2,14 +2,9 @@
 
 namespace App\Http\Dto;
 
-use App\Model\Order;
 use App\Model\Package;
 use Cblink\Dto\Dto;
-use Hyperf\Snowflake\IdGeneratorInterface;
 
-/**
- *
- */
 class PackageDto extends Dto
 {
     protected $fillable = [
@@ -65,5 +60,4 @@ class PackageDto extends Dto
             'level' => $this->getItem('level'),
         ];
     }
-
 }

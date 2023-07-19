@@ -4,7 +4,6 @@ namespace App\Base\Auth\Admin;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use UnexpectedValueException;
 use Firebase\JWT\SignatureInvalidException;
 use Ramsey\Uuid\Uuid;
 
@@ -27,10 +26,10 @@ class JwtService
             'iat' => time(),
             'nbf' => time(),
             'jti' => Uuid::uuid4()->toString(),
-            'dat' => $this->encryptData($options, $secret)
+            'dat' => $this->encryptData($options, $secret),
         ];
 
-        return JWT::encode($payload, base64_encode($appid.$secret), 'HS256');
+        return JWT::encode($payload, base64_encode($appid . $secret), 'HS256');
     }
 
     /**
@@ -41,9 +40,9 @@ class JwtService
      */
     public function decode(string $jwt, string $appid = '', string $secret = '')
     {
-        $data = JWT::decode($jwt, new Key(base64_encode($appid.$secret), 'HS256'));
+        $data = JWT::decode($jwt, new Key(base64_encode($appid . $secret), 'HS256'));
 
-        if (!property_exists($data, 'dat')) {
+        if (! property_exists($data, 'dat')) {
             throw new SignatureInvalidException('Signature verification failed');
         }
 

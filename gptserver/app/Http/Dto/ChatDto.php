@@ -4,8 +4,6 @@ namespace App\Http\Dto;
 
 use App\Base\Consts\ModelConst;
 use App\Http\Dto\Config\AiChatConfigDto;
-use App\Http\Service\ChatGPTService;
-use Carbon\Carbon;
 use Cblink\Dto\Dto;
 use Gioni06\Gpt3Tokenizer\Gpt3Tokenizer;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -111,12 +109,11 @@ class ChatDto extends Dto
      * @param array $messages
      * @param int $totalTokens
      * @param int $count
-     * @return void
      * @throws InvalidArgumentException
      */
     public function getLastMessages(AiChatConfigDto $configDto, $lastId, array &$messages = [], int $totalTokens = 0, int $count = 8)
     {
-        if (! $lastId || ! $message = cache()->get('chat-'. $lastId)) {
+        if (! $lastId || ! $message = cache()->get('chat-' . $lastId)) {
             return;
         }
 
@@ -146,18 +143,17 @@ class ChatDto extends Dto
     /**
      * @param $id
      * @param $result
-     * @return void
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function cached($id, $result)
     {
-        if (!$id) {
+        if (! $id) {
             return;
         }
 
-        $string = sprintf("%s %s", $this->getItem('message'), $result);
+        $string = sprintf('%s %s', $this->getItem('message'), $result);
 
         $tokenizer = app()->get(Gpt3Tokenizer::class);
 

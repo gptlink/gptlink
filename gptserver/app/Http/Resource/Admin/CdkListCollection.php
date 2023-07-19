@@ -24,7 +24,7 @@ class CdkListCollection extends BaseCollection
                 'updated_at' => $this->format($model->updated_at, $model->status == Cdk::STATUS_USED),
             ];
 
-            if($model->relationLoaded('package')){
+            if ($model->relationLoaded('package')) {
                 $item['package'] = [
                     'id' => $model->package->id,
                     'name' => $model->package->name,
@@ -35,7 +35,7 @@ class CdkListCollection extends BaseCollection
             }
 
             if ($model->relationLoaded('member')) {
-                $item['member'] = $model->member ?[
+                $item['member'] = $model->member ? [
                     'nickname' => $model->member->nickname,
                     'mobile' => $model->member->mobile,
                 ] : null;

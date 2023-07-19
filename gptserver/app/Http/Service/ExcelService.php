@@ -61,6 +61,7 @@ class ExcelService
 
     /**
      * 导出excel
+     * @param mixed $filename
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function export($filename, array $headers = [], array $data = [])
@@ -89,7 +90,7 @@ class ExcelService
 
         // 输出 Excel 文件
         /* @var Xlsx $writer */
-        $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 
         $savePATH = BASE_PATH . '/runtime/export/';
 
@@ -97,16 +98,16 @@ class ExcelService
             mkdir($savePATH);
         }
 
-        //保存到服务器的临时文件下
+        // 保存到服务器的临时文件下
         $writer->save($cacheName = $savePATH . Str::random());
 
-        //将文件转字符串供流读取
+        // 将文件转字符串供流读取
         $content = file_get_contents($cacheName);
 
         $response = new Response();
         $contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
-        //删除临时文件
+        // 删除临时文件
         unlink($cacheName);
 
         return $response->withHeader('content-description', 'File Transfer')
@@ -119,7 +120,7 @@ class ExcelService
 
     /**
      * 格式化导出数据
-     * @param Collection|Cdk[] $originData
+     * @param Cdk[]|Collection $originData
      * @return array|mixed
      */
     public function formatData(Collection $originData)
@@ -133,7 +134,7 @@ class ExcelService
                 'nickname' => Arr::get($cdk, 'member.nickname', ''),
                 'mobile' => Arr::get($cdk, 'member.mobile', ''),
                 'updated_at' => $cdk['updated_at'],
-                'status' => Cdk::STATUS[$cdk['status']]
+                'status' => Cdk::STATUS[$cdk['status']],
             ];
         })->toArray();
     }

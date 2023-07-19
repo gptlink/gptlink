@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace App\Model;
 
 use App\Model\Repository\ChatGptModelTrait;
@@ -16,27 +17,34 @@ class ChatGptModel extends Model
 {
     use ChatGptModelTrait, PageableTrait, SearchableTrait, WhenWithTrait;
 
-    const STATUS_ON = 1;
-    const STATUS_OFF = 2;
-    const STATUS = [
+    public const STATUS_ON = 1;
+
+    public const STATUS_OFF = 2;
+
+    public const STATUS = [
         self::STATUS_ON => '启用',
         self::STATUS_OFF => '关闭',
     ];
 
-    const PLATFORM_GPT = 1;
-    const PLATFORM = [
+    public const PLATFORM_GPT = 1;
+
+    public const PLATFORM = [
         self::PLATFORM_GPT => 'gpt',
     ];
 
-    const SOURCE_PLATFORM = 1;
-    const SOURCE = [
+    public const SOURCE_PLATFORM = 1;
+
+    public const SOURCE = [
         self::SOURCE_PLATFORM => ' 平台',
     ];
-    const TYPE_DIALOGUE = 1;
-    const TYPE = [
+
+    public const TYPE_DIALOGUE = 1;
+
+    public const TYPE = [
         self::TYPE_DIALOGUE => '对话',
     ];
 
+    public $incrementing = false;
 
     /**
      * The table associated with the model.
@@ -44,6 +52,7 @@ class ChatGptModel extends Model
      * @var string
      */
     protected $table = 'chat_gpt_model';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -51,8 +60,9 @@ class ChatGptModel extends Model
      */
     protected $fillable = [
         'icon', 'user_id', 'name', 'prompt', 'system', 'status', 'sort',
-        'platform', 'desc', 'remark', 'source', 'type'
+        'platform', 'desc', 'remark', 'source', 'type',
     ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -60,12 +70,10 @@ class ChatGptModel extends Model
      */
     protected $casts = [];
 
-    protected $keyType='string';
-    public $incrementing=false;
+    protected $keyType = 'string';
 
     /**
      * @param Creating $event
-     * @return void
      */
     public function creating(Creating $event)
     {

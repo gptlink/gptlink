@@ -8,12 +8,8 @@ use App\Model\Material;
 use Hyperf\AsyncQueue\Job;
 use Hyperf\Utils\Arr;
 
-/**
- *
- */
 class MaterialInsertJob extends Job
 {
-
     protected $type;
 
     protected $fileUrl;
@@ -40,6 +36,5 @@ class MaterialInsertJob extends Job
             'width' => Arr::get($info, 'width', 0),
             'height' => Arr::get($info, 'height', 0),
         ]));
-
     }
 }

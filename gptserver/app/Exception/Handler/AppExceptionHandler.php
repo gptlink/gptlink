@@ -88,7 +88,7 @@ class AppExceptionHandler extends ExceptionHandler
             ['exception' => [
                 'message' => $this->getMessage($throwable),
                 'trace' => $throwable->getTraceAsString(),
-            ],]: [];
+            ], ] : [];
 
         return $this->error($response, $this->getDefaultCode($throwable), '', $payload);
     }

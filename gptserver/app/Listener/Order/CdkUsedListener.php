@@ -9,7 +9,6 @@ use Hyperf\Event\Contract\ListenerInterface;
 
 class CdkUsedListener implements ListenerInterface
 {
-
     public function listen(): array
     {
         return [
@@ -19,7 +18,6 @@ class CdkUsedListener implements ListenerInterface
 
     /**
      * @param CdkUsedEvent $event
-     * @return void
      */
     public function process(object $event)
     {

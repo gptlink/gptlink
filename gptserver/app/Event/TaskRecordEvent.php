@@ -2,7 +2,6 @@
 
 namespace App\Event;
 
-
 use App\Model\Task;
 
 class TaskRecordEvent

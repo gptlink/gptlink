@@ -2,13 +2,9 @@
 
 namespace App\Http\Service;
 
-use App\Http\Dto\Config\WechatPaymentDto;
 use App\Http\Dto\PayOrderDto;
-use App\Model\Config;
-use App\Model\Order;
 use EasyWeChat\Kernel\Exceptions\InvalidArgumentException;
 use EasyWeChat\Kernel\Exceptions\InvalidConfigException;
-use GuzzleHttp\Exception\GuzzleException;
 
 class PaymentService
 {

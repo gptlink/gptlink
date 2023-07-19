@@ -18,17 +18,19 @@ class QiniuService
         $this->auth = new Auth(config('custom.qiniu.access_key'), config('custom.qiniu.secret_key'));
     }
 
-	/**
-	 * 获取上传token
-	 * @param string $path 上传路径
-	 * @return string
-	 */
-	public function getUploadToken(string $path)
-	{
-		return $this->auth->uploadToken(
-            config('custom.qiniu.bucket'), $path, config('custom.qiniu.expires')
+    /**
+     * 获取上传token
+     * @param string $path 上传路径
+     * @return string
+     */
+    public function getUploadToken(string $path)
+    {
+        return $this->auth->uploadToken(
+            config('custom.qiniu.bucket'),
+            $path,
+            config('custom.qiniu.expires')
         );
-	}
+    }
 
     /**
      * 七牛文件信息

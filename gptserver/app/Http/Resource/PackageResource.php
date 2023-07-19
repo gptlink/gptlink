@@ -20,5 +20,4 @@ class PackageResource extends BaseResource
             'price' => $this->resource->price,
         ];
     }
-
 }

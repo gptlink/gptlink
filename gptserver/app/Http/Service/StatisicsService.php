@@ -26,7 +26,7 @@ class StatisicsService
     public function paymentCount()
     {
         return Order::query()->where([
-            'status' => Order::STATUS_PAID
+            'status' => Order::STATUS_PAID,
         ])->sum('payment');
     }
 }

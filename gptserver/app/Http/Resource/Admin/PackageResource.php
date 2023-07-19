@@ -30,5 +30,4 @@ class PackageResource extends BaseResource
             'show' => $this->resource->show,
         ];
     }
-
 }

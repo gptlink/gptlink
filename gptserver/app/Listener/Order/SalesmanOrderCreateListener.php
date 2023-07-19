@@ -13,7 +13,6 @@ use Hyperf\Event\Contract\ListenerInterface;
  */
 class SalesmanOrderCreateListener implements ListenerInterface
 {
-
     public function listen(): array
     {
         return [
@@ -23,7 +22,6 @@ class SalesmanOrderCreateListener implements ListenerInterface
 
     /**
      * @param SalesmanOrderCreateEvent $event
-     * @return void
      */
     public function process(object $event)
     {

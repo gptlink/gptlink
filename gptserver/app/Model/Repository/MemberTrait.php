@@ -28,7 +28,6 @@ trait MemberTrait
      * 申请提现
      *
      * @param WithdrawalDto $dto
-     * @return void
      */
     public function applyWithdrawal(WithdrawalDto $dto)
     {
@@ -87,7 +86,6 @@ trait MemberTrait
      * 修改密码
      *
      * @param string $password
-     * @return void
      */
     public function changePassword(string $password)
     {

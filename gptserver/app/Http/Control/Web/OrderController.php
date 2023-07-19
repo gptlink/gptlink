@@ -11,7 +11,6 @@ use App\Http\Request\Web\OrderRequest;
 use App\Http\Resource\OrderPayResource;
 use App\Http\Resource\OrderResource;
 use App\Http\Service\PaymentService;
-use App\Http\Service\WechatPayService;
 use App\Model\Config;
 use App\Model\MemberOauth;
 use App\Model\Order;
@@ -58,7 +57,7 @@ class OrderController extends BaseController
         if (! $order) {
             $payUserId = $request->input('user_id');
 
-            if (!$payUserId && $request->input('pay_type') == Order::PAY_JSAPI) {
+            if (! $payUserId && $request->input('pay_type') == Order::PAY_JSAPI) {
                 $oauth = MemberOauth::query()->where([
                     'member_id' => auth()->id(),
                     'platform' => strtolower(WechatServiceProvider::IDENTIFIER),

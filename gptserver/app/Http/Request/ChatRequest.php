@@ -21,5 +21,4 @@ class ChatRequest extends FormRequest
             'request_id' => ['nullable', 'string'],
         ];
     }
-
 }

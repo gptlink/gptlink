@@ -4,7 +4,6 @@ namespace App\Http\Control\Admin;
 
 use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Dto\Config\SmsConfigDto;
-use App\Http\Dto\Config\WebsiteConfigDto;
 use App\Http\Resource\Admin\DevelopPackageResource;
 use App\Http\Service\DevelopService;
 use App\Model\Config;
@@ -29,10 +28,10 @@ class DevelopController extends BaseController
 
         $default = ['name' => null, 'num' => 0, 'used' => 0, 'expired_at' => null];
 
-        /* @var AiChatConfigDto $aiChat  */
+        /* @var AiChatConfigDto $aiChat */
         $aiChat = Config::toDto(Config::AI_CHAT);
 
-        if (AiChatConfigDto::GPTLINK == $aiChat->channel) {
+        if ($aiChat->channel == AiChatConfigDto::GPTLINK) {
             $response = $service->getPackage();
 
             if ($response['err_code'] == 0) {
@@ -40,10 +39,10 @@ class DevelopController extends BaseController
             }
         }
 
-        /* @var SmsConfigDto $sms  */
+        /* @var SmsConfigDto $sms */
         $sms = Config::toDto(Config::SMS);
 
-        if (AiChatConfigDto::GPTLINK == $sms->channel) {
+        if ($sms->channel == AiChatConfigDto::GPTLINK) {
             $response = $service->getPackage(['type' => 3]);
 
             if ($response['err_code'] == 0) {

@@ -11,10 +11,11 @@ use Cblink\HyperfExt\Dto;
  */
 class PaymentDto extends Dto implements ConfigDtoInterface
 {
-    const TYPE_OFFLINE = 'offline';
-    const TYPE_WECHAT = 'wechat';
+    public const TYPE_OFFLINE = 'offline';
 
-    const TYPES = [
+    public const TYPE_WECHAT = 'wechat';
+
+    public const TYPES = [
         self::TYPE_OFFLINE => '线下支付',
         self::TYPE_WECHAT => '微信支付',
     ];
@@ -44,7 +45,7 @@ class PaymentDto extends Dto implements ConfigDtoInterface
             'config' => [
                 'channel' => $this->getItem('channel'),
                 'offline' => $this->getItem('offline'),
-            ]
+            ],
         ];
     }
 

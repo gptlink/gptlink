@@ -19,7 +19,7 @@ class MaterialCollection extends BaseCollection
                 'file_url' => $material->file_url,
                 'size' => $material->size,
                 'format' => $material->format,
-                'width'=> $material->width,
+                'width' => $material->width,
                 'height' => $material->height,
             ];
         })->toArray();

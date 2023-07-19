@@ -16,14 +16,14 @@ use Psr\SimpleCache\InvalidArgumentException;
 class DevelopService
 {
     /**
-     * @var ClientFactory
-     */
-    private $clientFactory;
-
-    /**
      * @var AiChatConfigDto
      */
     protected $config;
+
+    /**
+     * @var ClientFactory
+     */
+    private $clientFactory;
 
     public function __construct(ClientFactory $clientFactory)
     {
@@ -66,12 +66,11 @@ class DevelopService
             'timeout' => 5,
             'verify' => false,
             'http_errors' => false,
-            'headers' => $header,//添加header
+            'headers' => $header, // 添加header
         ], $options));
 
         // 获取响应内容
         return json_decode($response->getBody()->getContents(), true);
-
         /*
         throw_unless(
             Arr::get($response, 'err_code') == 0,

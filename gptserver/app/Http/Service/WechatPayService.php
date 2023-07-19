@@ -2,15 +2,11 @@
 
 namespace App\Http\Service;
 
+use App\Exception\WechatPayException;
 use App\Http\Dto\Config\WechatPaymentDto;
 use App\Model\Config;
-use Closure;
-use App\Exception\WechatPayException;
 use EasyWeChat\Kernel\Exceptions\InvalidArgumentException;
 use EasyWeChat\Payment\Application;
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use Hyperf\Guzzle\CoroutineHandler;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\Utils\Arr;
 use Symfony\Component\HttpFoundation\HeaderBag;
@@ -25,7 +21,7 @@ class WechatPayService
     protected $app;
 
     /**
-     * @var string $appid
+     * @var string
      */
     protected $hashed;
 
@@ -97,11 +93,11 @@ class WechatPayService
      * 事件回调
      *
      * @param RequestInterface $request
-     * @param Closure $closure
+     * @param \Closure $closure
      * @return Response
      * @throws InvalidArgumentException
      */
-    public function handlePaidNotify(Closure $closure, RequestInterface $request)
+    public function handlePaidNotify(\Closure $closure, RequestInterface $request)
     {
         return static::setRequest($this->pay(), $request)->handlePaidNotify($closure);
     }

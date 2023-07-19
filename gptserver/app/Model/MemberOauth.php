@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Model\Repository\MemberOauthTrait;
-use App\Model\Repository\OrderTrait;
-use Cblink\ModelLibrary\Hyperf\PageableTrait;
 use Cblink\ModelLibrary\Hyperf\SearchableTrait;
 use Hyperf\DbConnection\Model\Model;
 
 class MemberOauth extends Model
 {
     use MemberOauthTrait, SearchableTrait;
+
     /**
      * The table associated with the model.
      *
@@ -33,7 +32,6 @@ class MemberOauth extends Model
      * @var array
      */
     protected $casts = [];
-
 
     public function member()
     {
