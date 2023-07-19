@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Model\Repository\ChatGptModelCountTrait;
+use App\Model\Repository\PromptCountTrait;
 use Hyperf\DbConnection\Model\Model;
 
-class ChatGptModelCount extends Model
+class PromptCount extends Model
 {
-    use ChatGptModelCountTrait;
+    use PromptCountTrait;
 
     public const USER_MODEL_CACHE_COUNT = 'user_chat_model_count';
 
@@ -24,14 +24,14 @@ class ChatGptModelCount extends Model
      *
      * @var string
      */
-    protected $table = 'chat_gpt_model_count';
+    protected $table = 'prompt_count';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['chat_gpt_model_id', 'likes', 'uses'];
+    protected $fillable = ['prompt_id', 'likes', 'uses'];
 
     /**
      * The attributes that should be cast to native types.
@@ -42,13 +42,13 @@ class ChatGptModelCount extends Model
 
     protected $keyType = 'string';
 
-    protected $primaryKey = 'chat_gpt_model_id';
+    protected $primaryKey = 'prompt_id';
 
     /**
      * @return \Hyperf\Database\Model\Relations\HasOne
      */
-    public function chatGptModel()
+    public function prompt()
     {
-        return $this->hasOne(ChatGptModel::class, 'id', 'chat_gpt_model_id');
+        return $this->hasOne(Prompt::class, 'id', 'prompt_id');
     }
 }

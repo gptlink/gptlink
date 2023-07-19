@@ -37,7 +37,10 @@ Router::addGroup('', function () {
     ],
 ]);
 
-Router::get('/chat-gpt-model', [Api\Web\ChatGptModelController::class, 'index']);
+// 弃用（替换为prompt） 兼容保留 后面删2023-07-19
+Router::get('/chat-gpt-model', [Api\Web\PromptController::class, 'index']);
+Router::get('/prompt', [Api\Web\PromptController::class, 'index']);
+
 Router::get('/docs/{project}/swagger', [Api\Common\DocsController::class, 'swagger']);
 Router::get('/docs/{project}', [Api\Common\DocsController::class, 'docs']);
 Router::get('/images/{fileName}', [Api\Common\ImageController::class, 'show']);

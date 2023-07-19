@@ -2,22 +2,22 @@
 
 namespace App\Job;
 
-use App\Model\ChatGptModelCount;
+use App\Model\PromptCount;
 use Hyperf\AsyncQueue\Job;
 
 class GptModelUsesJob extends Job
 {
-    protected $gptModelId;
+    protected $promptId;
 
-    public function __construct(string $gptModelId)
+    public function __construct(string $promptId)
     {
-        $this->gptModelId = $gptModelId;
+        $this->promptId = $promptId;
     }
 
     public function handle()
     {
-        $gptModelUses = ChatGptModelCount::query()
-            ->firstOrCreate(['chat_gpt_model_id' => $this->gptModelId]);
+        $gptModelUses = PromptCount::query()
+            ->firstOrCreate(['prompt_id' => $this->promptId]);
 
         // 使用量增加
         $gptModelUses->increment('uses');

@@ -7,7 +7,7 @@ use Cblink\HyperfExt\BaseResource;
 /**
  * @property $resource
  */
-class ChatGptModelResource extends BaseResource
+class PromptResource extends BaseResource
 {
     public function toArray(): array
     {

@@ -2,28 +2,28 @@
 
 namespace App\Model\Repository;
 
-use App\Http\Dto\ChatGptModelDto;
-use App\Model\ChatGptModel;
-use App\Model\ChatGptModelCount;
+use App\Http\Dto\PromptDto;
+use App\Model\Prompt;
+use App\Model\PromptCount;
 
-trait ChatGptModelTrait
+trait PromptTrait
 {
     /**
-     * @param ChatGptModelDto $dto
+     * @param PromptDto $dto
      * @return \Hyperf\Database\Model\Builder|\Hyperf\Database\Model\Model
      */
-    public static function createByDto(ChatGptModelDto $dto)
+    public static function createByDto(PromptDto $dto)
     {
-        $chatGptModel = ChatGptModel::query()->create($dto->getFillableData());
-        ChatGptModelCount::query()->create(['chat_gpt_model_id' => $chatGptModel->id]);
-        return $chatGptModel;
+        $prompt = Prompt::query()->create($dto->getFillableData());
+        PromptCount::query()->create(['prompt_id' => $prompt->id]);
+        return $prompt;
     }
 
     /**
-     * @param ChatGptModelDto $dto
-     * @return ChatGptModel
+     * @param PromptDto $dto
+     * @return Prompt
      */
-    public function updateByDto(ChatGptModelDto $dto)
+    public function updateByDto(PromptDto $dto)
     {
         $this->update($dto->getUpdateData());
         return $this->refresh();
@@ -31,7 +31,7 @@ trait ChatGptModelTrait
 
     /**
      * @param int $status
-     * @return ChatGptModel
+     * @return Prompt
      */
     public function updateStatus(int $status)
     {
@@ -46,7 +46,7 @@ trait ChatGptModelTrait
      */
     public function destroyModel()
     {
-        ChatGptModelCount::query()->where('chat_gpt_model_id', $this->id)->delete();
+        PromptCount::query()->where('prompt_id', $this->id)->delete();
 
         $this->delete();
     }
@@ -55,7 +55,7 @@ trait ChatGptModelTrait
      * 排序
      *
      * @param int $sort
-     * @return \App\Model\ChatGptModelRecord|ChatGptModel
+     * @return Prompt
      */
     public function updateSort(int $sort)
     {

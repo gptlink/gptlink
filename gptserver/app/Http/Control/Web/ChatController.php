@@ -9,7 +9,7 @@ use App\Http\Dto\Config\KeywordDto;
 use App\Http\Request\ChatRequest;
 use App\Http\Service\ChatGPTService;
 use App\Job\GptModelUsesJob;
-use App\Model\ChatGptModel;
+use App\Model\Prompt;
 use App\Model\Config;
 use App\Model\MemberPackage;
 use Cblink\HyperfExt\BaseController;
@@ -49,7 +49,7 @@ class ChatController extends BaseController
 
         $system = null;
 
-        if ($request->input('model_id') && $model = ChatGptModel::query()->find($request->input('model_id'))) {
+        if ($request->input('prompt_id') && $model = Prompt::query()->find($request->input('prompt_id'))) {
             $system = $model->system;
             asyncQueue(new GptModelUsesJob($model->id));
         }

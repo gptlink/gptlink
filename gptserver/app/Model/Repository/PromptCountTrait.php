@@ -2,9 +2,9 @@
 
 namespace App\Model\Repository;
 
-use App\Model\ChatGptModelCount;
+use App\Model\PromptCount;
 
-trait ChatGptModelCountTrait
+trait PromptCountTrait
 {
     /**
      * 删除个人中心统计缓存
@@ -14,7 +14,7 @@ trait ChatGptModelCountTrait
      */
     public static function deleteCache(int $memberId)
     {
-        $key = sprintf('%s%s', ChatGptModelCount::USER_MODEL_CACHE_COUNT, $memberId);
+        $key = sprintf('%s%s', PromptCount::USER_MODEL_CACHE_COUNT, $memberId);
         if (cache()->has($key)) {
             cache()->delete($key);
         }

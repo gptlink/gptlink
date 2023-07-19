@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Model\Repository\ChatGptModelTrait;
+use App\Model\Repository\PromptTrait;
 use Cblink\ModelLibrary\Hyperf\PageableTrait;
 use Cblink\ModelLibrary\Hyperf\SearchableTrait;
 use Cblink\ModelLibrary\Hyperf\WhenWithTrait;
@@ -13,9 +13,9 @@ use Hyperf\DbConnection\Model\Model;
 use Hyperf\Snowflake\IdGeneratorInterface;
 use Hyperf\Utils\ApplicationContext;
 
-class ChatGptModel extends Model
+class Prompt extends Model
 {
-    use ChatGptModelTrait, PageableTrait, SearchableTrait, WhenWithTrait;
+    use PromptTrait, PageableTrait, SearchableTrait, WhenWithTrait;
 
     public const STATUS_ON = 1;
 
@@ -51,7 +51,7 @@ class ChatGptModel extends Model
      *
      * @var string
      */
-    protected $table = 'chat_gpt_model';
+    protected $table = 'prompt';
 
     /**
      * The attributes that are mass assignable.
@@ -109,6 +109,6 @@ class ChatGptModel extends Model
      */
     public function countData()
     {
-        return $this->hasOne(ChatGptModelCount::class, 'chat_gpt_model_id', 'id');
+        return $this->hasOne(PromptCount::class, 'prompt_id', 'id');
     }
 }

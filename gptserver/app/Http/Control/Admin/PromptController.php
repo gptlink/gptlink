@@ -2,24 +2,24 @@
 
 namespace App\Http\Control\Admin;
 
-use App\Http\Dto\ChatGptModelDto;
-use App\Http\Request\Admin\ChatGptModelStatusRequest;
+use App\Http\Dto\PromptDto;
+use App\Http\Request\Admin\PromptStatusRequest;
 use App\Http\Request\Admin\ChatGptStoreRequest;
-use App\Http\Resource\Admin\ChatGptModelCollection;
-use App\Http\Resource\Admin\ChatGptModelResource;
-use App\Model\ChatGptModel;
+use App\Http\Resource\Admin\PromptCollection;
+use App\Http\Resource\Admin\PromptResource;
+use App\Model\Prompt;
 use Cblink\HyperfExt\BaseController;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class ChatGptModelController extends BaseController
+class PromptController extends BaseController
 {
     /**
-     * @return ChatGptModelCollection
+     * @return PromptCollection
      */
     public function index(RequestInterface $request)
     {
-        $models = ChatGptModel::query()
+        $models = Prompt::query()
             ->search([
                 'type' => ['type' => 'eq'],
                 'name' => ['type' => 'keyword'],
@@ -32,7 +32,7 @@ class ChatGptModelController extends BaseController
             ->whenWith([
                 'member' => 'member:id,nickname,mobile',
             ])
-            ->leftjoin('chat_gpt_model_count', 'chat_gpt_model.id', '=', 'chat_gpt_model_count.chat_gpt_model_id')
+            ->leftjoin('prompt_count', 'prompt.id', '=', 'prompt_count.prompt_id')
             ->orderByDesc('sort')
             ->orderByDesc('uses')
             ->orderByDesc('created_at')
@@ -42,52 +42,52 @@ class ChatGptModelController extends BaseController
             ])
             ->page();
 
-        return new ChatGptModelCollection($models);
+        return new PromptCollection($models);
     }
 
     /**
      * @param $id
-     * @return ChatGptModelResource
+     * @return PromptResource
      */
     public function show($id)
     {
-        $model = ChatGptModel::query()->where(['id' => $id])
+        $model = Prompt::query()->where(['id' => $id])
             ->select([
                 'id', 'user_id', 'icon', 'name', 'prompt', 'system', 'status', 'sort',
                 'platform', 'desc', 'remark', 'type',
             ])
             ->firstOrFail();
 
-        return new ChatGptModelResource($model);
+        return new PromptResource($model);
     }
 
     /**
      * @param ChatGptStoreRequest $request
-     * @return ChatGptModelResource
+     * @return PromptResource
      */
     public function store(ChatGptStoreRequest $request)
     {
-        $model = ChatGptModel::createByDto(
-            new ChatGptModelDto(
+        $model = Prompt::createByDto(
+            new PromptDto(
                 array_merge($request->validated(), [
-                    'status' => ChatGptModel::STATUS_OFF,
+                    'status' => Prompt::STATUS_OFF,
                 ])
             )
         );
-        return new ChatGptModelResource($model);
+        return new PromptResource($model);
     }
 
     /**
      * @param $id
      * @param ChatGptStoreRequest $request
-     * @return ChatGptModelResource
+     * @return PromptResource
      */
     public function update($id, ChatGptStoreRequest $request)
     {
-        /** @var ChatGptModel $model */
-        $model = ChatGptModel::query()->where(['id' => $id])->firstOrFail();
-        $model->updateByDto(new ChatGptModelDto($request->validated()));
-        return new ChatGptModelResource($model);
+        /** @var Prompt $model */
+        $model = Prompt::query()->where(['id' => $id])->firstOrFail();
+        $model->updateByDto(new PromptDto($request->validated()));
+        return new PromptResource($model);
     }
 
     /**
@@ -99,7 +99,7 @@ class ChatGptModelController extends BaseController
      */
     public function destroy($id)
     {
-        $model = ChatGptModel::query()->findOrFail($id);
+        $model = Prompt::query()->findOrFail($id);
 
         $model->destroyModel();
 
@@ -110,43 +110,43 @@ class ChatGptModelController extends BaseController
      * 编辑状态
      *
      * @param $id
-     * @param ChatGptModelStatusRequest $request
-     * @return ChatGptModelResource
+     * @param PromptStatusRequest $request
+     * @return PromptResource
      */
-    public function updateStatus($id, ChatGptModelStatusRequest $request)
+    public function updateStatus($id, PromptStatusRequest $request)
     {
-        /** @var ChatGptModel $model */
-        $model = ChatGptModel::query()->where(['id' => $id])->firstOrFail();
+        /** @var Prompt $model */
+        $model = Prompt::query()->where(['id' => $id])->firstOrFail();
         $model = $model->updateStatus($request->input('status'));
 
-        return new ChatGptModelResource($model);
+        return new PromptResource($model);
     }
 
     /**
      * 置顶
      *
      * @param $id
-     * @return ChatGptModelResource
+     * @return PromptResource
      */
     public function top($id)
     {
-        /** @var ChatGptModel $model */
-        $maxSort = ChatGptModel::query()->max('sort');
-        /** @var ChatGptModel $model */
-        $model = ChatGptModel::query()->where(['id' => $id])->firstOrFail();
-        return new ChatGptModelResource($model->updateSort($maxSort + 1));
+        /** @var Prompt $model */
+        $maxSort = Prompt::query()->max('sort');
+        /** @var Prompt $model */
+        $model = Prompt::query()->where(['id' => $id])->firstOrFail();
+        return new PromptResource($model->updateSort($maxSort + 1));
     }
 
     /**
      * 取消置顶
      *
      * @param $id
-     * @return ChatGptModelResource
+     * @return PromptResource
      */
     public function cancelTop($id)
     {
-        /** @var ChatGptModel $model */
-        $model = ChatGptModel::query()->where(['id' => $id])->firstOrFail();
-        return new ChatGptModelResource($model->updateSort(0));
+        /** @var Prompt $model */
+        $model = Prompt::query()->where(['id' => $id])->firstOrFail();
+        return new PromptResource($model->updateSort(0));
     }
 }

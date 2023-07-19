@@ -34,15 +34,28 @@ Router::addGroup('/admin', function () {
     });
 
     // 模型
+    // 弃用（替换为prompt） 兼容保留 后面删2023-07-19
     Router::addGroup('/chat-gpt-model', function () {
-        Router::get('', [Api\Admin\ChatGptModelController::class, 'index']);
-        Router::get('/{id}', [Api\Admin\ChatGptModelController::class, 'show']);
-        Router::post('', [Api\Admin\ChatGptModelController::class, 'store']);
-        Router::put('/{id}', [Api\Admin\ChatGptModelController::class, 'update']);
-        Router::delete('/{id}', [Api\Admin\ChatGptModelController::class, 'destroy']);
-        Router::put('/{id}/status', [Api\Admin\ChatGptModelController::class, 'updateStatus']);
-        Router::post('/{id}/top', [Api\Admin\ChatGptModelController::class, 'top']);
-        Router::post('/{id}/cancel-top', [Api\Admin\ChatGptModelController::class, 'cancelTop']);
+        Router::get('', [Api\Admin\PromptController::class, 'index']);
+        Router::get('/{id}', [Api\Admin\PromptController::class, 'show']);
+        Router::post('', [Api\Admin\PromptController::class, 'store']);
+        Router::put('/{id}', [Api\Admin\PromptController::class, 'update']);
+        Router::delete('/{id}', [Api\Admin\PromptController::class, 'destroy']);
+        Router::put('/{id}/status', [Api\Admin\PromptController::class, 'updateStatus']);
+        Router::post('/{id}/top', [Api\Admin\PromptController::class, 'top']);
+        Router::post('/{id}/cancel-top', [Api\Admin\PromptController::class, 'cancelTop']);
+    });
+
+    // 咒语 提示词
+    Router::addGroup('/prompt', function () {
+        Router::get('', [Api\Admin\PromptController::class, 'index']);
+        Router::get('/{id}', [Api\Admin\PromptController::class, 'show']);
+        Router::post('', [Api\Admin\PromptController::class, 'store']);
+        Router::put('/{id}', [Api\Admin\PromptController::class, 'update']);
+        Router::delete('/{id}', [Api\Admin\PromptController::class, 'destroy']);
+        Router::put('/{id}/status', [Api\Admin\PromptController::class, 'updateStatus']);
+        Router::post('/{id}/top', [Api\Admin\PromptController::class, 'top']);
+        Router::post('/{id}/cancel-top', [Api\Admin\PromptController::class, 'cancelTop']);
     });
 
     // 任务

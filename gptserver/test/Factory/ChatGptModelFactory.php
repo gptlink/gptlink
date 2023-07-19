@@ -4,31 +4,31 @@ declare(strict_types=1);
 
 namespace HyperfTest\Factory;
 
-use App\Http\Dto\ChatGptModelDto;
-use App\Model\ChatGptModel;
+use App\Http\Dto\PromptDto;
+use App\Model\PromptModel;
 
 class ChatGptModelFactory
 {
     public static function createByData(array $payload = [])
     {
-        return ChatGptModel::createByDto(new ChatGptModelDto(array_merge([
+        return PromptModel::createByDto(new PromptDto(array_merge([
             'icon' => '#33#333',
             'name' => 'name-test',
             'prompt' => 'prompt-test',
             'system' => 'system-test',
-            'status' => ChatGptModel::STATUS_ON,
+            'status' => PromptModel::STATUS_ON,
             'sort' => 1,
-            'platform' => ChatGptModel::PLATFORM_GPT,
+            'platform' => PromptModel::PLATFORM_GPT,
             'desc' => 'test',
             'remark' => 'test',
-            'source' => ChatGptModel::SOURCE_PLATFORM,
-            'type' => ChatGptModel::TYPE_DIALOGUE,
+            'source' => PromptModel::SOURCE_PLATFORM,
+            'type' => PromptModel::TYPE_DIALOGUE,
             'user_id' => 0
         ], $payload)));
     }
 
     public static function deleteById($id)
     {
-        ChatGptModel::query()->where('id', $id)->delete();
+        PromptModel::query()->where('id', $id)->delete();
     }
 }

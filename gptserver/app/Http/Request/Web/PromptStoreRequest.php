@@ -4,7 +4,7 @@ namespace App\Http\Request\Web;
 
 use App\Http\Request\BaseFormRequest;
 
-class ChatGptModelStoreRequest extends BaseFormRequest
+class PromptStoreRequest extends BaseFormRequest
 {
     public function rules()
     {

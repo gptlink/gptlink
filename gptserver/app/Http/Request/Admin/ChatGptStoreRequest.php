@@ -3,7 +3,7 @@
 namespace App\Http\Request\Admin;
 
 use App\Http\Request\BaseFormRequest;
-use App\Model\ChatGptModel;
+use App\Model\Prompt;
 use Hyperf\Validation\Rule;
 
 class ChatGptStoreRequest extends BaseFormRequest
@@ -15,10 +15,10 @@ class ChatGptStoreRequest extends BaseFormRequest
             'name' => ['required', 'string', 'max:50'],
             'prompt' => ['required', 'string'],
             'system' => ['required', 'string', 'max:10000'],
-            'platform' => ['required', 'integer', Rule::in(array_keys(ChatGptModel::PLATFORM))],
+            'platform' => ['required', 'integer', Rule::in(array_keys(Prompt::PLATFORM))],
             'desc' => ['nullable', 'string', 'max:200'],
             'remark' => ['nullable', 'string', 'max:200'],
-            'type' => ['required', 'integer', Rule::in(array_keys(ChatGptModel::TYPE))],
+            'type' => ['required', 'integer', Rule::in(array_keys(Prompt::TYPE))],
         ];
     }
 }

@@ -17,7 +17,7 @@ class ChatRequest extends FormRequest
             'stream' => ['nullable', 'boolean'],
             'last_id' => ['nullable', 'string'],
             'message' => ['required', 'string'],
-            'model_id' => ['nullable', 'string'],
+            'prompt_id' => ['nullable', 'string'],
             'request_id' => ['nullable', 'string'],
         ];
     }

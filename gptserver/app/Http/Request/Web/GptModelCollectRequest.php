@@ -9,7 +9,7 @@ class GptModelCollectRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'model_id' => ['required', 'string', 'size:16'],
+            'prompt_id' => ['required', 'string', 'size:16'],
         ];
     }
 }

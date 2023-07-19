@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-use App\Model\ChatGptModel;
+use App\Model\Prompt;
 use Cblink\Dto\Dto;
 
 /**
@@ -21,7 +21,7 @@ use Cblink\Dto\Dto;
  * @property string $verify_result 腾讯云审核结果 true or false，false表示有违规内容
  * @property array $verify_data 腾讯云审核数据
  */
-class ChatGptModelDto extends Dto
+class PromptDto extends Dto
 {
     protected $fillable = [
         'user_id', 'icon', 'name', 'prompt', 'system', 'status', 'sort',
@@ -38,10 +38,10 @@ class ChatGptModelDto extends Dto
             'system' => $this->getItem('system'),
             'status' => $this->getItem('status'),
             'sort' => $this->getItem('sort', 0),
-            'platform' => $this->getItem('platform', ChatGptModel::PLATFORM_GPT),
+            'platform' => $this->getItem('platform', Prompt::PLATFORM_GPT),
             'desc' => $this->getItem('desc', ''),
             'remark' => $this->getItem('remark', ''),
-            'source' => $this->getItem('source', ChatGptModel::SOURCE_PLATFORM),
+            'source' => $this->getItem('source', Prompt::SOURCE_PLATFORM),
             'type' => $this->getItem('type'),
         ];
     }
