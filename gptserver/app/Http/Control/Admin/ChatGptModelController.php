@@ -69,10 +69,10 @@ class ChatGptModelController extends BaseController
     {
         $model = ChatGptModel::createByDto(
             new ChatGptModelDto(
-            array_merge($request->validated(), [
-                'status' => ChatGptModel::STATUS_OFF,
-            ])
-        )
+                array_merge($request->validated(), [
+                    'status' => ChatGptModel::STATUS_OFF,
+                ])
+            )
         );
         return new ChatGptModelResource($model);
     }
