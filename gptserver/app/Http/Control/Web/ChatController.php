@@ -39,13 +39,9 @@ class ChatController extends BaseController
         /* @var KeywordDto $keywordDto */
         $keywordDto = Config::toDto(Config::KEYWORD);
         if ($keywordDto->enable) {
-
             $keywords = json_decode($keywordDto->keywords, true);
-
             $pattern = "/".implode("|", $keywords)."/i";
-
             preg_match_all($pattern, $request->input('message'), $matches);
-
             throw_if($matches[0], LogicException::class, ErrCode::CHAT_CONTAINS_PROHIBITED_WORDS);
         }
 
