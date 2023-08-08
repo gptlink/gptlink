@@ -108,13 +108,13 @@ class WechatController extends BaseController
                 'message' => $exception->getMessage(),
             ]);
 
-            $jssdk = $this->success([
+            $jssdk = [
                 'appId' => '',
                 'nonceStr' => '',
                 'timestamp' => '',
                 'url' => '',
                 'signature' => '',
-            ]);
+            ];
         }
 
         return $this->success([
