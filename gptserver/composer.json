@@ -15,6 +15,7 @@
         "php": "^8.0|^8.1",
         "96qbhy/hyperf-auth": "^2.0",
         "cblink-service/idaas-sdk": "^0.4.5",
+        "cblink/gptlink-sdk": "^1.0",
         "cblink/hyperf-helper": "^0.2.0",
         "cblink/hyperf-socialite": "^0.1.1",
         "cblink/laravel-dto": "^2.0",

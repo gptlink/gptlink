@@ -78,7 +78,10 @@ Router::addGroup('/admin', function () {
 
     // 开发者套餐
     Router::addGroup('/develop', function () {
+        // 开发者个人信息
+        Router::get('/profile', [Api\Admin\DevelopController::class, 'getProfile']);
         Router::get('/package', [Api\Admin\DevelopController::class, 'getPackage']);
+        Router::get('/record', [Api\Admin\DevelopController::class, 'getRcord']);
     });
 
     // 统计

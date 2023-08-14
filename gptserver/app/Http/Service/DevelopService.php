@@ -5,10 +5,9 @@ namespace App\Http\Service;
 use App\Exception\RemoteException;
 use App\Http\Dto\Config\AiChatConfigDto;
 use App\Model\Config;
+use Cblink\Service\Develop\Application;
 use GuzzleHttp\Exception\GuzzleException;
-use Hyperf\Guzzle\ClientFactory;
 use Hyperf\Utils\Arr;
-use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * 开发者服务
@@ -16,70 +15,21 @@ use Psr\SimpleCache\InvalidArgumentException;
 class DevelopService
 {
     /**
-     * @var ClientFactory
-     */
-    private $clientFactory;
-
-    /**
      * @var AiChatConfigDto
      */
     protected $config;
 
-    public function __construct(ClientFactory $clientFactory)
+    protected $app;
+
+    public function __construct()
     {
-        $this->clientFactory = $clientFactory;
         $this->config = Config::toDto(Config::AI_CHAT);
-    }
+        $config = [
+            'api_key' => $this->config->gptlink_key,
+            'base_url' => config('custom.develop.base_url'),
+        ];
 
-    /**
-     * 获取套餐包信息
-     * @return array
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
-     * @throws \Throwable
-     */
-    public function getPackage(array $query = [])
-    {
-        return $this->request('/v1/user/package', [
-            'query' => $query,
-        ], [
-            'Authorization' => sprintf('Bearer %s', $this->config->gptlink_key),
-        ]);
-    }
-
-    /**
-     * 封装的请求方法
-     * @param string $path
-     * @param array $options
-     * @param array $header
-     * @param string $method
-     * @return array
-     * @throws GuzzleException
-     * @throws \Throwable
-     */
-    protected function request(string $path, array $options = [], array $header = [], string $method = 'GET')
-    {
-        // 创建客户端
-        $client = $this->clientFactory->create();
-
-        $response = $client->request($method, $this->getRequestUrl($path), array_merge([
-            'timeout' => 5,
-            'verify' => false,
-            'http_errors' => false,
-            'headers' => $header,//添加header
-        ], $options));
-
-        // 获取响应内容
-        return json_decode($response->getBody()->getContents(), true);
-
-        /*
-        throw_unless(
-            Arr::get($response, 'err_code') == 0,
-            RemoteException::class,
-            Arr::get($response, 'err_msg', ''),
-            Arr::get($response, 'err_code', 0),
-        );
-        */
+        $this->app = new Application($config);
     }
 
     /**
@@ -91,5 +41,169 @@ class DevelopService
     protected function getRequestUrl(string $path = '')
     {
         return sprintf('%s%s', \config('openai.base_url'), ltrim($path, '/'));
+    }
+
+    /**
+     * 获取个人信息
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getProfile($query = [])
+    {
+        $response = $this->app->user->profile($query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 获取开发者套餐信息
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getPackage($query = [])
+    {
+        $response = $this->app->user->package($query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 获取开发者消费记录
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getRcord($query = [])
+    {
+        $response = $this->app->user->record($query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 提示词生成器
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getPrompt($query = [])
+    {
+        $response = $this->app->prompt->lists($query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 风格模型列表
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getStyleModellists($query = [])
+    {
+        $response = $this->app->model->styleModellists($query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 风格模型详情
+     * @param $id
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getStyleModelShow($id, $query = [])
+    {
+        $response = $this->app->model->styleModelShow($id, $query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 基础模型列表
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function masterModellists($query = [])
+    {
+        $response = $this->app->model->masterModellists($query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 基础作画模型详情
+     * @param $id
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function masterModelShow($id, $query = [])
+    {
+        $response = $this->app->model->masterModelShow($id, $query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 创建作画任务
+     * @param $data
+     * @return array
+     * @throws GuzzleException
+     */
+    public function create($data = [])
+    {
+        $response = $this->app->image->create($data);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 计算作画成本
+     * @param $data
+     * @return array
+     * @throws GuzzleException
+     */
+    public function cost($data = [])
+    {
+        $response = $this->app->image->cost($data);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 我的绘画详情
+     * @param $id
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function show($id, $query = [])
+    {
+        $response = $this->app->image->show($id, $query);
+        return $this->formatResponse($response, true);
+    }
+
+    /**
+     * 我的绘画列表
+     * @param $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function lists($query = [])
+    {
+        $response = $this->app->image->lists($query);
+        return $this->formatResponse($response, true);
+    }
+
+    public function formatResponse($response, bool $returnData = false): array
+    {
+        throw_unless(
+            Arr::get($response, 'err_code') == 0,
+            RemoteException::class,
+            Arr::get($response, 'err_msg', ''),
+            Arr::get($response, 'err_code', 0),
+            'gpt-link'
+        );
+
+        if ($returnData) {
+            return $response['data'];
+        }
+
+        return $response;
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac49ae0026a4e3c29642b4ae5c09ce1d",
+    "content-hash": "c928237655ec28bf64d7ef7e7a50c06c",
     "packages": [
         {
             "name": "96qbhy/hyperf-auth",
@@ -356,6 +356,48 @@
                 "source": "https://github.com/cblink-service/idaas-sdk/tree/v0.4.6"
             },
             "time": "2023-05-19T06:28:33+00:00"
+        },
+        {
+            "name": "cblink/gptlink-sdk",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cblink/gptlink-sdk.git",
+                "reference": "7adbac756654f892fe004992d3279c5e1527b265"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cblink/gptlink-sdk/zipball/7adbac756654f892fe004992d3279c5e1527b265",
+                "reference": "7adbac756654f892fe004992d3279c5e1527b265",
+                "shasum": ""
+            },
+            "require": {
+                "cblink-service/foundation": "^1.0",
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cblink\\Service\\Develop\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ihome",
+                    "email": "hxxk@qq.com"
+                }
+            ],
+            "description": "chatgpt-private-server development api package",
+            "support": {
+                "issues": "https://github.com/cblink/gptlink-sdk/issues",
+                "source": "https://github.com/cblink/gptlink-sdk/tree/v1.0.2"
+            },
+            "time": "2023-08-11T10:15:03+00:00"
         },
         {
             "name": "cblink/hyperf-helper",
@@ -11656,5 +11698,5 @@
         "php": "^8.0|^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

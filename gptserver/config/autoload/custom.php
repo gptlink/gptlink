@@ -26,4 +26,8 @@ return [
 		'path' => base64_decode(env('QINIU_PATH', '')), // 七牛云上传路径
 		'expires' => env('QINIU_EXPIRES', 600), // 七牛云上传token过期时间
 	],
+    // 开发者
+    'develop' => [
+        'base_url' => env('DEVELOP_BASE_URL', ''), //
+    ]
 ];

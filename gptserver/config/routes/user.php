@@ -30,6 +30,21 @@ Router::addGroup('', function () {
         Router::get('/record/unread', [Api\Web\TaskController::class, 'getRecordUnread']);
         Router::put('/record/{type}/read', [Api\Web\TaskController::class, 'updateRecordRead']);
     });
+
+    // ai绘画接口
+    Router::addGroup('/ai-image', function () {
+        Router::get('/prompt', [Api\Web\DevelopController::class, 'getPrompt']);
+
+        Router::get('/style-model', [Api\Web\DevelopController::class, 'getStyleModellists']);
+        Router::get('/style-model/{id}', [Api\Web\DevelopController::class, 'getStyleModelShow']);
+        Router::get('/master-model', [Api\Web\DevelopController::class, 'masterModellists']);
+        Router::get('/master-model/{id}', [Api\Web\DevelopController::class, 'masterModelShow']);
+
+        Router::get('/{id}', [Api\Web\DevelopController::class, 'show']);
+        Router::post('/create', [Api\Web\DevelopController::class, 'create']);
+        Router::post('/cost', [Api\Web\DevelopController::class, 'cost']);
+        Router::get('', [Api\Web\DevelopController::class, 'lists']);
+    });
 }, [
     'middleware' => [
         \App\Base\Auth\UserAuthMiddleware::class,
