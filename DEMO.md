@@ -1,6 +1,6 @@
 # 体验地址
 
-用户端：https://github.demo.gpt-link.com/
+用户端：https://github.demo.gpt-link.com/chat?shareOpenId=TZN1ASO66zZxiAPR
 
 
 
