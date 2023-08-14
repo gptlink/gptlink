@@ -2,7 +2,7 @@
   <h1 align="center">GPTLink</h1>
   <p> 只需简单几步，即可快速搭建可商用的 ChatGPT 站点。</p>
 
-  [体验地址](https://gpt-link.com/?shareOpenId=mjOfmdjyCBEku7fY) · [演示图片](./docs/show/README.md) · [反馈](https://github.com/gptlink/gptlink/issues) · [微信加群](./docs/images/qrcode.png)
+  [体验地址](./DEMO.md) · [演示图片](./docs/show/README.md) · [反馈](https://github.com/gptlink/gptlink/issues) · [微信加群](./docs/images/qrcode.png)
 
   [商务合作](./docs/images/qrcode.png) · [关注公众号](./docs/images/official.jpg) · [打赏开发者](./docs/images/payment.jpeg)
 
