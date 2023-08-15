@@ -24,6 +24,7 @@ COPY conf/nginx-default.conf /etc/nginx/conf.d/default.conf
 RUN chmod +x /app/gptserver/start.sh /app/gptserver/test.sh
 
 RUN cd /app/gptserver && \
+    composer config --no-plugins allow-plugins.easywechat-composer/easywechat-composer false && \
     composer install --no-dev --optimize-autoloader --ignore-platform-reqs && \
     ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
     cd /etc/php8 && \

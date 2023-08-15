@@ -11,7 +11,7 @@ use HyperfTest\TestDto\BaseDto;
  * @internal
  * @coversNothing
  */
-class DevelopTest extends TestCase
+class AiImageTest extends TestCase
 {
     use LoginTrait;
 
@@ -26,7 +26,7 @@ class DevelopTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '提示词生成器',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [],
             'desc' => '',
             'request' => [],
@@ -55,7 +55,7 @@ class DevelopTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '风格模型列表',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [],
             'desc' => '',
             'request' => [],
@@ -84,7 +84,7 @@ class DevelopTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '风格模型详情',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [
                 4 => '风格模型id'
             ],
@@ -121,7 +121,7 @@ class DevelopTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '基础模型列表',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [],
             'desc' => '',
             'request' => [],
@@ -147,7 +147,7 @@ class DevelopTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '基础模型详情',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [
                 4 => '基础模型id'
             ],
@@ -192,7 +192,7 @@ class DevelopTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '创建作画任务',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [],
             'desc' => '',
             'request' => [
@@ -231,13 +231,12 @@ class DevelopTest extends TestCase
             'type' => 2,
         ]);
 
-        $response->dump();
         $this->assertApiSuccess($response);
 
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '计算作画成本',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [],
             'desc' => '',
             'request' => [
@@ -266,13 +265,12 @@ class DevelopTest extends TestCase
         DevelopServiceMock::mock();
         $response = $this->get('/ai-image/121');
 
-        $response->dump();
         $this->assertApiSuccess($response);
 
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '作画详情',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [
                 4 => '作画任务id'
             ],
@@ -304,7 +302,7 @@ class DevelopTest extends TestCase
         $response->build(new BaseDto([
             'project' => ['default'],
             'name' => '我的作画列表',
-            'category' => '开发者-绘画接口',
+            'category' => '绘画功能',
             'params' => [],
             'desc' => '',
             'request' => [],

@@ -99,6 +99,7 @@
         "post-autoload-dump": [
             "rm -rf runtime/container"
         ],
+        "docs": "php test/docs.php",
         "test": "./vendor/bin/co-phpunit --prepend test/bootstrap.php -c phpunit.xml --colors=always",
         "cs-fix": "php-cs-fixer fix $1",
         "analyse": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app ./config",
