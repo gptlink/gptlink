@@ -25,7 +25,7 @@ class SalesmanDto extends Dto implements ConfigDtoInterface
             'enable' => $this->getItem('enable', false),
             'open' => $this->getItem('open', false),
             'rules' => $this->getItem('rules'),
-            'ratio' => $this->getItem('ratio'),
+            'ratio' => $this->getItem('ratio', 0),
         ];
     }
 

@@ -70,6 +70,22 @@ Router::addGroup('/admin', function () {
         Router::put('/{id}', [Api\Admin\CdkController::class, 'update']);
     });
 
+    // 分销相关
+    Router::addGroup('/salesman', function () {
+        // 提现记录
+        Router::addGroup('/withdraw', function () {
+            Router::get('', [Api\Admin\WithdrawController::class, 'index']);
+            Router::post('/{id}/agree', [Api\Admin\WithdrawController::class, 'agree']);
+            Router::post('/{id}/refuse', [Api\Admin\WithdrawController::class, 'refuse']);
+            Router::post('/{id}/transfer', [Api\Admin\WithdrawController::class, 'transfer']);
+        });
+
+        // 提现记录
+        Router::get('/order', [Api\Admin\SalesmanController::class, 'order']);
+        // 分销员
+        Router::get('/user', [Api\Admin\SalesmanController::class, 'index']);
+        Router::get('/user/{id}', [Api\Admin\SalesmanController::class, 'show']);
+    });
 
     Router::addGroup('/upload', function () {
         Router::get('/qiniu/token', [Api\Common\UploadController::class, 'getQiniuToken']);

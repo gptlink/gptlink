@@ -27,7 +27,7 @@ class MemberFactory
         return Member::createByDto(new MemberDto(array_merge([
             'nickname' => 'test',
             'avatar' => 'test.jpg',
-            'mobile' => '13100010001',
+            'mobile' => '131' . mt_rand(10000000, 99999999),
             'account_type' => Member::ACCOUNT_MOBILE,
         ], $payload)));
     }

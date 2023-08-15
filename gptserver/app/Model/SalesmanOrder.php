@@ -51,4 +51,20 @@ class SalesmanOrder extends Model
     {
         return $this->belongsTo(Member::class, 'custom_id', 'id');
     }
+
+    /***
+     * @return \Hyperf\Database\Model\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(Member::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return \Hyperf\Database\Model\Relations\BelongsTo
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
+    }
 }

@@ -12,11 +12,11 @@ class WithdrawalFactory
     /**
      * @param Member $member
      * @param array $payload
-     * @return void
+     * @return null
      */
     public static function create(Member $member, array $payload = [])
     {
-        $member->applyWithdrawal(new WithdrawalDto(array_merge([
+        return $member->applyWithdrawal(new WithdrawalDto(array_merge([
             'price' => mt_rand(0, 10),
             'channel' => Withdraw::CHANNEL_ALIPAY,
             'config' => [
@@ -26,4 +26,11 @@ class WithdrawalFactory
         ], $payload)));
     }
 
+    /**
+     * @return void
+     */
+    public static function truncate()
+    {
+        Withdraw::query()->truncate();
+    }
 }

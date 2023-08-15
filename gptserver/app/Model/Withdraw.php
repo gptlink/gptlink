@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace App\Model;
 
+use App\Model\Repository\WithdrawTrait;
 use Cblink\ModelLibrary\Hyperf\PageableTrait;
 use Cblink\ModelLibrary\Hyperf\SearchableTrait;
 use Hyperf\DbConnection\Model\Model;
-/**
- */
+
 class Withdraw extends Model
 {
-    use PageableTrait, SearchableTrait;
+    use PageableTrait, SearchableTrait, WithdrawTrait;
 
     const CHANNEL_ALIPAY = 'alipay';
 
@@ -22,10 +22,13 @@ class Withdraw extends Model
     const STATUS_PADDING = 1;
     const STATUS_SUCCESS = 2;
     const STATUS_TRANSFER = 3;
+
+    const STATUS_REFUSE = 10;
     const STATUS = [
         self::STATUS_PADDING => '待审核',
         self::STATUS_SUCCESS => '已审核',
         self::STATUS_TRANSFER => '已转账',
+        self::STATUS_REFUSE => '已拒绝',
     ];
 
     /**
@@ -39,7 +42,7 @@ class Withdraw extends Model
      *
      * @var array
      */
-    protected $fillable = ['serial_no', 'price', 'channel', 'config', 'status', 'paid_no', 'user_id'];
+    protected $fillable = ['serial_no', 'price', 'channel', 'config', 'status', 'paid_no', 'user_id', 'reason'];
     /**
      * The attributes that should be cast to native types.
      *

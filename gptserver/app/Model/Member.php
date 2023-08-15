@@ -13,7 +13,7 @@ use Qbhy\HyperfAuth\Authenticatable;
 
 class Member extends Model implements Authenticatable
 {
-    use AuthAbility, MemberTrait, SearchableTrait, PageableTrait;
+    use AuthAbility, SearchableTrait, PageableTrait, MemberTrait;
 
     const ACCOUNT_USERNAME = 1;
     const ACCOUNT_MOBILE = 2;

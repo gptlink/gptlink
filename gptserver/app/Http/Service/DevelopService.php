@@ -3,7 +3,7 @@
 namespace App\Http\Service;
 
 use App\Exception\RemoteException;
-use App\Http\Dto\Config\AiChatConfigDto;
+use App\Http\Dto\Config\AiImageConfigDto;
 use App\Model\Config;
 use Cblink\Service\Develop\Application;
 use GuzzleHttp\Exception\GuzzleException;
@@ -15,7 +15,7 @@ use Hyperf\Utils\Arr;
 class DevelopService
 {
     /**
-     * @var AiChatConfigDto
+     * @var AiImageConfigDto
      */
     protected $config;
 
@@ -23,10 +23,10 @@ class DevelopService
 
     public function __construct()
     {
-        $this->config = Config::toDto(Config::AI_CHAT);
+        $this->config = Config::toDto(Config::AI_IMAGE);
         $config = [
             'api_key' => $this->config->gptlink_key,
-            'base_url' => config('custom.develop.base_url'),
+            'base_url' => $this->config->gptlink_base_url,
         ];
 
         $this->app = new Application($config);
@@ -110,7 +110,7 @@ class DevelopService
      * @return array
      * @throws GuzzleException
      */
-    public function getStyleModelShow($id, $query = [])
+    public function getStyleModel($id, $query = [])
     {
         $response = $this->app->model->styleModelShow($id, $query);
         return $this->formatResponse($response, true);
@@ -122,7 +122,7 @@ class DevelopService
      * @return array
      * @throws GuzzleException
      */
-    public function masterModellists($query = [])
+    public function getMasterModellists($query = [])
     {
         $response = $this->app->model->masterModellists($query);
         return $this->formatResponse($response, true);
@@ -135,7 +135,7 @@ class DevelopService
      * @return array
      * @throws GuzzleException
      */
-    public function masterModelShow($id, $query = [])
+    public function getMasterModel($id, $query = [])
     {
         $response = $this->app->model->masterModelShow($id, $query);
         return $this->formatResponse($response, true);
@@ -159,7 +159,7 @@ class DevelopService
      * @return array
      * @throws GuzzleException
      */
-    public function cost($data = [])
+    public function getCost($data = [])
     {
         $response = $this->app->image->cost($data);
         return $this->formatResponse($response, true);
@@ -184,7 +184,7 @@ class DevelopService
      * @return array
      * @throws GuzzleException
      */
-    public function lists($query = [])
+    public function getDrawlists($query = [])
     {
         $response = $this->app->image->lists($query);
         return $this->formatResponse($response, true);

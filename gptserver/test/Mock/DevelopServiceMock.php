@@ -66,7 +66,7 @@ class DevelopServiceMock
             ]
         ]);
 
-        $service->allows()->getStyleModelShow(\Mockery::any(), \Mockery::any())->andReturn([
+        $service->allows()->getStyleModel(\Mockery::any(), \Mockery::any())->andReturn([
             "id" => 1,
             "name" => "全息摄影",
             "model_code" => 110,
@@ -93,7 +93,7 @@ class DevelopServiceMock
             ]
         ]);
 
-        $service->allows()->masterModellists()->andReturn([
+        $service->allows()->getMasterModellists()->andReturn([
             [
                 "id" => 809,
                 "show_name" => '风格名称',
@@ -101,7 +101,7 @@ class DevelopServiceMock
             ]
         ]);
 
-        $service->allows()->masterModelShow(\Mockery::any(), \Mockery::any())->andReturn([
+        $service->allows()->getMasterModel(\Mockery::any(), \Mockery::any())->andReturn([
             "id" => 1,
             "show_name" => '风格名称',
             "show_cover" => 'https://cdn.gpt-link.com/GPT/dev/wj_style_model/example_pic/model_1.png',
@@ -132,7 +132,7 @@ class DevelopServiceMock
             "expected_second" => '10'
         ]);
 
-        $service->allows()->cost(\Mockery::any())->andReturn([
+        $service->allows()->getCost(\Mockery::any())->andReturn([
             "total_basic_integral" => 809,
             "total_proportion_integral" => 101,
             "total_integral" => 1108,
@@ -150,7 +150,7 @@ class DevelopServiceMock
             'init_image_url' => 'https://cdn.gpt-link.com/GPT/dev/wj_style_model/example_pic/model_2.png',
         ]);
 
-        $service->allows()->lists(\Mockery::any())->andReturn([
+        $service->allows()->getDrawlists(\Mockery::any())->andReturn([
             [
                 'id' => '1',
                 'url' => 'https://cdn.gpt-link.com/GPT/dev/wj_style_model/example_pic/model_1.png',

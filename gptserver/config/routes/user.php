@@ -33,17 +33,17 @@ Router::addGroup('', function () {
 
     // ai绘画接口
     Router::addGroup('/ai-image', function () {
-        Router::get('/prompt', [Api\Web\DevelopController::class, 'getPrompt']);
+        Router::get('/prompt', [Api\Web\AiImageController::class, 'getPrompt']);
 
-        Router::get('/style-model', [Api\Web\DevelopController::class, 'getStyleModellists']);
-        Router::get('/style-model/{id}', [Api\Web\DevelopController::class, 'getStyleModelShow']);
-        Router::get('/master-model', [Api\Web\DevelopController::class, 'masterModellists']);
-        Router::get('/master-model/{id}', [Api\Web\DevelopController::class, 'masterModelShow']);
+        Router::get('/style-model', [Api\Web\AiImageController::class, 'getStyleModellists']);
+        Router::get('/master-model', [Api\Web\AiImageController::class, 'getMasterModellists']);
+        Router::get('/{id}/style-model', [Api\Web\AiImageController::class, 'getStyleModel']);
+        Router::get('/{id}/master-model', [Api\Web\AiImageController::class, 'getMasterModel']);
 
-        Router::get('/{id}', [Api\Web\DevelopController::class, 'show']);
-        Router::post('/create', [Api\Web\DevelopController::class, 'create']);
-        Router::post('/cost', [Api\Web\DevelopController::class, 'cost']);
-        Router::get('', [Api\Web\DevelopController::class, 'lists']);
+        Router::post('/cost', [Api\Web\AiImageController::class, 'getCost']);
+        Router::get('/{id}', [Api\Web\AiImageController::class, 'show']);
+        Router::post('', [Api\Web\AiImageController::class, 'create']);
+        Router::get('', [Api\Web\AiImageController::class, 'getDrawlists']);
     });
 }, [
     'middleware' => [

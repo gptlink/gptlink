@@ -75,11 +75,9 @@ class DevelopTest extends TestCase
         $this->userLogin();
         DevelopServiceMock::mock();
 
-        $response = $this->get('/ai-image/style-model/1', [
+        $response = $this->get('/ai-image/1/style-model', [
             'with_query' => ['size']
         ]);
-
-        $response->dump();
 
         $this->assertApiSuccess($response);
 
@@ -141,7 +139,7 @@ class DevelopTest extends TestCase
         $this->userLogin();
         DevelopServiceMock::mock();
 
-        $response = $this->get('/ai-image/master-model/1', [
+        $response = $this->get('/ai-image/1/master-model', [
             'with_query' => ['size']
         ]);
         $this->assertApiSuccess($response);
@@ -178,7 +176,7 @@ class DevelopTest extends TestCase
         $this->userLogin();
         DevelopServiceMock::mock();
 
-        $response = $this->post('/ai-image/create', [
+        $response = $this->post('/ai-image', [
             'prompt' => '山，水，河流，白鹭在天上飞，渔船，蓑翁，古桥',
             'creativity_degree' => 60,
             'style_model_id' => 173,
@@ -188,7 +186,6 @@ class DevelopTest extends TestCase
             'init_image_url' => 'https://cdn-us.imgs.moe/2023/08/14/64d9d3cc150c3.jpg',
             'type' => 2,
         ]);
-        $response->dump();
 
         $this->assertApiSuccess($response);
 

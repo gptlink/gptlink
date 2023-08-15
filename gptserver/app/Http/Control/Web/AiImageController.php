@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
-class DevelopController extends BaseController
+class AiImageController extends BaseController
 {
     /**
      * 提示词生成器
@@ -44,9 +44,9 @@ class DevelopController extends BaseController
      * @param DevelopService $service
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getStyleModelShow($id, ModelShowRequest $request, DevelopService $service)
+    public function getStyleModel($id, ModelShowRequest $request, DevelopService $service)
     {
-        $result = $service->getStyleModelShow($id, $request->validated());
+        $result = $service->getStyleModel($id, $request->validated());
         return $this->success($result);
     }
 
@@ -55,9 +55,9 @@ class DevelopController extends BaseController
      * @param DevelopService $service
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function masterModellists(DevelopService $service)
+    public function getMasterModellists(DevelopService $service)
     {
-        $result = $service->masterModellists();
+        $result = $service->getMasterModellists();
         return $this->success($result);
     }
 
@@ -68,9 +68,9 @@ class DevelopController extends BaseController
      * @param DevelopService $service
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function masterModelShow($id, ModelShowRequest $request, DevelopService $service)
+    public function getMasterModel($id, ModelShowRequest $request, DevelopService $service)
     {
-        $result = $service->masterModelShow($id, $request->validated());
+        $result = $service->getMasterModel($id, $request->validated());
         return $this->success($result);
     }
 
@@ -92,9 +92,9 @@ class DevelopController extends BaseController
      * @param DevelopService $service
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function cost(RequestInterface $request, DevelopService $service)
+    public function getCost(RequestInterface $request, DevelopService $service)
     {
-        $result = $service->cost($request->all());
+        $result = $service->getCost($request->all());
         return $this->success($result);
     }
 
@@ -117,9 +117,9 @@ class DevelopController extends BaseController
      * @param DevelopService $service
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function lists(RequestInterface $request, DevelopService $service)
+    public function getDrawlists(RequestInterface $request, DevelopService $service)
     {
-        $result = $service->lists($request->all());
+        $result = $service->getDrawlists($request->all());
         return $this->success($result);
     }
 }

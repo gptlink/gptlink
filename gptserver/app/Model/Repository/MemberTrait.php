@@ -28,13 +28,13 @@ trait MemberTrait
      * 申请提现
      *
      * @param WithdrawalDto $dto
-     * @return void
+     * @return \Hyperf\Database\Model\Builder|\Hyperf\Database\Model\Model|Withdraw
      */
     public function applyWithdrawal(WithdrawalDto $dto)
     {
         $this->decrement('balance', $dto->price);
 
-        Withdraw::query()->create($dto->toModel($this->id));
+        return Withdraw::query()->create($dto->toModel($this->id));
     }
 
     /**

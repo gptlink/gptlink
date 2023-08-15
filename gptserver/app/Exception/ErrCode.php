@@ -175,6 +175,10 @@ class ErrCode extends AbstractConstants
      */
     const ADMIN_LOGIN_ATTEMPTS = 30002;
     /**
+     * @Message("此状态不可操作")
+     */
+    const ADMIN_WITHDRAW_STATUS_FAIL = 31003;
+    /**
      * @Message("获取七牛云文件信息失败")
      */
     const MATERIAL_CATEGORY_FILE_INFO=40200;

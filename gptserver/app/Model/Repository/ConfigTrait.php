@@ -25,6 +25,7 @@ trait ConfigTrait
         Config::SHARE => \App\Http\Dto\Config\ShareConfigDto::class, // 分享配置
         Config::SALESMAN => \App\Http\Dto\Config\SalesmanDto::class, // 分销员
         Config::AI_CHAT => \App\Http\Dto\Config\AiChatConfigDto::class, // AI对话
+        Config::AI_IMAGE => \App\Http\Dto\Config\AiImageConfigDto::class, // AI绘画
         Config::LOGIN => \App\Http\Dto\Config\LoginConfigDto::class, // 登陆配置
 	];
 
