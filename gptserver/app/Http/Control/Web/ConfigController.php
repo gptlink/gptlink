@@ -112,7 +112,7 @@ class ConfigController extends BaseController
     public function getSalesman()
     {
         /* @var SalesmanDto $config */
-        $config = Config::toDto(Config::SHARE);
+        $config = Config::toDto(Config::SALESMAN);
 
         return $this->success([
             'enable' => $config->enable,

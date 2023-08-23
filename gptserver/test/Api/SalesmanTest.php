@@ -173,6 +173,8 @@ class SalesmanTest extends TestCase
                 'order_num' => '总订单数',
                 'order_price' => '总佣金',
                 'custom_num' => '客户数',
+                'balance' => '余额',
+                'ratio' => '比例',
             ],
         ]));
     }

@@ -20,6 +20,7 @@ class MemberResource extends BaseResource
             'nickname' => $this->resource->nickname,
             'avatar' => $this->resource->avatar,
             'status' => $this->resource->status,
+            'identity' => $this->resource->identity,
         ];
     }
 

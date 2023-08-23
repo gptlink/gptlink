@@ -32,6 +32,7 @@ class MemberDto extends Dto
             'source' => $this->getItem('source'),
             'account_type' => $this->getItem('account_type', Member::ACCOUNT_MOBILE),
             'parent_openid' => $this->getItem('share_openid'),
+            'identity' => $this->getItem('identity', Member::IDENTITY_MEMBER),
         ];
     }
 }

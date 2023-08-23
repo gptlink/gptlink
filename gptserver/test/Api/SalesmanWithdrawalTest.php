@@ -100,7 +100,7 @@ class SalesmanWithdrawalTest extends TestCase
 
         $response->build(new BaseDto([
             'project' => ['default'],
-            'name' => '获取上次提现配置',
+            'name' => '申请提现',
             'category' => '分销相关',
             'params' => [],
             'desc' => '',
