@@ -4,25 +4,23 @@ namespace App\Http\Control\Admin;
 
 use App\Http\Dto\Config\AiChatConfigDto;
 use App\Http\Dto\Config\SmsConfigDto;
-use App\Http\Resource\Admin\DevelopPackageResource;
-use App\Http\Service\DevelopService;
+use App\Http\Service\GPTLinkChatService;
 use App\Model\Config;
 use Cblink\HyperfExt\BaseController;
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\SimpleCache\InvalidArgumentException;
+use Psr\Http\Message\ResponseInterface;
 
 class DevelopController extends BaseController
 {
     /**
      * 获取开发者套餐信息
      *
-     * @param DevelopService $service
-     * @return DevelopPackageResource|\Psr\Http\Message\ResponseInterface
+     * @param GPTLinkChatService $service
+     * @return ResponseInterface
      * @throws GuzzleException
-     * @throws InvalidArgumentException
      * @throws \Throwable
      */
-    public function getPackage(DevelopService $service)
+    public function getPackage(GPTLinkChatService $service)
     {
         $data = [];
 
@@ -31,14 +29,14 @@ class DevelopController extends BaseController
         /* @var AiChatConfigDto $aiChat  */
         $aiChat = Config::toDto(Config::AI_CHAT);
         if (AiChatConfigDto::GPTLINK == $aiChat->channel) {
-            $response = $service->getPackage([]);
+            $response = $service->getPackage();
             $data['chat'] = $response ?: $default;
         }
 
         /* @var SmsConfigDto $sms  */
         $sms = Config::toDto(Config::SMS);
         if (AiChatConfigDto::GPTLINK == $sms->channel) {
-            $response = $service->getPackage(['type' => 3]);
+            $response = make(GPTLinkChatService::class, [$sms->gptlink['api_key']])->getPackage(['type' => 3]);
             $data['sms'] = $response ?: $default;
         }
 
@@ -47,10 +45,11 @@ class DevelopController extends BaseController
 
     /**
      * 获取个人信息
-     * @param DevelopService $service
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param GPTLinkChatService $service
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
-    public function getProfile(DevelopService $service)
+    public function getProfile(GPTLinkChatService $service)
     {
         $result = $service->getProfile();
         return $this->success($result);
@@ -58,12 +57,13 @@ class DevelopController extends BaseController
 
     /**
      * 获取开发者消费记录
-     * @param DevelopService $service
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param GPTLinkChatService $service
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
-    public function getRcord(DevelopService $service)
+    public function getRcord(GPTLinkChatService $service)
     {
-        $result = $service->getRcord();
+        $result = $service->getRecord();
         return $this->success($result);
     }
 }

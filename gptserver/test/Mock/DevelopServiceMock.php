@@ -2,13 +2,14 @@
 
 namespace HyperfTest\Mock;
 
-use App\Http\Service\DevelopService;
+use App\Http\Service\GPTLinkChatService;
+use App\Http\Service\GPTLinkImageService;
 
 class DevelopServiceMock
 {
     public static function mock()
     {
-        $service = \Mockery::mock(DevelopService::class)->makePartial();
+        $service = \Mockery::mock(GPTLinkChatService::class)->makePartial();
 
         $service->allows()->getPackage(\Mockery::any())->andReturn([
             'chat' => [
@@ -26,7 +27,7 @@ class DevelopServiceMock
             "status" => 1
         ]);
 
-        $service->allows()->getRcord()->andReturn([
+        $service->allows()->getRecord()->andReturn([
             [
                 "id" => 809,
                 "user_id" => 101,
@@ -39,6 +40,10 @@ class DevelopServiceMock
                 "created_at" => "2023-08-11 03:18:45"
             ]
         ]);
+
+        app()->set(GPTLinkChatService::class, $service);
+
+        $service = \Mockery::mock(GPTLinkImageService::class)->makePartial();
 
         $service->allows()->getPrompt()->andReturn([
             [
@@ -56,7 +61,7 @@ class DevelopServiceMock
             ]
         ]);
 
-        $service->allows()->getStyleModellists()->andReturn([
+        $service->allows()->getStyleModelLists()->andReturn([
             [
                 "id" => 809,
                 "name" => '水漫金山',
@@ -93,7 +98,7 @@ class DevelopServiceMock
             ]
         ]);
 
-        $service->allows()->getMasterModellists()->andReturn([
+        $service->allows()->getMasterModelLists()->andReturn([
             [
                 "id" => 809,
                 "show_name" => '风格名称',
@@ -150,7 +155,7 @@ class DevelopServiceMock
             'init_image_url' => 'https://cdn.gpt-link.com/GPT/dev/wj_style_model/example_pic/model_2.png',
         ]);
 
-        $service->allows()->getDrawlists(\Mockery::any())->andReturn([
+        $service->allows()->getImages(\Mockery::any())->andReturn([
             [
                 'id' => '1',
                 'url' => 'https://cdn.gpt-link.com/GPT/dev/wj_style_model/example_pic/model_1.png',
@@ -164,6 +169,6 @@ class DevelopServiceMock
             ]
         ]);
 
-        app()->set(DevelopService::class, $service);
+        app()->set(GPTLinkImageService::class, $service);
     }
 }

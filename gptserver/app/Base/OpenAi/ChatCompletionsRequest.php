@@ -6,8 +6,6 @@ use App\Exception\ErrCode;
 use App\Exception\LogicException;
 use App\Http\Dto\ChatDto;
 use App\Http\Dto\Config\AiChatConfigDto;
-use App\Http\Service\ChatGPTService;
-use App\Http\Service\DevelopService;
 use Swoole\Http2\Request;
 
 class ChatCompletionsRequest extends Request implements RequestInterface
