@@ -146,7 +146,7 @@ class OpenAIClient
                     }
                     return ['api.openai.com', 443, true];
                 },
-                default => ['api.gpt-link.com', 443, true],
+                default => ['api.aiyaaa.net', 443, true],
             };
 
             if ($clientConfig instanceof \Closure) {

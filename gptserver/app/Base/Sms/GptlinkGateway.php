@@ -13,7 +13,7 @@ class GptlinkGateway extends Gateway
 {
     use HasHttpRequest;
 
-    const ENDPOINT_URL = 'https://api.gpt-link.com/v1/sms/send';
+    const ENDPOINT_URL = 'https://api.aiyaaa.net/v1/sms/send';
 
     /**
      * @param PhoneNumberInterface $to
