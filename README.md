@@ -22,8 +22,8 @@
 ## 开始使用
 
 1. 项目基于 PHP (Hyperf) + Vue 开发，推荐使用 Docker 进行部署；
-2. 准备好一个 API Key，推荐使用 [GPTLINK](https://gpt-link.com) Key；
-   - [GPTLINK](https://gpt-link.com) Key ，注册完成之后进入个人中心申请开发者后获取 API Key，过程非常简单，无需审核，接口无需代理；
+2. 准备好一个 API Key，推荐使用 [GPTLINK](http://gpt-link.cn) Key；
+   - [GPTLINK](http://gpt-link.cn) Key ，注册完成之后进入个人中心申请开发者后获取 API Key，过程非常简单，无需审核，接口无需代理；
    - OpenAi 官方 Key；
 3. 微信相关应用（非必须）
    - [微信网站应用](https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html)
