@@ -69,7 +69,7 @@ class OpenaiChatCompletionsRequest extends Request implements RequestInterface
         while (! empty($resultData = $payload->data)) {
             $matches = [];
 
-            preg_match_all("/data:\\s(.*)\n\n/", $resultData, $matches);
+            preg_match_all("/data:\\s(.*)/", $resultData, $matches);
 
             if (! isset($matches[1])) {
                 continue;
