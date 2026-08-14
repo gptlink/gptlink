@@ -1,5 +1,8 @@
 <div align="center">
   <h1 align="center">GPTLink</h1>
+
+  <a href="https://trendshift.io/repositories/6660?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-6660" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/6660" alt="gptlink%2Fgptlink | Trendshift" width="250" height="55"/></a>
+  
   <p> 只需简单几步，即可快速搭建可用的 AI对话 站点。</p>
 
   [体验地址](./DEMO.md) · [演示图片](./docs/show/README.md) · [反馈](https://github.com/gptlink/gptlink/issues) · [微信加群](./docs/images/qrcode.png)
